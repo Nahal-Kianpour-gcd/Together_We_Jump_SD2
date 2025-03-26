@@ -8,6 +8,7 @@ public class GameWindow {
 	public GameWindow() {
 		jframe = new JFrame(); // Initialize the JFrame object
 		jframe.setSize(400, 400); // Set the size of the JFrame
+		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation
 		jframe.setVisible(true); // Make the JFrame visible
 	}
 }
