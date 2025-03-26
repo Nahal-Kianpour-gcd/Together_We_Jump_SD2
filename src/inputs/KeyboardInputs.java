@@ -19,8 +19,26 @@ public class KeyboardInputs implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		System.out.println("A key is pressed"); // Displays a message when any key is released
+		// Switch statement to handle key press events for movement keys (WASD)
+		// Each case prints a corresponding message for the detected key
+		switch(e.getKeyCode()) {
+		 
+		case KeyEvent.VK_W:
+			System.out.println("Its W"); //Forward movement	
+			break;
+		case KeyEvent.VK_A:
+			System.out.println("Its A");  // Left movement		
+			break;
+		case KeyEvent.VK_S:
+			System.out.println("Its S");  // Backward movement
+			break;
+		case KeyEvent.VK_D:
+			System.out.println("Its D");	// Right movement
+			break;
+		
+		}
 		
 	}
+
 
 }
