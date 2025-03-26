@@ -5,7 +5,7 @@ public class Game {
 	private GamePanel gamePanel; // Declare a GamePanel object
 
 	public Game() {
-		gameWindow = new GameWindow(); // Initialize the GameWindow object
 		gamePanel = new GamePanel(); // Initialize the GamePanel object
+		gameWindow = new GameWindow(gamePanel); // Initialize the GameWindow object, passing the gamePanel to it
 	}
 }
