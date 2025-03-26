@@ -10,6 +10,7 @@ public class GameWindow {
 		jframe.setSize(400, 400); // Set the size of the JFrame
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set default close operation to exit the application
 		jframe.add(gamePanel); // Add the GamePanel to the JFrame
+		jframe.setLocationRelativeTo(null); // Centers the JFrame in the middle of the screen
 		jframe.setVisible(true); // Make the JFrame visible
 	}
 }

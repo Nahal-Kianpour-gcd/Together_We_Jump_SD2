@@ -12,7 +12,7 @@ public class GamePanel extends JPanel { // Extends JPanel to create custom panel
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // Call superclass method to handle standard painting
-		g.drawRect(100, 100, 200, 50); // Draw a rectangle on the panel at position (100, 100) with width 200 and
+		g.fillRect(100, 100, 200, 50); // Draw a rectangle on the panel at position (100, 100) with width 200 and
 										// height 50
 	}
 }
