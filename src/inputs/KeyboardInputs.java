@@ -3,8 +3,21 @@ package inputs;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import griffith.GamePanel;
+
 public class KeyboardInputs implements KeyListener {
 	// Class to handle keyboard input events using the KeyListener interface
+	private GamePanel gamePanel;
+	
+	
+
+
+	public KeyboardInputs(GamePanel gamePanel) {
+		this.gamePanel = gamePanel;
+	}
+
+
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -24,16 +37,16 @@ public class KeyboardInputs implements KeyListener {
 		switch(e.getKeyCode()) {
 		 
 		case KeyEvent.VK_W:
-			System.out.println("Its W"); //Forward movement	
+			gamePanel.changeYDelta(-5);   //Forward movement	
 			break;
 		case KeyEvent.VK_A:
-			System.out.println("Its A");  // Left movement		
+			gamePanel.changeXDelta(-5);  // Left movement		
 			break;
 		case KeyEvent.VK_S:
-			System.out.println("Its S");  // Backward movement
+			gamePanel.changeYDelta(5);  // Backward movement
 			break;
 		case KeyEvent.VK_D:
-			System.out.println("Its D");	// Right movement
+			gamePanel.changeXDelta(5);	// Right movement
 			break;
 		
 		}

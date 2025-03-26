@@ -17,11 +17,22 @@ public class GamePanel extends JPanel { // Extends JPanel to create custom panel
 		// Constructor for GamePanel, no initialization needed
 		
 		mouseInputs = new  MouseInputs();
-		addKeyListener(new KeyboardInputs()); 
+		addKeyListener(new KeyboardInputs(this)); 
 		addMouseListener(mouseInputs);
 		addMouseMotionListener(mouseInputs);
 		
 		
+	}
+	
+	public void changeXDelta(int value) {
+		this.xDelta += value;
+		repaint();
+		
+	}
+	
+	public void changeYDelta(int value) {
+		this.yDelta += value;
+		repaint();
 	}
 
 	@Override
