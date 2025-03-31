@@ -48,4 +48,24 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 			moving2 = moving;
 		}
 	}
+	
+	private void updatePos() {
+		// Update first player position
+		if(moving1) {
+			switch(playerDir1) {
+				case 0: // LEFT
+					xDelta -= 3; // Movement speed
+					break;
+				case 1: // UP
+					yDelta -= 3; // Movement speed
+					break;
+				case 2: // RIGHT
+					xDelta += 3; // Movement speed
+					break;
+				case 3: // DOWN
+					yDelta += 3; // Movement speed
+					break;
+			}
+		}
+	}
 }
