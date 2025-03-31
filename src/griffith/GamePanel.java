@@ -24,9 +24,17 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		// Add input listeners for keyboard and mouse
 		keyboardInputs = new KeyboardInputs(this);
 		
+		setPanelSize();
 		addKeyListener(keyboardInputs);
 		addMouseListener(mouseInputs);
 		addMouseMotionListener(mouseInputs);
+	}
+
+	private void setPanelSize() {
+		Dimension size = new Dimension(1280, 800);
+		setMinimumSize(size);
+		setPreferredSize(size);
+		setMaximumSize(size);
 	}
 
 	// Change rectangle's X position by given value
