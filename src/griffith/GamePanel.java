@@ -1,10 +1,9 @@
 package griffith;
 
 import java.awt.Color;
-import java.awt.Graphics; // Import Graphics class for drawing capabilities
-import java.util.Random;
-
-import javax.swing.JPanel; // Import JPanel to create a custom panel
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.awt.Graphics;
 
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
@@ -12,30 +11,20 @@ import inputs.MouseInputs;
 public class GamePanel extends JPanel { // Extends JPanel to allow custom drawing and event handling
 
 	private MouseInputs mouseInputs; // Handles mouse input events (clicks, movement)
-	private float xDelta = 100, yDelta = 100; // Position of the rectangle
-	private float xDir = 1f, yDir = 1f; // Direction/speed of movement for X and Y
-	private int frames = 0; // Used to count frames (not currently used)
-	private long lastCheck = 0; // Used to check time intervals (not currently used)
-	private Color color = new Color(150, 20, 90); // Initial color of the rectangle
-	private Random random; // Random generator for generating colors
+	private KeyboardInputs keyboardInputs;
 	
-	// Player 1 variables
-	private float player1X = 100, player1Y = 100; // Position of player 1
-	private int playerDir1 = -1; // Direction for player 1
-	private boolean moving1 = false; // Movement state for player 1
-	
-	// Player 2 variables
-	private float player2X = 300, player2Y = 100; // Position of player 2
-	private int playerDir2 = -1; // Direction for player 2
-	private boolean moving2 = false; // Movement state for player 2
+	// First player position (WASD)
+	private float xDelta = 100, yDelta = 100;
+	// Second player position (Arrow keys)
+	private float xDelta2 = 200, yDelta2 = 100;
 
 	public GamePanel() {
-		// Constructor initializes inputs and sets up listeners
-		random = new Random();
 		mouseInputs = new MouseInputs(this);
 
 		// Add input listeners for keyboard and mouse
-		addKeyListener(new KeyboardInputs(this)); 
+		keyboardInputs = new KeyboardInputs(this);
+		
+		addKeyListener(keyboardInputs);
 		addMouseListener(mouseInputs);
 		addMouseMotionListener(mouseInputs);
 	}
