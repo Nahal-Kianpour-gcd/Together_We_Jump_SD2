@@ -67,6 +67,24 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 					break;
 			}
 		}
+		
+		// Update second player position
+		if(moving2) {
+			switch(playerDir2) {
+				case 0: // LEFT
+					xDelta2 -= 3; // Movement speed
+					break;
+				case 1: // UP
+					yDelta2 -= 3; // Movement speed
+					break;
+				case 2: // RIGHT
+					xDelta2 += 3; // Movement speed
+					break;
+				case 3: // DOWN
+					yDelta2 += 3; // Movement speed
+					break;
+			}
+		}
 	}
 	
 	@Override
