@@ -17,6 +17,10 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	private float xDelta = 100, yDelta = 100;
 	// Second player position (Arrow keys)
 	private float xDelta2 = 200, yDelta2 = 100;
+	
+	// Player states
+	private int playerDir1 = -1, playerDir2 = -1; // Separate directions for each player
+	private boolean moving1 = false, moving2 = false; // Separate movement states for each player
 
 	public GamePanel() {
 		mouseInputs = new MouseInputs(this);
@@ -35,5 +39,13 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		setMinimumSize(size);
 		setPreferredSize(size);
 		setMaximumSize(size);
+	}
+	
+	public void setMoving(boolean moving, boolean isPlayer1) {
+		if (isPlayer1) {
+			moving1 = moving;
+		} else {
+			moving2 = moving;
+		}
 	}
 }
