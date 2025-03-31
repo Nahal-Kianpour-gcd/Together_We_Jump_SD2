@@ -18,6 +18,16 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	private long lastCheck = 0; // Used to check time intervals (not currently used)
 	private Color color = new Color(150, 20, 90); // Initial color of the rectangle
 	private Random random; // Random generator for generating colors
+	
+	// Player 1 variables
+	private float player1X = 100, player1Y = 100; // Position of player 1
+	private int playerDir1 = -1; // Direction for player 1
+	private boolean moving1 = false; // Movement state for player 1
+	
+	// Player 2 variables
+	private float player2X = 300, player2Y = 100; // Position of player 2
+	private int playerDir2 = -1; // Direction for player 2
+	private boolean moving2 = false; // Movement state for player 2
 
 	public GamePanel() {
 		// Constructor initializes inputs and sets up listeners
