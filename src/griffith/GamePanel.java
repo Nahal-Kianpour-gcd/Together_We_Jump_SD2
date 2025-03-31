@@ -68,4 +68,13 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 			}
 		}
 	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		// Draw first player (WASD)
+		g.setColor(Color.BLUE);
+		g.fillRect((int)xDelta, (int)yDelta, 50, 50);
+	}
 }
