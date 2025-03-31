@@ -38,6 +38,8 @@ public class KeyboardInputs implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch(e.getKeyCode()) {
+
+		// Player 1 controls (WASD)
 		case KeyEvent.VK_W:
 			wPressed = false;
 			break;
@@ -49,6 +51,20 @@ public class KeyboardInputs implements KeyListener {
 			break;
 		case KeyEvent.VK_D:
 			dPressed = false;
+			break;
+		
+		// Player 2 controls (Arrow keys)
+		case KeyEvent.VK_UP:
+			upPressed = false;
+			break;
+		case KeyEvent.VK_LEFT:
+			leftPressed = false;
+			break;
+		case KeyEvent.VK_DOWN:
+			downPressed = false;
+			break;
+		case KeyEvent.VK_RIGHT:
+			rightPressed = false;
 			break;
 		}
 	}
