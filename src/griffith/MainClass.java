@@ -6,5 +6,4 @@ public class MainClass {
 		//Game object
 		new Game();
 	}
-
 }

@@ -4,6 +4,9 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
@@ -32,6 +35,16 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		addKeyListener(keyboardInputs);
 		addMouseListener(mouseInputs);
 		addMouseMotionListener(mouseInputs);
+		
+		// Create and start game loop
+		Timer gameLoop = new Timer(16, new ActionListener() { // 60 FPS
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				update();
+				repaint();
+			}
+		});
+		gameLoop.start();
 	}
 
 	private void setPanelSize() {

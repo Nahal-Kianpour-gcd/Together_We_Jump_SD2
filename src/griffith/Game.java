@@ -39,6 +39,7 @@ public class Game implements Runnable {
 			
 			// Check if it's time to render the next frame
 			if (now - lastFrame >= timePerFrame) {
+				gamePanel.update();
 				gamePanel.repaint(); // Redraw the game screen
 				lastFrame = now;     // Update lastFrame time
 				frames++;            // Increment the frame counter
