@@ -68,4 +68,8 @@ public class KeyboardInputs implements KeyListener {
 			break;
 		}
 	}
+
+	public void update() {
+		// TODO Auto-generated method stub
+	}
 }

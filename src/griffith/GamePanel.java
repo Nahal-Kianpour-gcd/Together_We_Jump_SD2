@@ -40,6 +40,16 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		setPreferredSize(size);
 		setMaximumSize(size);
 	}
+
+	public void setDirection(int direction, boolean isPlayer1) {
+		if (isPlayer1) {
+			this.playerDir1 = direction;
+			moving1 = true;
+		} else {
+			this.playerDir2 = direction;
+			moving2 = true;
+		}
+	}
 	
 	public void setMoving(boolean moving, boolean isPlayer1) {
 		if (isPlayer1) {
@@ -47,6 +57,11 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		} else {
 			moving2 = moving;
 		}
+	}
+
+	public void update() {
+		keyboardInputs.update();
+		updatePos();
 	}
 	
 	private void updatePos() {
@@ -94,5 +109,9 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		// Draw first player (WASD)
 		g.setColor(Color.BLUE);
 		g.fillRect((int)xDelta, (int)yDelta, 50, 50);
+		
+		// Draw second player (Arrow keys)
+		g.setColor(Color.RED);
+		g.fillRect((int)xDelta2, (int)yDelta2, 50, 50);
 	}
 }

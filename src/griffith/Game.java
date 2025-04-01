@@ -51,7 +51,5 @@ public class Game implements Runnable {
 				frames = 0;                             // Reset frame count for the next second
 			}
 		}
-		
-		//test git commit - add this comment. 
 	}
 }
