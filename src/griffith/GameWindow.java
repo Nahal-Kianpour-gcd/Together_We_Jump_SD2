@@ -7,7 +7,6 @@ public class GameWindow {
 
 	public GameWindow(GamePanel gamePanel) { // Constructor now takes a GamePanel object as parameter
 		jframe = new JFrame(); // Create a new JFrame object
-		jframe.setSize(400, 400); // Set the size of the JFrame
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set default close operation to exit the application
 		jframe.add(gamePanel); // Add the GamePanel to the JFrame
 		jframe.setLocationRelativeTo(null); // Centers the JFrame in the middle of the screen
