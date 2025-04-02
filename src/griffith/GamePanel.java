@@ -6,6 +6,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
+
 import javax.swing.Timer;
 
 
@@ -20,6 +25,10 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	
 	// First player position (WASD)
 	private float xDelta = 100, yDelta = 100;
+	
+	private BufferedImage img; // Holds the loaded sprite image
+	
+	
 	// Second player position (Arrow keys)
 	private float xDelta2 = 200, yDelta2 = 100;
 	
@@ -28,8 +37,10 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	private boolean moving1 = false, moving2 = false; // Separate movement states for each player
 
 	public GamePanel() {
-
+	
 		mouseInputs = new MouseInputs(this);
+		
+		importImg();
 
 		// Add input listeners for keyboard and mouse
 		keyboardInputs = new KeyboardInputs(this);
@@ -48,6 +59,19 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 			}
 		});
 		gameLoop.start();
+	}
+	
+	// Loads a sprite image from the resources folder
+	private void importImg() {
+		InputStream is = getClass().getResourceAsStream("/Idle (32x32).png"); // Load the image as a stream from the
+																				// classpath
+		try {
+			// Read the image from the input stream and assign it to img
+			img = ImageIO.read(is);
+		} catch (IOException e) {
+			e.printStackTrace(); // Print error details if the image fails to load
+		}
+
 	}
 
 	private void setPanelSize() {
@@ -122,14 +146,16 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-				g.drawImage(null, frames, frames, getFocusCycleRootAncestor());
+				g.drawImage(null, y, x, null);
+				
+		/*		
 		// Draw first player (WASD)
 		g.setColor(Color.BLUE);
 		g.fillRect((int)xDelta, (int)yDelta, 50, 50);
 		
 		// Draw second player (Arrow keys)
 		g.setColor(Color.RED);
-		g.fillRect((int)xDelta2, (int)yDelta2, 50, 50);
+		g.fillRect((int)xDelta2, (int)yDelta2, 50, 50); */
 	}
 
 }
