@@ -8,12 +8,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
+
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
 public class GamePanel extends JPanel { // Extends JPanel to allow custom drawing and event handling
 
 	private MouseInputs mouseInputs; // Handles mouse input events (clicks, movement)
+
 	private KeyboardInputs keyboardInputs;
 	
 	// First player position (WASD)
@@ -26,6 +28,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	private boolean moving1 = false, moving2 = false; // Separate movement states for each player
 
 	public GamePanel() {
+
 		mouseInputs = new MouseInputs(this);
 
 		// Add input listeners for keyboard and mouse
@@ -71,6 +74,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 			moving2 = moving;
 		}
 	}
+
 
 	public void update() {
 		keyboardInputs.update();
@@ -118,7 +122,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
+				g.drawImage(null, frames, frames, getFocusCycleRootAncestor());
 		// Draw first player (WASD)
 		g.setColor(Color.BLUE);
 		g.fillRect((int)xDelta, (int)yDelta, 50, 50);
@@ -127,4 +131,5 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		g.setColor(Color.RED);
 		g.fillRect((int)xDelta2, (int)yDelta2, 50, 50);
 	}
+
 }
