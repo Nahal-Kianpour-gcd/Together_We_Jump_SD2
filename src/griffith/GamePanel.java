@@ -50,7 +50,6 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // Clear the panel before drawing
 
-
 	}
 
 	// Update rectangle's position and direction based on boundaries
