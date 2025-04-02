@@ -1,8 +1,6 @@
 package griffith;
 
-import java.awt.Color;
 import java.awt.Graphics; // Import Graphics class for drawing capabilities
-import java.util.Random;
 
 import javax.swing.JPanel; // Import JPanel to create a custom panel
 
@@ -13,15 +11,12 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 
 	private MouseInputs mouseInputs; // Handles mouse input events (clicks, movement)
 	private float xDelta = 100, yDelta = 100; // Position of the rectangle
-	private float xDir = 1f, yDir = 1f; // Direction/speed of movement for X and Y
 	private int frames = 0; // Used to count frames (not currently used)
 	private long lastCheck = 0; // Used to check time intervals (not currently used)
-	private Color color = new Color(150, 20, 90); // Initial color of the rectangle
-	private Random random; // Random generator for generating colors
-
+	
+	
 	public GamePanel() {
-		// Constructor initializes inputs and sets up listeners
-		random = new Random();
+
 		mouseInputs = new MouseInputs(this);
 
 		// Add input listeners for keyboard and mouse
@@ -50,6 +45,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // Clear the panel before drawing
 
+		g.drawImage(null, frames, frames, getFocusCycleRootAncestor());
 	}
 
 }
