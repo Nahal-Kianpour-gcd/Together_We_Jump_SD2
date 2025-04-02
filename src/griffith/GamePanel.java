@@ -52,26 +52,4 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 
 	}
 
-	// Update rectangle's position and direction based on boundaries
-	private void updateRectangle() {
-		xDelta += xDir;
-		if (xDelta > 400 || xDelta < 0) {
-			xDir *= -1; // Reverse direction when hitting left/right edges
-			color = getRndColor(); // Change to a random color
-		}
-
-		yDelta += yDir;
-		if (yDelta > 400 || yDelta < 0) {
-			yDir *= -1; // Reverse direction when hitting top/bottom edges
-			color = getRndColor(); // Change to a random color
-		}
-	}
-
-	// Generate and return a random color
-	private Color getRndColor() {
-		int r = random.nextInt(255);
-		int g = random.nextInt(255);
-		int b = random.nextInt(255);
-		return new Color(r, g, b);
-	}
 }
