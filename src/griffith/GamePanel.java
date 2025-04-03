@@ -147,7 +147,8 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		g.drawImage(img, 0, 0, null);
+		g.drawImage(img.getSubimage(0, 0, 32, 32), (int)xDelta, (int)yDelta, 64, 64, null); // Draws the loaded image at (0, 0)
+
 				
 	/*
 		// Draw first player (WASD)
