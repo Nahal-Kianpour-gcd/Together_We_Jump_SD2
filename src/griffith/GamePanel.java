@@ -160,16 +160,21 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		
 		g.drawImage(player1img.getSubimage(0, 0, 32, 32), (int)xDelta, (int)yDelta, 64, 64, null); // Draws 32x32 sprite at player position (WASD-controlled)
 		g.drawImage(player2Img.getSubimage(0, 0, 32, 32), (int)xDelta2, (int)yDelta2, 64, 64, null); // Draws second player (arrow keys)
-
-
-				
-	/*
-		// Draw first player (WASD)
-		g.setColor(Color.BLUE);
-		g.fillRect((int)xDelta, (int)yDelta, 50, 50);
-		
-		// Draw second player (Arrow keys)
-		g.setColor(Color.RED);
-		g.fillRect((int)xDelta2, (int)yDelta2, 50, 50); */
 	}
+	
+	// Returns Player 2's Y position as an Integer (rounded from float)
+	public Integer getYDelta2() {
+	    return (int) yDelta2;
+	}
+
+	// Returns Player 1's current X position
+	public float getXDelta1() {
+	    return xDelta;
+	}
+
+	// Returns Player 2's current X position
+	public float getXDelta2() {
+	    return xDelta2;
+	}
+
 }
