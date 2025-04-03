@@ -57,5 +57,35 @@ class GamePanelTest {
 		assertEquals(initialX + 15, gamePanel.getXDelta1(),
 				"Player 1 should move right by 15 units after multiple updates.");
 	}
+	
+	@Test
+	public void testPlayer2MovesUp() {
+	    // Store the initial Y position of Player 2 before any key is pressed
+	    float initialY = gamePanel.getYDelta2();
+
+	    // Simulate pressing the UP arrow key (used to move Player 2 upward)
+	    keyboardInputs.keyPressed(new KeyEvent(
+	        gamePanel, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED));
+
+	    // Simulate 5 game updates to apply the movement effect
+	    for (int i = 0; i < 5; i++) {
+	        gamePanel.update();
+	    }
+
+	    // Simulate releasing the UP arrow key to stop Player 2's movement
+	    keyboardInputs.keyReleased(new KeyEvent(
+	        gamePanel, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED));
+
+	 // Final check to verify movement happened
+	    assertEquals(initialY - 15, gamePanel.getYDelta2(), 0.001f, "Player 2 should move up by 15 units after multiple updates.");
+
+	}
+
+	
+	
+	
+	
+	
+	
 
 }
