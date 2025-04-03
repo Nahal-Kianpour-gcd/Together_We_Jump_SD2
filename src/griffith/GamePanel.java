@@ -172,5 +172,4 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		g.setColor(Color.RED);
 		g.fillRect((int)xDelta2, (int)yDelta2, 50, 50); */
 	}
-
 }

@@ -16,6 +16,7 @@ public class KeyboardInputs implements KeyListener {
 	private boolean dPressed = false;
 	
 	// Player 2: controlled by arrow keys
+	
 	private boolean upPressed = false;
 	private boolean leftPressed = false;
 	private boolean downPressed = false;
