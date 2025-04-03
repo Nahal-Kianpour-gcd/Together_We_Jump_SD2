@@ -26,7 +26,9 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	// First player position (WASD)
 	private float xDelta = 100, yDelta = 100;
 	
-	private BufferedImage img; // Holds the loaded sprite image
+	private BufferedImage player1img; // Holds the loaded sprite image
+	private BufferedImage player2Img; // Image for second player
+
 	
 	
 	// Second player position (Arrow keys)
@@ -67,10 +69,19 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 																				// classpath
 		try {
 			// Read the image from the input stream and assign it to img
-			img = ImageIO.read(is);
+			player1img = ImageIO.read(is);
 		} catch (IOException e) {
 			e.printStackTrace(); // Print error details if the image fails to load
 		}
+		
+		InputStream is2 = getClass().getResourceAsStream("/Idle_player2 (32x32).png"); // or whatever sprite you use
+		try {
+
+			player2Img = ImageIO.read(is2);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 
 	}
 
@@ -147,7 +158,9 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		g.drawImage(img.getSubimage(0, 0, 32, 32), (int)xDelta, (int)yDelta, 64, 64, null); // Draws the loaded image at (0, 0)
+		g.drawImage(player1img.getSubimage(0, 0, 32, 32), (int)xDelta, (int)yDelta, 64, 64, null); // Draws 32x32 sprite at player position (WASD-controlled)
+		g.drawImage(player2Img.getSubimage(0, 0, 32, 32), (int)xDelta2, (int)yDelta2, 64, 64, null); // Draws second player (arrow keys)
+
 
 				
 	/*
