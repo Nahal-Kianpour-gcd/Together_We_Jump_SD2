@@ -77,15 +77,34 @@ class GamePanelTest {
 	        gamePanel, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED));
 
 	 // Final check to verify movement happened
+	 // 0.001f is the tolerance range, which handles tiny decimal differences caused by floating point math.
 	    assertEquals(initialY - 15, gamePanel.getYDelta2(), 0.001f, "Player 2 should move up by 15 units after multiple updates.");
 
 	}
+	
+    @Test
+    public void testPlayer2StopsMoving() {
+        float initialX = gamePanel.getXDelta2();
+        keyboardInputs.keyPressed(new KeyEvent(gamePanel, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_RIGHT, KeyEvent.CHAR_UNDEFINED));
 
-	
-	
-	
-	
-	
+        for (int i = 0; i < 5; i++) {
+            gamePanel.update();
+        }
+
+        keyboardInputs.keyReleased(new KeyEvent(gamePanel, KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_RIGHT, KeyEvent.CHAR_UNDEFINED));
+
+        float movedX = gamePanel.getXDelta2();
+
+        // Call update a few more times after stopping
+        for (int i = 0; i < 10; i++) { // Run more updates
+            gamePanel.update();
+        }
+
+        assertEquals(movedX, gamePanel.getXDelta2(), "Player 2 should remain in place after stopping.");
+    
+  
+
+    }
 	
 
 }
