@@ -1,6 +1,5 @@
 package griffith;
 
-import griffith.GameWindow;
 
 public class Game implements Runnable {
 	

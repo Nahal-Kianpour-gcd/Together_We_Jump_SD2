@@ -11,6 +11,13 @@ public class KeyboardInputs implements KeyListener {
 	
 	
 
+	// Player 2: controlled by arrow keys
+	
+	private boolean upPressed = false;
+	private boolean leftPressed = false;
+	private boolean downPressed = false;
+	private boolean rightPressed = false;
+
 
 	public KeyboardInputs(GamePanel gamePanel) {
 		this.gamePanel = gamePanel;

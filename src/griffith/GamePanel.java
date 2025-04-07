@@ -6,7 +6,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
+
 import javax.swing.Timer;
+
 
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
@@ -14,10 +20,17 @@ import inputs.MouseInputs;
 public class GamePanel extends JPanel { // Extends JPanel to allow custom drawing and event handling
 
 	private MouseInputs mouseInputs; // Handles mouse input events (clicks, movement)
+
 	private KeyboardInputs keyboardInputs;
 	
 	// First player position (WASD)
 	private float xDelta = 100, yDelta = 100;
+	
+	private BufferedImage player1img; // Holds the loaded sprite image
+	private BufferedImage player2Img; // Image for second player
+
+	
+	
 	// Second player position (Arrow keys)
 	private float xDelta2 = 200, yDelta2 = 100;
 	
@@ -26,7 +39,10 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	private boolean moving1 = false, moving2 = false; // Separate movement states for each player
 
 	public GamePanel() {
+	
 		mouseInputs = new MouseInputs(this);
+		
+		importImg();
 
 		// Add input listeners for keyboard and mouse
 		keyboardInputs = new KeyboardInputs(this);
@@ -45,6 +61,28 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 			}
 		});
 		gameLoop.start();
+	}
+	
+	// Loads a sprite image from the resources folder
+	private void importImg() {
+		InputStream is = getClass().getResourceAsStream("/Idle (32x32).png"); // Load the image as a stream from the
+																				// classpath
+		try {
+			// Read the image from the input stream and assign it to img
+			player1img = ImageIO.read(is);
+		} catch (IOException e) {
+			e.printStackTrace(); // Print error details if the image fails to load
+		}
+		
+		InputStream is2 = getClass().getResourceAsStream("/Idle_player2 (32x32).png"); // or whatever sprite you use
+		try {
+
+			player2Img = ImageIO.read(is2);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
 	}
 
 	private void setPanelSize() {
@@ -71,6 +109,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 			moving2 = moving;
 		}
 	}
+
 
 	public void update() {
 		keyboardInputs.update();
@@ -119,12 +158,23 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		// Draw first player (WASD)
-		g.setColor(Color.BLUE);
-		g.fillRect((int)xDelta, (int)yDelta, 50, 50);
-		
-		// Draw second player (Arrow keys)
-		g.setColor(Color.RED);
-		g.fillRect((int)xDelta2, (int)yDelta2, 50, 50);
+		g.drawImage(player1img.getSubimage(0, 0, 32, 32), (int)xDelta, (int)yDelta, 64, 64, null); // Draws 32x32 sprite at player position (WASD-controlled)
+		g.drawImage(player2Img.getSubimage(0, 0, 32, 32), (int)xDelta2, (int)yDelta2, 64, 64, null); // Draws second player (arrow keys)
 	}
+	
+	// Returns Player 2's Y position as an Integer (rounded from float)
+	public Integer getYDelta2() {
+	    return (int) yDelta2;
+	}
+
+	// Returns Player 1's current X position
+	public float getXDelta1() {
+	    return xDelta;
+	}
+
+	// Returns Player 2's current X position
+	public float getXDelta2() {
+	    return xDelta2;
+	}
+
 }
