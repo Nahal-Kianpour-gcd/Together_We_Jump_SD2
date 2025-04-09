@@ -63,9 +63,10 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		gameLoop.start();
 	}
 	
+	//try to fix it commit:
 	// Loads a sprite image from the resources folder
 	private void importImg() {
-		InputStream is = getClass().getResourceAsStream("/Idle (32x32).png"); // Load the image as a stream from the
+		InputStream is = getClass().getResourceAsStream("/image-resources/Idle (32x32).png"); // Load the image as a stream from the
 																				// classpath
 		try {
 			// Read the image from the input stream and assign it to img
@@ -74,15 +75,13 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 			e.printStackTrace(); // Print error details if the image fails to load
 		}
 		
-		InputStream is2 = getClass().getResourceAsStream("/Idle_player2 (32x32).png"); // or whatever sprite you use
+		InputStream is2 = getClass().getResourceAsStream("/image-resources/Idle_player2 (32x32).png"); // or whatever sprite you use
 		try {
 
 			player2Img = ImageIO.read(is2);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-
 	}
 
 	private void setPanelSize() {
