@@ -25,14 +25,15 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	
 	// First player position (WASD)
 	private float xDelta = 100, yDelta = 100;
+	// Second player position (Arrow keys)
+	private float xDelta2 = 200, yDelta2 = 100;
 	
 	private BufferedImage player1img; // Holds the loaded sprite image
 	private BufferedImage player2Img; // Image for second player
-
 	
+	private BufferedImage[] idleAnimation1;
 	
-	// Second player position (Arrow keys)
-	private float xDelta2 = 200, yDelta2 = 100;
+	private static final int IDLE_FRAMES = 11;
 	
 	// Player states
 	private int playerDir1 = -1, playerDir2 = -1; // Separate directions for each player
@@ -43,6 +44,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		mouseInputs = new MouseInputs(this);
 		
 		importImg();
+		loadAnimations();
 
 		// Add input listeners for keyboard and mouse
 		keyboardInputs = new KeyboardInputs(this);
@@ -63,7 +65,10 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		gameLoop.start();
 	}
 	
-	//try to fix it commit:
+	private void loadAnimations() {
+		idleAnimation1 = new BufferedImage[IDLE_FRAMES];
+	}
+
 	// Loads a sprite image from the resources folder
 	private void importImg() {
 		InputStream is = getClass().getResourceAsStream("/image-resources/Idle (32x32).png"); // Load the image as a stream from the
