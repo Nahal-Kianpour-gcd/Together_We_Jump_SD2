@@ -44,6 +44,7 @@ public class Game implements Runnable {
 			now = System.nanoTime(); // Get current time
 			long currentTime = System.nanoTime(); // Captures the current timestamp at the start of the loop iteration
 			deltaU += (currentTime - previousTime) / timePerUpdate; // Adds the elapsed time (since last frame) to deltaU, scaled by timePerUpdate |NK
+			previousTime = currentTime; // Update the previousTime to the currentTime for the next loop iteration 
 			// Check if enough time has accumulated to perform a game update
 			if (deltaU >= 1) {
 			    // update(); // Game update logic would go here
@@ -64,8 +65,9 @@ public class Game implements Runnable {
 			// Every second, print the current FPS to the console
 			if (System.currentTimeMillis() - lastCheck >= 1000) {
 				lastCheck = System.currentTimeMillis(); // Reset timer
-				System.out.println("FPS: " + frames);   // Output FPS
+				System.out.println("FPS: " + frames + "  | UPS: " + updates);   // Print the current Frames Per Second (FPS) and Updates Per Second (UPS) to the console
 				frames = 0;                             // Reset frame count for the next second
+				updates = 0;							// Reset the update counter after outputting
 			}
 		}
 	}
