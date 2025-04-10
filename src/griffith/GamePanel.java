@@ -28,8 +28,8 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	// Second player position (Arrow keys)
 	private float xDelta2 = 200, yDelta2 = 100;
 
-	private BufferedImage player1img; // Holds the loaded sprite image
-	private BufferedImage player2Img; // Image for second player
+	//private BufferedImage player1img; // Holds the loaded sprite image
+	//private BufferedImage player2Img; // Image for second player
 
 	private static final int IDLE_FRAMES = Constants.IDLE_FRAMES; // Use constant from Constants class |PS
 	private static final int RUN_FRAMES = Constants.RUN_FRAMES; // Use constant from Constants class |PS
@@ -39,7 +39,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	private BufferedImage[] idleAnimation2; // Player 2 idle animation frames |PS
 	private BufferedImage[] runAnimation2; // Player 2 run animation frames |PS
 
-	// Player states
+	//Player states
 	private int playerDir1 = -1, playerDir2 = -1; // Separate directions for each player
 	private boolean moving1 = false, moving2 = false; // Separate movement states for each player
 
@@ -49,20 +49,19 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 
 	public GamePanel() {
 
+		//Add input listeners for keyboard and mouse
 		mouseInputs = new MouseInputs(this);
-
-		importImg();
-		loadAnimations();
-
-		// Add input listeners for keyboard and mouse
 		keyboardInputs = new KeyboardInputs(this);
+
+		//importImg();
+		loadAnimations();
 
 		setPanelSize();
 		addKeyListener(keyboardInputs);
 		addMouseListener(mouseInputs);
 		addMouseMotionListener(mouseInputs);
 
-		// Create and start game loop
+		//Create and start game loop
 		Timer gameLoop = new Timer(16, new ActionListener() { // 60 FPS
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -73,7 +72,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		gameLoop.start();
 	}
 
-	// Method to load animation assets.|PS
+	//Method to load animation assets.|PS
 	private void loadAnimations() {
 		idleAnimation1 = new BufferedImage[IDLE_FRAMES];
 		runAnimation1 = new BufferedImage[RUN_FRAMES];
@@ -86,7 +85,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		loadAnimation("/image-resources/Main_Characters/Virtual_Guy/Run (32x32).png", runAnimation2);
 	}
 
-	// Method to read the sprite sheet and extract individual frames. |PS
+	//Method to read the sprite sheet and extract individual frames. |PS
 	private void loadAnimation(String path, BufferedImage[] animation) {
 		try {
 			InputStream is = getClass().getResourceAsStream(path);
@@ -107,7 +106,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	}
 
 	// Loads a sprite image from the resources folder
-	private void importImg() {
+/*	private void importImg() {
 		// Load the image as a stream from the class-path.
 		InputStream is = getClass().getResourceAsStream("/image-resources/Main_Characters/Ninja_Frog/Idle (32x32).png");
 		try {
@@ -127,7 +126,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	} */
 
 	private void setPanelSize() {
 		Dimension size = new Dimension(1280, 800);
@@ -147,10 +146,22 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	}
 
 	public void setMoving(boolean moving, boolean isPlayer1) {
-		if (isPlayer1) {
+		/* if (isPlayer1) {
 			moving1 = moving;
 		} else {
 			moving2 = moving;
+		} */
+		
+		if (isPlayer1) {
+			moving1 = moving;
+			if (!moving) {
+				aniIndex1 = 0; //Reset animation index when stopping
+			}
+		} else {
+			moving2 = moving;
+			if (!moving) {
+				aniIndex2 = 0; //Reset animation index when stopping
+			}
 		}
 	}
 	
@@ -173,6 +184,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 
 	public void update() {
 		keyboardInputs.update();
+		updateAnimationTick();
 		setAnimation(); 
 		updatePos();
 	}
