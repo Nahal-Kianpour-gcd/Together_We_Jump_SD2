@@ -16,6 +16,7 @@ import javax.swing.Timer;
 
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
+import utilz.Constants;
 
 public class GamePanel extends JPanel { // Extends JPanel to allow custom drawing and event handling
 
@@ -31,7 +32,13 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	private BufferedImage player1img; // Holds the loaded sprite image
 	private BufferedImage player2Img; // Image for second player
 	
-	private BufferedImage[] idleAnimation1;
+	private static final int IDLE_FRAMES = Constants.IDLE_FRAMES; //Use constant from Constants class |PS
+	private static final int RUN_FRAMES = Constants.RUN_FRAMES;   //Use constant from Constants class |PS
+	
+	private BufferedImage[] idleAnimation1; //Player 1 idle animation frames	|PS
+	private BufferedImage[] runAnimation1;  //Player 1 run animation frames		|PS
+	private BufferedImage[] idleAnimation2; //Player 2 idle animation frames	|PS
+	private BufferedImage[] runAnimation2;  //Player 2 run animation frames		|PS
 	
 	// Player states
 	private int playerDir1 = -1, playerDir2 = -1; // Separate directions for each player
