@@ -70,21 +70,37 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		gameLoop.start();
 	}
 	
-	private void loadAnimations() {
+	//Method to load animation assets.|PS
+	private void loadAnimations() {	
 		idleAnimation1 = new BufferedImage[IDLE_FRAMES];
 		runAnimation1 = new BufferedImage[RUN_FRAMES];
 	    idleAnimation2 = new BufferedImage[IDLE_FRAMES];
 	    runAnimation2 = new BufferedImage[RUN_FRAMES];
 
-	    loadAnimation("/Main Characters/Ninja Frog/Idle (32x32).png", idleAnimation1);
-	    loadAnimation("/Main Characters/Ninja Frog/Run (32x32).png", runAnimation1);
-	    loadAnimation("/Main Characters/Virtual Guy/Idle (32x32).png", idleAnimation2);
-	    loadAnimation("/Main Characters/Virtual Guy/Run (32x32).png", runAnimation2);
+	    loadAnimation("/image-resources/Main_Characters/Ninja_Frog/Idle (32x32).png", idleAnimation1);
+	    loadAnimation("/image-resources/Main_Characters/Ninja_Frog/Run (32x32).png", runAnimation1);
+	    loadAnimation("/image-resources/Main_Characters/Virtual_Guy/Idle (32x32).png", idleAnimation2);
+	    loadAnimation("/image-resources/Main_Characters/Virtual_Guy/Run (32x32).png", runAnimation2);
 	}
 
-	private void loadAnimation(String string, BufferedImage[] idleAnimation12) {
-		// TODO Auto-generated method stub
-		
+	//Method to read the sprite sheet and extract individual frames. |PS
+	private void loadAnimation(String path, BufferedImage[] animation) {
+		 try {
+		        InputStream is = getClass().getResourceAsStream(path);
+		        if (is == null) {
+		            throw new RuntimeException("Resource not found: " + path);
+		        }
+		        BufferedImage img = ImageIO.read(is);
+		        int frameWidth = img.getWidth() / animation.length; //Calculate frame width
+		        int frameHeight = img.getHeight(); //Height remains the same
+
+		        for (int i = 0; i < animation.length; i++) {
+		            animation[i] = img.getSubimage(i * frameWidth, 0, frameWidth, frameHeight); //Extract each frame
+		        }
+		        is.close();
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
 	}
 
 	// Loads a sprite image from the resources folder
