@@ -33,8 +33,6 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	
 	private BufferedImage[] idleAnimation1;
 	
-	private static final int IDLE_FRAMES = 11;
-	
 	// Player states
 	private int playerDir1 = -1, playerDir2 = -1; // Separate directions for each player
 	private boolean moving1 = false, moving2 = false; // Separate movement states for each player
