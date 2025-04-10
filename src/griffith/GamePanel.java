@@ -153,9 +153,27 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 			moving2 = moving;
 		}
 	}
+	
+	//Method to set the animation state. |PS
+	private void setAnimation() {
+	    //Set Player 1 animation state
+	    if (moving1) {
+	        playerAction1 = 1; //RUN
+	    } else {
+	        playerAction1 = 0; //IDLE
+	    }
+	    
+	    //Set Player 2 animation state
+	    if (moving2) {
+	        playerAction2 = 1; //RUN
+	    } else {
+	        playerAction2 = 0; //IDLE
+	    }
+	}
 
 	public void update() {
 		keyboardInputs.update();
+		setAnimation(); 
 		updatePos();
 	}
 
