@@ -236,7 +236,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		if (playerAction1 == 0) { //Idle
 			g.drawImage(idleAnimation1[aniIndex1], (int) xDelta, (int) yDelta, 96, 96, null);
 		} else { //Running
-			g.drawImage(runAnimation1[aniIndex1], (int) xDelta2, (int) yDelta2, 96, 96, null);
+			g.drawImage(runAnimation1[aniIndex1], (int) xDelta, (int) yDelta, 96, 96, null);
 		}
 
 		//Draw Player 2
