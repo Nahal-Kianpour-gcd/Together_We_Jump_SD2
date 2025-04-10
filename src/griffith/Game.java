@@ -44,7 +44,13 @@ public class Game implements Runnable {
 			now = System.nanoTime(); // Get current time
 			long currentTime = System.nanoTime(); // Captures the current timestamp at the start of the loop iteration
 			deltaU += (currentTime - previousTime) / timePerUpdate; // Adds the elapsed time (since last frame) to deltaU, scaled by timePerUpdate |NK
-																	
+			// Check if enough time has accumulated to perform a game update
+			if (deltaU >= 1) {
+			    // update(); // Game update logic would go here
+			    updates++;   // Increment the update counter
+			    deltaU--;    // Reduce deltaU by 1 after each update
+			}
+											
 
 			
 			// Check if it's time to render the next frame
