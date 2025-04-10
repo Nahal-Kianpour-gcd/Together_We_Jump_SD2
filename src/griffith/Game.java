@@ -33,6 +33,8 @@ public class Game implements Runnable {
 		double timePerUpdate = 1000000000.0 / UPS_SET;
 		long lastFrame = System.nanoTime(); // Time the last frame was rendered
 		long now = System.nanoTime();       // Current time
+		long previousTime = System.nanoTime(); // Stores the timestamp of the previous loop iteration in nanoseconds |NK
+
 		int frames = 0;                     // Frame counter
 		long lastCheck = System.currentTimeMillis(); // Time for tracking FPS output
 
