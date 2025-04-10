@@ -108,7 +108,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 
 	// Loads a sprite image from the resources folder
 	private void importImg() {
-		//Load the image as a stream from the class-path.
+		// Load the image as a stream from the class-path.
 		InputStream is = getClass().getResourceAsStream("/image-resources/Main_Characters/Ninja_Frog/Idle (32x32).png");
 		try {
 			// Read the image from the input stream and assign it to img
@@ -199,16 +199,28 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 
 	@Override
 	public void paintComponent(Graphics g) {
+
 		super.paintComponent(g);
 
-		g.drawImage(player1img.getSubimage(0, 0, 32, 32), (int) xDelta, (int) yDelta, 64, 64, null); // Draws 32x32
-																										// sprite at
-																										// player
-																										// position
-																										// (WASD-controlled)
-		g.drawImage(player2Img.getSubimage(0, 0, 32, 32), (int) xDelta2, (int) yDelta2, 64, 64, null); // Draws second
-																										// player (arrow
-																										// keys)
+		//Draw Player 1
+		if (playerAction1 == 0) { //Idle
+			g.drawImage(idleAnimation1[aniIndex1], (int) xDelta, (int) yDelta, 96, 96, null);
+		} else { //Running
+			g.drawImage(runAnimation1[aniIndex1], (int) xDelta2, (int) yDelta2, 96, 96, null);
+		}
+
+		//Draw Player 2
+		if (playerAction2 == 0) { //Idle
+			g.drawImage(idleAnimation2[aniIndex2], (int) xDelta2, (int) yDelta2, 96, 96, null);
+		} else { // Running
+			g.drawImage(runAnimation2[aniIndex2], (int) xDelta2, (int) yDelta2, 96, 96, null);
+		}
+
+		//WAS USED BEFORE IMPLEMENTATION OF ANIMATIONS.
+		// g.drawImage(player1img.getSubimage(0, 0, 32, 32), (int) xDelta, (int) yDelta,
+		// 64, 64, null);
+		// g.drawImage(player2Img.getSubimage(0, 0, 32, 32), (int) xDelta2, (int)
+		// yDelta2, 64, 64, null);
 	}
 
 	// Returns Player 2's Y position as an Integer (rounded from float)
@@ -226,7 +238,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		return xDelta2;
 	}
 
-	//Method to switch between animations.
+	// Method to switch between animations. |PS
 	private void updateAnimationTick() {
 		// Update first player animation
 		aniTick1++;
