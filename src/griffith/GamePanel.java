@@ -72,6 +72,19 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	
 	private void loadAnimations() {
 		idleAnimation1 = new BufferedImage[IDLE_FRAMES];
+		runAnimation1 = new BufferedImage[RUN_FRAMES];
+	    idleAnimation2 = new BufferedImage[IDLE_FRAMES];
+	    runAnimation2 = new BufferedImage[RUN_FRAMES];
+
+	    loadAnimation("/Main Characters/Ninja Frog/Idle (32x32).png", idleAnimation1);
+	    loadAnimation("/Main Characters/Ninja Frog/Run (32x32).png", runAnimation1);
+	    loadAnimation("/Main Characters/Virtual Guy/Idle (32x32).png", idleAnimation2);
+	    loadAnimation("/Main Characters/Virtual Guy/Run (32x32).png", runAnimation2);
+	}
+
+	private void loadAnimation(String string, BufferedImage[] idleAnimation12) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	// Loads a sprite image from the resources folder
