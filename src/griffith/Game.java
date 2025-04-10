@@ -8,6 +8,7 @@ public class Game implements Runnable {
 	private Thread gameThread;     // Thread that will run the game loop
 	
 	private final int FPS_SET = 120; // Desired frames per second (FPS)
+	private final int UPS_SET =200; // Target updates per second (UPS) for the game loop |Nk
 
 	// Constructor for the Game class
 	public Game() {
