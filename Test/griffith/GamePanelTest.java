@@ -24,7 +24,8 @@ class GamePanelTest {
 
 		// Simulate multiple updates
 		for (int i = 0; i < 5; i++) {
-			gamePanel.update();
+			// gamePanel.update(); // Renamed to updateGame() to avoid conflict with AWT's update(Graphics g)
+		    gamePanel.updateGame(); // Calls the updated custom game logic method
 		}
 
 		keyboardInputs.keyReleased(
@@ -46,7 +47,8 @@ class GamePanelTest {
 		// Simulate 5 game updates (each update should move the player by 3 units to the
 		// right)
 		for (int i = 0; i < 5; i++) {
-			gamePanel.update();
+			// gamePanel.update(); // Renamed to updateGame() to avoid conflict with AWT's update(Graphics g)
+		    gamePanel.updateGame(); // Calls the updated custom game logic method
 		}
 
 		// Simulate releasing the 'D' key (stop movement)
@@ -69,7 +71,8 @@ class GamePanelTest {
 
 		// Simulate 5 game updates to apply the movement effect
 		for (int i = 0; i < 5; i++) {
-			gamePanel.update();
+			// gamePanel.update(); // Renamed to updateGame() to avoid conflict with AWT's update(Graphics g)
+		    gamePanel.updateGame(); // Calls the updated custom game logic method
 		}
 
 		// Simulate releasing the UP arrow key to stop Player 2's movement
@@ -95,7 +98,8 @@ class GamePanelTest {
 
 		// Simulate 5 game updates while the key is pressed (moving right)
 		for (int i = 0; i < 5; i++) {
-			gamePanel.update();
+			// gamePanel.update(); // Renamed to updateGame() to avoid conflict with AWT's update(Graphics g)
+		    gamePanel.updateGame(); // Calls the updated custom game logic method
 		}
 
 		// Simulate releasing the RIGHT arrow key (stop moving)
@@ -107,7 +111,8 @@ class GamePanelTest {
 
 		// Simulate 10 more updates — Player 2 should not move anymore
 		for (int i = 0; i < 10; i++) {
-			gamePanel.update();
+			// gamePanel.update(); // Renamed to updateGame() to avoid conflict with AWT's update(Graphics g)
+		    gamePanel.updateGame(); // Calls the updated custom game logic method
 		}
 
 		// Check that Player 2’s X position has not changed after releasing the key
