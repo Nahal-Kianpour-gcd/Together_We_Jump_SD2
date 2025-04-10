@@ -29,6 +29,8 @@ public class Game implements Runnable {
 	public void run() {
 		// Calculate how much time each frame should take (in nanoseconds)
 		double timePerFrame = 1000000000.0 / FPS_SET;
+		// Time in nanoseconds allocated for each update (1 second divided by target UPS)
+		double timePerUpdate = 1000000000.0 / UPS_SET;
 		long lastFrame = System.nanoTime(); // Time the last frame was rendered
 		long now = System.nanoTime();       // Current time
 		int frames = 0;                     // Frame counter
