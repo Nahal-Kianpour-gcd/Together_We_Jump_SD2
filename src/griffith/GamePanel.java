@@ -65,7 +65,8 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		Timer gameLoop = new Timer(16, new ActionListener() { // 60 FPS
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				update();
+				/* update(); */ // Renamed to updateGame() to avoid conflict with Java's built-in AWT update() method
+				updateGame();   // Calls custom game logic update method |NK
 				repaint();
 			}
 		});
@@ -182,12 +183,23 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	    }
 	}
 
-	public void update() {
+	/*public void update() {
 		keyboardInputs.update();
 		updateAnimationTick();
 		setAnimation(); 
 		updatePos();
+	}*/
+	
+	 // Renamed from update() to updateGame() to avoid conflicts with Java's built-in update(Graphics g)
+	 // method in AWT/Swing. Helps prevent confusion with the painting system and keeps game logic separate. |NK
+	 //
+	public void updateGame() {
+	    keyboardInputs.update();     // Process user input
+	    updateAnimationTick();       // Handle animation frame updates
+	    setAnimation();              // Set the appropriate animation based on state
+	    updatePos();                 // Update the character's or object's position
 	}
+
 
 	private void updatePos() {
 		// Update first player position
