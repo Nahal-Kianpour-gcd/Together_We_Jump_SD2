@@ -36,7 +36,9 @@ public class Game implements Runnable {
 		long previousTime = System.nanoTime(); // Stores the timestamp of the previous loop iteration in nanoseconds |NK
 
 		int frames = 0;                     // Frame counter
+		int updates = 0;    				// Update counter 
 		long lastCheck = System.currentTimeMillis(); // Time for tracking FPS output
+		double deltaU = 0; // Accumulates time to determine when to perform the next game update
 
 		while (true) {
 			now = System.nanoTime(); // Get current time
