@@ -23,6 +23,12 @@ public class Game implements Runnable {
 		gameThread = new Thread(this); // Create a new thread that runs this class (implements Runnable)
 		gameThread.start();            // Start the thread, which calls the run() method
 	}
+	
+	// Calls the game panel's update logic during each game loop cycle |NK
+	public void update() {
+		gamePanel.updateGame();
+		
+	}
 
 	// The core game loop runs here
 	@Override
@@ -55,7 +61,8 @@ public class Game implements Runnable {
 			}
 			
 			if(deltaF >= 1) {
-				gamePanel.update();  // Update game state for rendering
+				/* gamePanel.update();  // Renamed to avoid conflict with AWT's update(Graphics g) method */
+				gamePanel.updateGame();  // Custom method to update game state before rendering
 				gamePanel.repaint(); // Redraw the game screen
 				frames++;            // Increment the frame counter
 				deltaF--;		     // Reduce deltaF after rendering
