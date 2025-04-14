@@ -69,9 +69,35 @@ public class Player extends Entity{
 	    }
 	}
 
-	public void update() {
-		
+	// Updates the player's position based on movement direction
+	private void updatePos() {
+	    if (moving) { // Only update position if the player is currently moving
+	        switch (playerDir) {
+	            case 0: // LEFT
+	                x -= 3; // Move left by 3 units
+	                break;
+	            case 1: // UP
+	                y -= 3; // Move up by 3 units
+	                break;
+	            case 2: // RIGHT
+	                x += 3; // Move right by 3 units
+	                break;
+	            case 3: // DOWN
+	                y += 3; // Move down by 3 units
+	                break;
+	        }
+	    }
 	}
+
+	// Renders the current frame of the player’s animation on screen
+	public void render(Graphics g) {
+	    // Determine which animation to use based on player action (0 = idle, 1 = run)
+	    BufferedImage[] currentAnimation = (playerAction == 0) ? idleAnimation : runAnimation;
+
+	    // Draw the current frame at the player's current position
+	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, 96, 96, null);
+	}
+
 	public void render() {
 		
 	}
