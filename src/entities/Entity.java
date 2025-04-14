@@ -1,7 +1,9 @@
+
 package entities;
 
 /**
  * Abstract base class representing a generic entity with x and y coordinates.
+ *-TPH
  */
 public abstract class Entity {
     
