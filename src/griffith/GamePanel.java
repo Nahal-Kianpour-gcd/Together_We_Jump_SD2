@@ -317,3 +317,4 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		}
 	}
 }
+
