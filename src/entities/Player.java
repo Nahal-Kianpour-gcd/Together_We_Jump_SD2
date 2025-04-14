@@ -98,8 +98,36 @@ public class Player extends Entity{
 	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, 96, 96, null);
 	}
 
-	public void render() {
-		
+	// Renders the current animation frame of the player
+	public void render(Graphics g) {
+	    // Choose the correct animation: idle or running, based on playerAction
+	    BufferedImage[] currentAnimation = (playerAction == 0) ? idleAnimation : runAnimation;
+
+	    // Draw the current animation frame at the player's (x, y) position, scaled to 96x96 pixels
+	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, 96, 96, null);
 	}
-	
+
+	// Sets the player's movement direction and marks the player as moving
+	public void setDirection(int direction) {
+	    this.playerDir = direction;
+	    this.moving = true;
+	}
+
+	// Sets the moving status of the player
+	public void setMoving(boolean moving) {
+	    this.moving = moving;
+	    if (!moving) {
+	        aniIndex = 0; // Reset animation frame to the beginning when movement stops
+	    }
+	}
+
+	// Returns the player's current X position
+	public float getX() {
+	    return x;
+	}
+
+	// Returns the player's current Y position -TPH
+	public float getY() {
+	    return y;
+	}
 }
