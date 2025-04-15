@@ -16,6 +16,9 @@ import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 import utilz.Constants;
 import entities.Player;
+import static griffith.Game.GAME_WIDTH;
+import static griffith.Game.GAME_HEIGHT;
+
 
 public class GamePanel extends JPanel {
 
@@ -207,11 +210,12 @@ public class GamePanel extends JPanel {
 	
 	/* Old animation methods - End */
 
+	// Sets the preferred, minimum, and maximum size of the game panel using predefined game dimensions
 	private void setPanelSize() {
-		Dimension size = new Dimension(1280, 800);
-		setMinimumSize(size);
-		setPreferredSize(size);
-		setMaximumSize(size);
+	    Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT); //|NK
+	    setMinimumSize(size);    // Minimum allowed panel size
+	    setPreferredSize(size);  // Preferred/default panel size
+	    setMaximumSize(size);    // Maximum allowed panel size
 	}
 
 	public void setDirection(int direction, boolean isPlayer1) {
