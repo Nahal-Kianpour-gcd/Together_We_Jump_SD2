@@ -277,9 +277,9 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 
 	@Override
 	public void paintComponent(Graphics g) {
-
 		super.paintComponent(g);
-
+		/* Old render code - Start */
+		/*
 		//Draw Player 1
 		if (playerAction1 == 0) { //Idle
 			g.drawImage(idleAnimation1[aniIndex1], (int) xDelta, (int) yDelta, 96, 96, null);
@@ -293,13 +293,12 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		} else { // Running
 			g.drawImage(runAnimation2[aniIndex2], (int) xDelta2, (int) yDelta2, 96, 96, null);
 		}
-
-		//WAS USED BEFORE IMPLEMENTATION OF ANIMATIONS.
-		// g.drawImage(player1img.getSubimage(0, 0, 32, 32), (int) xDelta, (int) yDelta,
-		// 64, 64, null);
-		// g.drawImage(player2Img.getSubimage(0, 0, 32, 32), (int) xDelta2, (int)
-		// yDelta2, 64, 64, null);
+		*/
+		/* Old render code - End */
+		player1.render(g);
+		player2.render(g);
 	}
+
 
 	// Returns Player 2's Y position as an Integer (rounded from float)
 	public Integer getYDelta2() {
