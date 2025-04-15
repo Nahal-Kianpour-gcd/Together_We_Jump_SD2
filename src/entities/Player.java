@@ -1,9 +1,13 @@
 package entities;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
+import utilz.Constants;
 
-public class Player extends Entity{
-
+public class Player extends Entity {
 	// Array of frames for idle animation
 	private BufferedImage[] idleAnimation;
 
@@ -14,7 +18,7 @@ public class Player extends Entity{
 	private int aniTick, aniIndex, aniSpeed = 15;
 
 	// Current player action: 0 = idle, 1 = run
-	private int playerAction = 0;
+	private int playerAction = Constants.PlayerConstants.IDLE;
 
 	// Indicates whether the player is currently moving
 	private boolean moving = false;
@@ -27,98 +31,132 @@ public class Player extends Entity{
 
 	// Player constructor that sets position and character sprite path
 	public Player(float x, float y, String characterPath) {
-	    super(x, y); // Call constructor of the base Entity class
-	    this.characterPath = characterPath; // Store the path to character sprite assets
-	    loadAnimations(); // Load idle and run animations based on the given path
+		super(x, y); // Call constructor of the base Entity class
+		this.characterPath = characterPath; // Store the path to character sprite assets
+		loadAnimations(); // Load idle and run animations based on the given path
 	}
 
 	// Loads the idle and run animations for this player
 	private void loadAnimations() {
-	    // Create empty arrays to hold animation frames
-	    idleAnimation = new BufferedImage[Constants.IDLE_FRAMES];
-	    runAnimation = new BufferedImage[Constants.RUN_FRAMES];
+		// Create empty arrays to hold animation frames
+		idleAnimation = new BufferedImage[Constants.IDLE_FRAMES];
+		runAnimation = new BufferedImage[Constants.RUN_FRAMES];
 
-	    // Load actual frame images from file paths using helper method
-	    loadAnimation(characterPath + "/Idle (32x32).png", idleAnimation);
-	    loadAnimation(characterPath + "/Run (32x32).png", runAnimation);
+		// Load actual frame images from file paths using helper method
+		loadAnimation(characterPath + "/Idle (32x32).png", idleAnimation);
+		loadAnimation(characterPath + "/Run (32x32).png", runAnimation);
 	}
 
 	// Reads a sprite sheet and splits it into individual frames
 	private void loadAnimation(String path, BufferedImage[] animation) {
-	    try {
-	        // Load the sprite sheet as a resource stream
-	        InputStream is = getClass().getResourceAsStream(path);
-	        if (is == null) {
-	            throw new RuntimeException("Resource not found: " + path);
-	        }
+		try {
+			// Load the sprite sheet as a resource stream
+			InputStream is = getClass().getResourceAsStream(path);
+			if (is == null) {
+				throw new RuntimeException("Resource not found: " + path);
+			}
 
-	        // Read the full image from the stream
-	        BufferedImage img = ImageIO.read(is);
-	        int frameWidth = img.getWidth() / animation.length; // Calculate width of one frame
-	        int frameHeight = img.getHeight(); // Height stays the same
+			// Read the full image from the stream
+			BufferedImage img = ImageIO.read(is);
+			int frameWidth = img.getWidth() / animation.length; // Calculate width of one frame
+			int frameHeight = img.getHeight(); // Height stays the same
 
-	        // Loop through and extract each frame as a subimage
-	        for (int i = 0; i < animation.length; i++) {
-	            animation[i] = img.getSubimage(i * frameWidth, 0, frameWidth, frameHeight);
-	        }
+			// Loop through and extract each frame as a subimage
+			for (int i = 0; i < animation.length; i++) {
+				animation[i] = img.getSubimage(i * frameWidth, 0, frameWidth, frameHeight);
+			}
 
-	        // Close the stream after loading
-	        is.close();
-	    } catch (IOException e) {
-	        e.printStackTrace(); // Print error if loading fails - TPH
-	    }
+			// Close the stream after loading
+			is.close();
+		} catch (IOException e) {
+			e.printStackTrace(); // Print error if loading fails - TPH
+		}
 	}
+	//TPH
+	public void update() {
+	// Main update method called every frame or tick
+	updateAnimationTick(); // Updates animation frame based on timing
+	setAnimation();        // Sets the current animation state (idle or running)
+	updatePos();           // Updates the player's position (not shown here)
+}
+
+	private void updateAnimationTick() {
+	aniTick++; // Increment the animation tick counter
+	if (aniTick >= aniSpeed) { // If enough ticks have passed to update animation frame
+		aniTick = 0; // Reset tick counter
+		aniIndex++;  // Move to next animation frame
+
+		// If the animation frame index exceeds the number of frames available
+		if (aniIndex >= Constants.getSpriteAmount(playerAction)) {
+			aniIndex = 0; // Loop back to the first frame
+		}
+	}
+}
+	//TPH
+	private void setAnimation() {
+		// Determines the player's current action (animation state) based on whether the player is moving or not
+
+		if (moving) {
+			// If the player is currently moving, switch to the RUNNING animation
+			playerAction = Constants.PlayerConstants.RUNNING;
+		} else {
+			// If the player is not moving, switch to the IDLE animation
+			playerAction = Constants.PlayerConstants.IDLE;
+		}
+	}
+
+
 
 	// Updates the player's position based on movement direction
 	private void updatePos() {
-	    if (moving) { // Only update position if the player is currently moving
-	        switch (playerDir) {
-	            case 0: // LEFT
-	                x -= 3; // Move left by 3 units
-	                break;
-	            case 1: // UP
-	                y -= 3; // Move up by 3 units
-	                break;
-	            case 2: // RIGHT
-	                x += 3; // Move right by 3 units
-	                break;
-	            case 3: // DOWN
-	                y += 3; // Move down by 3 units
-	                break;
-	        }
-	    }
+		if (moving) { // Only update position if the player is currently moving
+			switch (playerDir) {
+				case Constants.Directions.LEFT:
+					x -= 3; // Move left by 3 units
+					break;
+				case Constants.Directions.UP:
+					y -= 3; // Move up by 3 units
+					break;
+				case Constants.Directions.RIGHT:
+					x += 3; // Move right by 3 units
+					break;
+				case Constants.Directions.DOWN:
+					y += 3; // Move down by 3 units
+					break;
+			}
+		}
 	}
 
-	// Renders the current frame of the player’s animation on screen
+	// Renders the current frame of the player's animation on screen
 	public void render(Graphics g) {
-	    // Determine which animation to use based on player action (0 = idle, 1 = run)
-	    BufferedImage[] currentAnimation = (playerAction == 0) ? idleAnimation : runAnimation;
+		// Determine which animation to use based on player action (idle or run)
+		BufferedImage[] currentAnimation = (playerAction == Constants.PlayerConstants.IDLE) ? idleAnimation : runAnimation;
 
-	    // Draw the current frame at the player's current position
-	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, 96, 96, null);
+		// Draw the current frame at the player's current position
+		g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, 96, 96, null);
 	}
 
 	// Sets the player's movement direction and marks the player as moving
 	public void setDirection(int direction) {
-	    this.playerDir = direction;
-	    this.moving = true;
+		this.playerDir = direction;
+		this.moving = true;
 	}
 
 	// Sets the moving status of the player
 	public void setMoving(boolean moving) {
-	    this.moving = moving;
-	    if (!moving) {
-	        aniIndex = 0; // Reset animation frame to the beginning when movement stops
-	    }
+		this.moving = moving;
+		if (!moving) {
+			aniIndex = 0; // Reset animation frame to the beginning when movement stops
+		}
 	}
 
 	// Returns the player's current X position
 	public float getX() {
-	    return x;
+		return x;
 	}
 
 	// Returns the player's current Y position -TPH
 	public float getY() {
-	    return y;
+		return y;
 	}
 }
