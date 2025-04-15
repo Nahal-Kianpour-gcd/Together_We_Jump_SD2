@@ -1,21 +1,49 @@
 package griffith;
 
+import levels.LevelManager;
+import java.awt.Graphics;
+import entities.Player;
+
 
 public class Game implements Runnable {
 	
 	private GameWindow gameWindow; // Declare a GameWindow object to display the game
 	private GamePanel gamePanel;   // Declare a GamePanel object where game graphics will be rendered
 	private Thread gameThread;     // Thread that will run the game loop
-	
+	private Player player1;         // First player (Ninja Frog)
+	private Player player2;         // Second player (Virtual Guy)
+	private LevelManager levelManager; // Manages level loading and rendering |NK
 	private final int FPS_SET = 120; // Desired frames per second (FPS)
 	private final int UPS_SET =200; // Target updates per second (UPS) for the game loop |Nk
+	
+	public final static int TILES_DEFULAT_SIZE = 32;      // Default pixel size of a single tile (before scaling) |NK
+	public final static float SCALE = 1.0f;                // Scale factor to enlarge or shrink tiles (1.0 = original size)
+	public final static int TILES_IN_WIDTH = 26;           // Number of tiles horizontally across the game screen
+	public final static int TILES_IN_HEIGHT = 14;          // Number of tiles vertically down the game screen
+	public final static int TILES_SIZE = (int)(TILES_DEFULAT_SIZE * SCALE); // Final scaled tile size in pixels
+	public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;       // Total game screen width in pixels
+	public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;     // Total game screen height in pixels |NK
+	public Player getPlayer1() {
+	    return player1;
+	}
 
+	public Player getPlayer2() {
+	    return player2;
+	}
 	// Constructor for the Game class
 	public Game() {
-		gamePanel = new GamePanel();                // Initialize the GamePanel object
+		initClasses(); // Initialize player and level manager
+		gamePanel = new GamePanel(this);                // Initialize the GamePanel object
 		gameWindow = new GameWindow(gamePanel);     // Create the game window and add the panel to it
 		gamePanel.requestFocus();                   // Request focus so keyboard input is directed to gamePanel
 		startGameLoop();                            // Start the game loop in a new thread
+	}
+	
+	// Initialize game objects
+	private void initClasses() {
+		levelManager = new LevelManager(this);
+		player1 = new Player(200, 200, "/image-resources/Main_Characters/Ninja_Frog");
+		player2 = new Player(300, 200, "/image-resources/Main_Characters/Virtual_Guy");
 	}
 	
 	// Starts the game loop in a new thread
@@ -26,8 +54,14 @@ public class Game implements Runnable {
 	
 	// Calls the game panel's update logic during each game loop cycle |NK
 	public void update() {
-		gamePanel.updateGame();
-		
+		player1.update();
+		player2.update();
+		levelManager.update();
+	}
+
+	// Render game graphics
+	public void render(Graphics g) {
+		levelManager.draw(g);
 	}
 
 	// The core game loop runs here

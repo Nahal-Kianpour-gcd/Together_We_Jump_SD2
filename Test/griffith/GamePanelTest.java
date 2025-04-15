@@ -9,12 +9,12 @@ import java.awt.event.KeyEvent;
 class GamePanelTest {
 	private GamePanel gamePanel;
 	private KeyboardInputs keyboardInputs;
-
+	/*
 	@BeforeEach
 	public void setUp() {
 		gamePanel = new GamePanel();
 		keyboardInputs = new KeyboardInputs(gamePanel);
-	}
+	}*/
 
 	@Test
 	public void testPlayer1MovesLeft() {

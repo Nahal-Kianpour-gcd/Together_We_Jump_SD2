@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
 import utilz.Constants;
+import utilz.LoadSave;
+import griffith.Game;
+
 
 public class Player extends Entity {
 	// Array of frames for idle animation
@@ -42,36 +45,27 @@ public class Player extends Entity {
 		idleAnimation = new BufferedImage[Constants.IDLE_FRAMES];
 		runAnimation = new BufferedImage[Constants.RUN_FRAMES];
 
-		// Load actual frame images from file paths using helper method
+		/* Old code - will be removed
 		loadAnimation(characterPath + "/Idle (32x32).png", idleAnimation);
 		loadAnimation(characterPath + "/Run (32x32).png", runAnimation);
-	}
+		*/
 
-	// Reads a sprite sheet and splits it into individual frames
-	private void loadAnimation(String path, BufferedImage[] animation) {
-		try {
-			// Load the sprite sheet as a resource stream
-			InputStream is = getClass().getResourceAsStream(path);
-			if (is == null) {
-				throw new RuntimeException("Resource not found: " + path);
-			}
-
-			// Read the full image from the stream
-			BufferedImage img = ImageIO.read(is);
-			int frameWidth = img.getWidth() / animation.length; // Calculate width of one frame
-			int frameHeight = img.getHeight(); // Height stays the same
-
-			// Loop through and extract each frame as a subimage
-			for (int i = 0; i < animation.length; i++) {
-				animation[i] = img.getSubimage(i * frameWidth, 0, frameWidth, frameHeight);
-			}
-
-			// Close the stream after loading
-			is.close();
-		} catch (IOException e) {
-			e.printStackTrace(); // Print error if loading fails - TPH
+		// Get the character name from the path (e.g., "Ninja_Frog" or "Virtual_Guy")
+		String characterName = characterPath.substring(characterPath.lastIndexOf("Main_Characters/") + 15);
+		
+		// Load idle animation
+		BufferedImage img = LoadSave.getCharacterSprite(characterName, "Idle (32x32).png");
+		for (int i = 0; i < idleAnimation.length; i++) {
+			idleAnimation[i] = img.getSubimage(i * 32, 0, 32, 32);
+		}
+		
+		// Load run animation
+		img = LoadSave.getCharacterSprite(characterName, "Run (32x32).png");
+		for (int i = 0; i < runAnimation.length; i++) {
+			runAnimation[i] = img.getSubimage(i * 32, 0, 32, 32);
 		}
 	}
+
 	//TPH
 	public void update() {
 	// Main update method called every frame or tick
@@ -127,14 +121,18 @@ public class Player extends Entity {
 		}
 	}
 
-	// Renders the current frame of the player's animation on screen
+	// Renders the current frame of the player's animation on screen |NK
 	public void render(Graphics g) {
-		// Determine which animation to use based on player action (idle or run)
-		BufferedImage[] currentAnimation = (playerAction == Constants.PlayerConstants.IDLE) ? idleAnimation : runAnimation;
+	    // Determine which animation to use based on player action (idle or run)
+	    BufferedImage[] currentAnimation = (playerAction == Constants.PlayerConstants.IDLE) ? idleAnimation : runAnimation;
 
-		// Draw the current frame at the player's current position
-		g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, 96, 96, null);
+	    // Scale the character to be 2 tiles tall and 2 tiles wide
+	    int drawSize = Game.TILES_SIZE * 2;
+
+	    // Draw the current frame at the player's current position
+	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, drawSize, drawSize, null);
 	}
+
 
 	// Sets the player's movement direction and marks the player as moving
 	public void setDirection(int direction) {

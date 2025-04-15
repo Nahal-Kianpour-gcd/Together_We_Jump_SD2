@@ -16,6 +16,9 @@ import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 import utilz.Constants;
 import entities.Player;
+import static griffith.Game.GAME_WIDTH;
+import static griffith.Game.GAME_HEIGHT;
+
 
 public class GamePanel extends JPanel {
 
@@ -24,6 +27,8 @@ public class GamePanel extends JPanel {
 	
 	private Player player1;
 	private Player player2;
+	private Game game;
+
 
 	/* Old code - Start */
 	/*
@@ -50,7 +55,8 @@ public class GamePanel extends JPanel {
 	*/
 	/* Old code - End */
 
-	public GamePanel() {
+	public GamePanel(Game game) {
+		this.game = game;
 		mouseInputs = new MouseInputs(this);
 		keyboardInputs = new KeyboardInputs(this);
 
@@ -207,11 +213,12 @@ public class GamePanel extends JPanel {
 	
 	/* Old animation methods - End */
 
+	// Sets the preferred, minimum, and maximum size of the game panel using predefined game dimensions
 	private void setPanelSize() {
-		Dimension size = new Dimension(1280, 800);
-		setMinimumSize(size);
-		setPreferredSize(size);
-		setMaximumSize(size);
+	    Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT); //|NK
+	    setMinimumSize(size);    // Minimum allowed panel size
+	    setPreferredSize(size);  // Preferred/default panel size
+	    setMaximumSize(size);    // Maximum allowed panel size
 	}
 
 	public void setDirection(int direction, boolean isPlayer1) {
@@ -293,6 +300,7 @@ public class GamePanel extends JPanel {
 		/* Old render code - End */
 		player1.render(g);
 		player2.render(g);
+		game.render(g); // draws background, level, etc
 	}
 	// Returns Player 1's current X position
 	public float getXDelta1() {
