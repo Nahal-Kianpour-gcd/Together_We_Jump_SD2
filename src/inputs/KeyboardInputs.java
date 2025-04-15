@@ -176,15 +176,32 @@ public class KeyboardInputs implements KeyListener {
 
 	public void update() {
 		// First player movement (WASD)
+		/* Old update code - Start */
+		/*
 		if (wPressed) gamePanel.setDirection(1, true); // UP
 		if (sPressed) gamePanel.setDirection(3, true); // DOWN
 		if (aPressed) gamePanel.setDirection(0, true); // LEFT
 		if (dPressed) gamePanel.setDirection(2, true); // RIGHT
+		*/
+		/* Old update code - End */
+		if (wPressed) gamePanel.setDirection(Directions.UP, true);
+		if (sPressed) gamePanel.setDirection(Directions.DOWN, true);
+		if (aPressed) gamePanel.setDirection(Directions.LEFT, true);
+		if (dPressed) gamePanel.setDirection(Directions.RIGHT, true);
 
 		// Second player movement (Arrow keys)
+		/* Old update code - Start */
+		/*
 		if (upPressed) gamePanel.setDirection(1, false); // UP
 		if (downPressed) gamePanel.setDirection(3, false); // DOWN
 		if (leftPressed) gamePanel.setDirection(0, false); // LEFT
 		if (rightPressed) gamePanel.setDirection(2, false); // RIGHT
+		*/
+		/* Old update code - End */
+		if (upPressed) gamePanel.setDirection(Directions.UP, false);
+		if (downPressed) gamePanel.setDirection(Directions.DOWN, false);
+		if (leftPressed) gamePanel.setDirection(Directions.LEFT, false);
+		if (rightPressed) gamePanel.setDirection(Directions.RIGHT, false);
 	}
+
 }
