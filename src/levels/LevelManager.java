@@ -10,27 +10,34 @@ import utilz.LoadSave;
 public class LevelManager {
     
     private Game game;                // Reference to the main game instance
-    private BufferedImage levelSprite; // Image containing all level tiles/sprites
+    private BufferedImage[] levelSprite; // Holds individual tile images
     
     public LevelManager(Game game) {
         this.game = game;
         System.out.println("Initializing LevelManager...");
-        System.out.println("Attempting to load level sprites from: " + LoadSave.LEVEL_SPRITES);
+        //System.out.println("Attempting to load level sprites from: " + LoadSave.LEVEL_SPRITES);
         importLevelSprites();
     }
     
     /**
      * Loads the level sprite sheet from resources
      */
+   
+
     private void importLevelSprites() {
-        levelSprite = LoadSave.getLevelSprite();
-        if (levelSprite == null) {
-            System.out.println("ERROR: Could not load level sprite sheet!");
-        } else {
-            System.out.println("Successfully loaded level sprite sheet!");
-            System.out.println("Sprite dimensions: " + levelSprite.getWidth() + "x" + levelSprite.getHeight());
+        BufferedImage img = LoadSave.getLevelSprite(); // Load the full tileset image
+        levelSprite = new BufferedImage[64]; // 8x8 = 64 tiles
+
+        for (int j = 0; j < 8; j++) {
+            for (int i = 0; i < 8; i++) {
+                int index = j * 8 + i;
+                levelSprite[index] = img.getSubimage(i * 32, j * 32, 32, 32);
+            }
         }
+
+        System.out.println("Successfully sliced and loaded level sprites!");
     }
+
     
     /**
      * Draws the level elements on screen
@@ -38,7 +45,7 @@ public class LevelManager {
      */
     public void draw(Graphics g) {
         if (levelSprite != null) {
-            g.drawImage(levelSprite, 0, 0, null);
+            g.drawImage(levelSprite[2], 0, 0, null);
         } else {
             System.out.println("WARNING: Attempted to draw null level sprite!");
         }
