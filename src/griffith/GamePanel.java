@@ -171,24 +171,29 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	}
 
 	public void setMoving(boolean moving, boolean isPlayer1) {
-		/* if (isPlayer1) {
-			moving1 = moving;
-		} else {
-			moving2 = moving;
-		} */
-		
 		if (isPlayer1) {
+			/* Old moving code - Start */
+			/*
 			moving1 = moving;
 			if (!moving) {
-				aniIndex1 = 0; //Reset animation index when stopping
+				aniIndex1 = 0;
 			}
+			*/
+			/* Old moving code - End */
+			player1.setMoving(moving);
 		} else {
+			/* Old moving code - Start */
+			/*
 			moving2 = moving;
 			if (!moving) {
-				aniIndex2 = 0; //Reset animation index when stopping
+				aniIndex2 = 0;
 			}
+			*/
+			/* Old moving code - End */
+			player2.setMoving(moving);
 		}
 	}
+
 	
 	//Method to set the animation state. |PS
 	private void setAnimation() {
