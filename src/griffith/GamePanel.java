@@ -85,7 +85,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		player2 = new Player(200, 100, "/image-resources/Main_Characters/Virtual_Guy");
 	}
 
-
+	/*
 	//Method to load animation assets.|PS
 	private void loadAnimations() {
 		idleAnimation1 = new BufferedImage[IDLE_FRAMES];
@@ -140,7 +140,8 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	} */
+	} 
+	*/
 
 	private void setPanelSize() {
 		Dimension size = new Dimension(1280, 800);
@@ -151,11 +152,21 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 
 	public void setDirection(int direction, boolean isPlayer1) {
 		if (isPlayer1) {
-			this.playerDir1 = direction;
+			/* Old direction code - Start */
+			/*
+			playerDir1 = direction;
 			moving1 = true;
+			*/
+			/* Old direction code - End */
+			player1.setDirection(direction);
 		} else {
-			this.playerDir2 = direction;
+			/* Old direction code - Start */
+			/*
+			playerDir2 = direction;
 			moving2 = true;
+			*/
+			/* Old direction code - End */
+			player2.setDirection(direction);
 		}
 	}
 
