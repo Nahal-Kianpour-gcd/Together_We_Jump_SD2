@@ -223,47 +223,54 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	 // method in AWT/Swing. Helps prevent confusion with the painting system and keeps game logic separate. |NK
 	 //
 	public void updateGame() {
-	    keyboardInputs.update();     // Process user input
-	    updateAnimationTick();       // Handle animation frame updates
-	    setAnimation();              // Set the appropriate animation based on state
-	    updatePos();                 // Update the character's or object's position
+		keyboardInputs.update();
+		/* Old update code - Start */
+		/*
+		updateAnimationTick();
+		setAnimation();
+		updatePos();
+		*/
+		/* Old update code - End */
+		player1.update();
+		player2.update();
 	}
+
 
 
 	private void updatePos() {
 		// Update first player position
 		if (moving1) {
 			switch (playerDir1) {
-			case 0: // LEFT
-				xDelta -= 3; // Movement speed
-				break;
-			case 1: // UP
-				yDelta -= 3; // Movement speed
-				break;
-			case 2: // RIGHT
-				xDelta += 3; // Movement speed
-				break;
-			case 3: // DOWN
-				yDelta += 3; // Movement speed
-				break;
+				case 0: // LEFT
+					xDelta -= 3;
+					break;
+				case 1: // UP
+					yDelta -= 3;
+					break;
+				case 2: // RIGHT
+					xDelta += 3;
+					break;
+				case 3: // DOWN
+					yDelta += 3;
+					break;
 			}
 		}
 
 		// Update second player position
 		if (moving2) {
 			switch (playerDir2) {
-			case 0: // LEFT
-				xDelta2 -= 3; // Movement speed
-				break;
-			case 1: // UP
-				yDelta2 -= 3; // Movement speed
-				break;
-			case 2: // RIGHT
-				xDelta2 += 3; // Movement speed
-				break;
-			case 3: // DOWN
-				yDelta2 += 3; // Movement speed
-				break;
+				case 0: // LEFT
+					xDelta2 -= 3;
+					break;
+				case 1: // UP
+					yDelta2 -= 3;
+					break;
+				case 2: // RIGHT
+					xDelta2 += 3;
+					break;
+				case 3: // DOWN
+					yDelta2 += 3;
+					break;
 			}
 		}
 	}
