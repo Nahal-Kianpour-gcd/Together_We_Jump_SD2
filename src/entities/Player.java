@@ -7,6 +7,8 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import utilz.Constants;
 import utilz.LoadSave;
+import griffith.Game;
+
 
 public class Player extends Entity {
 	// Array of frames for idle animation
@@ -119,14 +121,18 @@ public class Player extends Entity {
 		}
 	}
 
-	// Renders the current frame of the player's animation on screen
+	// Renders the current frame of the player's animation on screen |NK
 	public void render(Graphics g) {
-		// Determine which animation to use based on player action (idle or run)
-		BufferedImage[] currentAnimation = (playerAction == Constants.PlayerConstants.IDLE) ? idleAnimation : runAnimation;
+	    // Determine which animation to use based on player action (idle or run)
+	    BufferedImage[] currentAnimation = (playerAction == Constants.PlayerConstants.IDLE) ? idleAnimation : runAnimation;
 
-		// Draw the current frame at the player's current position
-		g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, 96, 96, null);
+	    // Scale the character to be 2 tiles tall and 2 tiles wide
+	    int drawSize = Game.TILES_SIZE * 2;
+
+	    // Draw the current frame at the player's current position
+	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, drawSize, drawSize, null);
 	}
+
 
 	// Sets the player's movement direction and marks the player as moving
 	public void setDirection(int direction) {
