@@ -1,12 +1,18 @@
 package griffith;
 
+import levels.LevelManager;
+import java.awt.Graphics;
+import entities.Player;
+
 
 public class Game implements Runnable {
 	
 	private GameWindow gameWindow; // Declare a GameWindow object to display the game
 	private GamePanel gamePanel;   // Declare a GamePanel object where game graphics will be rendered
 	private Thread gameThread;     // Thread that will run the game loop
-	
+	private Player player1;         // First player (Ninja Frog)
+	private Player player2;         // Second player (Virtual Guy)
+	private LevelManager levelManager; // Manages level loading and rendering |NK
 	private final int FPS_SET = 120; // Desired frames per second (FPS)
 	private final int UPS_SET =200; // Target updates per second (UPS) for the game loop |Nk
 	
@@ -17,13 +23,20 @@ public class Game implements Runnable {
 	public final static int TILES_SIZE = (int)(TILES_DEFULAT_SIZE * SCALE); // Final scaled tile size in pixels
 	public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;       // Total game screen width in pixels
 	public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;     // Total game screen height in pixels |NK
-
 	// Constructor for the Game class
 	public Game() {
 		gamePanel = new GamePanel();                // Initialize the GamePanel object
 		gameWindow = new GameWindow(gamePanel);     // Create the game window and add the panel to it
 		gamePanel.requestFocus();                   // Request focus so keyboard input is directed to gamePanel
+		initClasses(); // Initialize player and level manager
 		startGameLoop();                            // Start the game loop in a new thread
+	}
+	
+	// Initialize game objects
+	private void initClasses() {
+		levelManager = new LevelManager(this);
+		player1 = new Player(200, 200, "/image-resources/Main_Characters/Ninja_Frog");
+		player2 = new Player(300, 200, "/image-resources/Main_Characters/Virtual_Guy");
 	}
 	
 	// Starts the game loop in a new thread
@@ -34,8 +47,16 @@ public class Game implements Runnable {
 	
 	// Calls the game panel's update logic during each game loop cycle |NK
 	public void update() {
-		gamePanel.updateGame();
-		
+		player1.update();
+		player2.update();
+		levelManager.update();
+	}
+
+	// Render game graphics
+	public void render(Graphics g) {
+		levelManager.draw(g);
+		player1.render(g);
+		player2.render(g);
 	}
 
 	// The core game loop runs here

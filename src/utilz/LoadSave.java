@@ -9,7 +9,7 @@ public class LoadSave {
     
     // Base paths for resources
     public static final String CHARACTERS_FOLDER = "/image-resources/Main_Characters";
-    public static final String LEVEL_SPRITES = "/image-resources/world_set/world_tileset.png";
+    public static final String LEVEL_SPRITES = "/image-resources/World/world_set/world_tileset.png";
     
     /**
      * Loads a sprite sheet for a specific character and animation
@@ -40,10 +40,17 @@ public class LoadSave {
      */
     public static BufferedImage getLevelSprite() {
         BufferedImage img = null;
-        try (InputStream is = LoadSave.class.getResourceAsStream("/" + LEVEL_SPRITES)) {
+        System.out.println("Attempting to load level sprite from: " + LEVEL_SPRITES);
+        try (InputStream is = LoadSave.class.getResourceAsStream(LEVEL_SPRITES)) {
             if (is != null) {
                 img = ImageIO.read(is);
             } else {
+                System.out.println("Could not find level sprites at: " + LEVEL_SPRITES);
+                System.out.println("Please make sure you have created the following directory structure:");
+                System.out.println("src/");
+                System.out.println("  └── image-resources/");
+                System.out.println("      └── world/");
+                System.out.println("          └── world_tileset.png");
                 throw new RuntimeException("Level sprites not found: " + LEVEL_SPRITES);
             }
         } catch (Exception e) {
