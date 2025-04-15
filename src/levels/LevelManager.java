@@ -11,12 +11,14 @@ public class LevelManager {
     
     private Game game;                // Reference to the main game instance
     private BufferedImage[] levelSprite; // Holds individual tile images
+    private Level levelOne;
     
     public LevelManager(Game game) {
         this.game = game;
         System.out.println("Initializing LevelManager...");
         //System.out.println("Attempting to load level sprites from: " + LoadSave.LEVEL_SPRITES);
         importLevelSprites();
+        levelOne = new Level(LoadSave.GetLevelData());
     }
     
     /**
@@ -50,13 +52,14 @@ public class LevelManager {
      * @param g Graphics context to draw on
      */
     public void draw(Graphics g) {
-        if (levelSprite != null) {
-            g.drawImage(levelSprite[2], 0, 0, null);
-        } else {
-            System.out.println("WARNING: Attempted to draw null level sprite!");
+        for (int j = 0; j < Game.TILES_IN_HEIGHT; j++) {
+            for (int i = 0; i < Game.TILES_IN_WIDTH; i++) {
+                int index = levelOne.getSpriteIndex(i, j); // Get tile index at grid (i, j)
+                g.drawImage(levelSprite[index], Game.TILES_SIZE * i, Game.TILES_SIZE * j, Game.TILES_SIZE, Game.TILES_SIZE, null);
+            }
         }
     }
-    
+
     /**
      * Updates the level state
      * Will be used later for animated tiles or level mechanics
