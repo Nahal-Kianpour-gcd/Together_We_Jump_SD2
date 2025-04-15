@@ -25,13 +25,19 @@ public class LevelManager {
    
 
     private void importLevelSprites() {
-        BufferedImage img = LoadSave.getLevelSprite(); // Load the full tileset image
-        levelSprite = new BufferedImage[64]; // 8x8 = 64 tiles
+        BufferedImage img = LoadSave.getLevelSprite();
+        System.out.println("Image loaded with size: " + img.getWidth() + "x" + img.getHeight());
 
-        for (int j = 0; j < 8; j++) {
-            for (int i = 0; i < 8; i++) {
-                int index = j * 8 + i;
-                levelSprite[index] = img.getSubimage(i * 32, j * 32, 32, 32);
+        int tileSize = 32;
+        int tilesPerRow = img.getWidth() / tileSize;  // should be 12
+        int tilesPerCol = img.getHeight() / tileSize; // should be 4
+
+        levelSprite = new BufferedImage[tilesPerRow * tilesPerCol];
+
+        for (int j = 0; j < tilesPerCol; j++) {
+            for (int i = 0; i < tilesPerRow; i++) {
+                int index = j * tilesPerRow + i;
+                levelSprite[index] = img.getSubimage(i * tileSize, j * tileSize, tileSize, tileSize);
             }
         }
 
