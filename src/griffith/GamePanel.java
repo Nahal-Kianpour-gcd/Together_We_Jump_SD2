@@ -298,24 +298,20 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		player1.render(g);
 		player2.render(g);
 	}
-
-
-	// Returns Player 2's Y position as an Integer (rounded from float)
-	public Integer getYDelta2() {
-		return (int) yDelta2;
-	}
-
 	// Returns Player 1's current X position
-	public float getXDelta1() {
-		return xDelta;
-	}
+		public float getXDelta1() {
+			return player1.getX();
+		}
+		// Returns Player 2's current X position
+		public float getXDelta2() {
+			return player2.getX();
+		}
+		// Returns Player 2's Y position as an Integer (rounded from float)
+		public int getYDelta2() {
+			return (int) player2.getY();
+		}
 
-	// Returns Player 2's current X position
-	public float getXDelta2() {
-		return xDelta2;
-	}
-
-	// Method to switch between animations. |PS
+//Method to switch between animations. |PS
 	private void updateAnimationTick() {
 		// Update first player animation
 		aniTick1++;
@@ -351,7 +347,7 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 			}
 		}
 	}
-}
-
+	
+	
 
 
