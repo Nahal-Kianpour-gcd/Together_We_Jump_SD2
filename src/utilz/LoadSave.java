@@ -7,8 +7,9 @@ import javax.imageio.ImageIO;
 
 public class LoadSave {
     
-    // Base path for character resources
+    // Base paths for resources
     public static final String CHARACTERS_FOLDER = "/image-resources/Main_Characters";
+    public static final String LEVEL_SPRITES = "/image-resources/world_set/world_tileset.png";
     
     /**
      * Loads a sprite sheet for a specific character and animation
@@ -30,6 +31,24 @@ public class LoadSave {
             e.printStackTrace();
         }
         
+        return img;
+    }
+
+    /**
+     * Loads the level sprite sheet containing tiles and level elements
+     * @return The loaded BufferedImage containing level sprites
+     */
+    public static BufferedImage getLevelSprite() {
+        BufferedImage img = null;
+        try (InputStream is = LoadSave.class.getResourceAsStream("/" + LEVEL_SPRITES)) {
+            if (is != null) {
+                img = ImageIO.read(is);
+            } else {
+                throw new RuntimeException("Level sprites not found: " + LEVEL_SPRITES);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return img;
     }
 }
