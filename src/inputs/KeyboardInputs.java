@@ -2,8 +2,13 @@ package inputs;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+<<<<<<< HEAD
 
 import griffith.GamePanel;
+=======
+import griffith.GamePanel;
+import utilz.Constants.Directions;
+>>>>>>> 907beaf (Refactor keyPressed to use Directions enum for Player 1)
 
 public class KeyboardInputs implements KeyListener {
 	// Class to handle keyboard input events using the KeyListener interface
@@ -36,6 +41,7 @@ public class KeyboardInputs implements KeyListener {
 			// Player 1 controls (WASD)
 			case KeyEvent.VK_W:
 				wPressed = true;
+
 				gamePanel.setDirection(1, true); // UP for Player 1
 				break;
 			case KeyEvent.VK_A:
@@ -49,6 +55,41 @@ public class KeyboardInputs implements KeyListener {
 			case KeyEvent.VK_D:
 				dPressed = true;
 				gamePanel.setDirection(2, true); // RIGHT for Player 1
+
+				/* Old direction code - Start */
+				/*
+				gamePanel.setDirection(1, true); // UP for Player 1
+				*/
+				/* Old direction code - End */
+				gamePanel.setDirection(Directions.UP, true);
+				break;
+			case KeyEvent.VK_A:
+				aPressed = true;
+				/* Old direction code - Start */
+				/*
+				gamePanel.setDirection(0, true); // LEFT for Player 1
+				*/
+				/* Old direction code - End */
+				gamePanel.setDirection(Directions.LEFT, true);
+				break;
+			case KeyEvent.VK_S:
+				sPressed = true;
+				/* Old direction code - Start */
+				/*
+				gamePanel.setDirection(3, true); // DOWN for Player 1
+				*/
+				/* Old direction code - End */
+				gamePanel.setDirection(Directions.DOWN, true);
+				break;
+			case KeyEvent.VK_D:
+				dPressed = true;
+				/* Old direction code - Start */
+				/*
+				gamePanel.setDirection(2, true); // RIGHT for Player 1
+				*/
+				/* Old direction code - End  -TPH */
+				gamePanel.setDirection(Directions.RIGHT, true);
+ (Refactor keyPressed to use Directions enum for Player 1)
 				break;
 				
 			// Player 2 controls (Arrow keys)
