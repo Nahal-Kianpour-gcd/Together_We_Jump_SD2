@@ -48,13 +48,17 @@ public class Player extends Entity {
 		loadAnimation(characterPath + "/Run (32x32).png", runAnimation);
 		*/
 
-		// New code - using LoadSave class |NK
-		BufferedImage img = LoadSave.getCharacterSprite(characterPath + "/Idle (32x32).png");
+		// Get the character name from the path (e.g., "Ninja_Frog" or "Virtual_Guy")
+		String characterName = characterPath.substring(characterPath.lastIndexOf("Main_Characters/") + 15);
+		
+		// Load idle animation
+		BufferedImage img = LoadSave.getCharacterSprite(characterName, "Idle (32x32).png");
 		for (int i = 0; i < idleAnimation.length; i++) {
 			idleAnimation[i] = img.getSubimage(i * 32, 0, 32, 32);
 		}
 		
-		img = LoadSave.getCharacterSprite(characterPath + "/Run (32x32).png");
+		// Load run animation
+		img = LoadSave.getCharacterSprite(characterName, "Run (32x32).png");
 		for (int i = 0; i < runAnimation.length; i++) {
 			runAnimation[i] = img.getSubimage(i * 32, 0, 32, 32);
 		}
