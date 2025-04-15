@@ -12,8 +12,8 @@ public class LoadSave {
 
 	// Base paths for resources
 	public static final String CHARACTERS_FOLDER = "/image-resources/Main_Characters";
-	public static final String LEVEL_SPRITES = "/image-resources/World/world_set/world_tileset.png";
-	public static final String Level_One_Data = "/image-resources/World/world_set/platforms.png";
+	public static final String LEVEL_SPRITES = "/image-resources/World/world_set/outside_sprites.png";
+	public static final String Level_One_Data = "/image-resources/World/world_set/level_one_data.png";
 
 	/**
 	 * Loads a sprite sheet for a specific character and animation
