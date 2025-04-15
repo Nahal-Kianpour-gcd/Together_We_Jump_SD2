@@ -23,12 +23,19 @@ public class Game implements Runnable {
 	public final static int TILES_SIZE = (int)(TILES_DEFULAT_SIZE * SCALE); // Final scaled tile size in pixels
 	public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;       // Total game screen width in pixels
 	public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;     // Total game screen height in pixels |NK
+	public Player getPlayer1() {
+	    return player1;
+	}
+
+	public Player getPlayer2() {
+	    return player2;
+	}
 	// Constructor for the Game class
 	public Game() {
-		gamePanel = new GamePanel();                // Initialize the GamePanel object
+		initClasses(); // Initialize player and level manager
+		gamePanel = new GamePanel(this);                // Initialize the GamePanel object
 		gameWindow = new GameWindow(gamePanel);     // Create the game window and add the panel to it
 		gamePanel.requestFocus();                   // Request focus so keyboard input is directed to gamePanel
-		initClasses(); // Initialize player and level manager
 		startGameLoop();                            // Start the game loop in a new thread
 	}
 	
@@ -55,8 +62,6 @@ public class Game implements Runnable {
 	// Render game graphics
 	public void render(Graphics g) {
 		levelManager.draw(g);
-		player1.render(g);
-		player2.render(g);
 	}
 
 	// The core game loop runs here

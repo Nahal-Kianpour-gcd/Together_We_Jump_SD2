@@ -27,6 +27,8 @@ public class GamePanel extends JPanel {
 	
 	private Player player1;
 	private Player player2;
+	private Game game;
+
 
 	/* Old code - Start */
 	/*
@@ -53,7 +55,8 @@ public class GamePanel extends JPanel {
 	*/
 	/* Old code - End */
 
-	public GamePanel() {
+	public GamePanel(Game game) {
+		this.game = game;
 		mouseInputs = new MouseInputs(this);
 		keyboardInputs = new KeyboardInputs(this);
 
@@ -297,6 +300,7 @@ public class GamePanel extends JPanel {
 		/* Old render code - End */
 		player1.render(g);
 		player2.render(g);
+		game.render(g); // draws background, level, etc
 	}
 	// Returns Player 1's current X position
 	public float getXDelta1() {
