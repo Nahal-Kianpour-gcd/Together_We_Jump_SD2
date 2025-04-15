@@ -22,7 +22,13 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	private MouseInputs mouseInputs; // Handles mouse input events (clicks, movement)
 
 	private KeyboardInputs keyboardInputs;
+	
+	private Player player1;
+	private Player player2;
 
+
+	
+	/*
 	// First player position (WASD)
 	private float xDelta = 100, yDelta = 100;
 	// Second player position (Arrow keys)
@@ -46,16 +52,17 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 	private int aniTick1, aniTick2, aniSpeed = 15; // PS
 	private int aniIndex1 = 0, aniIndex2 = 0; // PS
 	private int playerAction1 = 0, playerAction2 = 0; // PS
-
+	*/
 	public GamePanel() {
 
 		//Add input listeners for keyboard and mouse
 		mouseInputs = new MouseInputs(this);
 		keyboardInputs = new KeyboardInputs(this);
-
+		/*
 		//importImg();
 		loadAnimations();
-
+		*/
+		initializePlayers();
 		setPanelSize();
 		addKeyListener(keyboardInputs);
 		addMouseListener(mouseInputs);
@@ -72,6 +79,12 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		});
 		gameLoop.start();
 	}
+	
+	private void initializePlayers() {
+		player1 = new Player(100, 100, "/image-resources/Main_Characters/Ninja_Frog");
+		player2 = new Player(200, 100, "/image-resources/Main_Characters/Virtual_Guy");
+	}
+
 
 	//Method to load animation assets.|PS
 	private void loadAnimations() {
@@ -317,4 +330,6 @@ public class GamePanel extends JPanel { // Extends JPanel to allow custom drawin
 		}
 	}
 }
+
+
 
