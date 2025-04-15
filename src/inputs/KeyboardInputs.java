@@ -89,28 +89,49 @@ public class KeyboardInputs implements KeyListener {
 				*/
 				/* Old direction code - End  -TPH */
 				gamePanel.setDirection(Directions.RIGHT, true);
- (Refactor keyPressed to use Directions enum for Player 1)
+ 
 				break;
 				
-			// Player 2 controls (Arrow keys)
-			case KeyEvent.VK_UP:
-				upPressed = true;
-				gamePanel.setDirection(1, false); // UP for Player 2
-				break;
-			case KeyEvent.VK_LEFT:
-				leftPressed = true;
-				gamePanel.setDirection(0, false); // LEFT for Player 2
-				break;
-			case KeyEvent.VK_DOWN:
-				downPressed = true;
-				gamePanel.setDirection(3, false); // DOWN for Player 2
-				break;
-			case KeyEvent.VK_RIGHT:
-				rightPressed = true;
-				gamePanel.setDirection(2, false); // RIGHT for Player 2
-				break;
-		}
-	}
+				// Player 2 controls (Arrow keys)
+							case KeyEvent.VK_UP:
+								upPressed = true;
+								/* Old direction code - Start */
+								/*
+								gamePanel.setDirection(1, false); // UP for Player 2
+								*/
+								/* Old direction code - End */
+								gamePanel.setDirection(Directions.UP, false);
+								break;
+							case KeyEvent.VK_LEFT:
+								leftPressed = true;
+								/* Old direction code - Start */
+								/*
+								gamePanel.setDirection(0, false); // LEFT for Player 2
+								*/
+								/* Old direction code - End */
+								gamePanel.setDirection(Directions.LEFT, false);
+								break;
+							case KeyEvent.VK_DOWN:
+								downPressed = true;
+								/* Old direction code - Start */
+								/*
+								gamePanel.setDirection(3, false); // DOWN for Player 2
+								*/
+								/* Old direction code - End */
+								gamePanel.setDirection(Directions.DOWN, false);
+								break;
+							case KeyEvent.VK_RIGHT:
+								rightPressed = true;
+								/* Old direction code - Start */
+								/*
+								gamePanel.setDirection(2, false); // RIGHT for Player 2
+								*/
+								/* Old direction code - End */
+								gamePanel.setDirection(Directions.RIGHT, false);
+								break;
+						}
+					}
+
 
 	@Override
 	public void keyReleased(KeyEvent e) {
