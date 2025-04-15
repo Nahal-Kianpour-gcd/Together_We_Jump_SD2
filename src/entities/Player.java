@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
 import utilz.Constants;
+import utilz.LoadSave;
 
 public class Player extends Entity {
 	// Array of frames for idle animation
@@ -42,36 +43,23 @@ public class Player extends Entity {
 		idleAnimation = new BufferedImage[Constants.IDLE_FRAMES];
 		runAnimation = new BufferedImage[Constants.RUN_FRAMES];
 
-		// Load actual frame images from file paths using helper method
+		/* Old code - will be removed
 		loadAnimation(characterPath + "/Idle (32x32).png", idleAnimation);
 		loadAnimation(characterPath + "/Run (32x32).png", runAnimation);
-	}
+		*/
 
-	// Reads a sprite sheet and splits it into individual frames
-	private void loadAnimation(String path, BufferedImage[] animation) {
-		try {
-			// Load the sprite sheet as a resource stream
-			InputStream is = getClass().getResourceAsStream(path);
-			if (is == null) {
-				throw new RuntimeException("Resource not found: " + path);
-			}
-
-			// Read the full image from the stream
-			BufferedImage img = ImageIO.read(is);
-			int frameWidth = img.getWidth() / animation.length; // Calculate width of one frame
-			int frameHeight = img.getHeight(); // Height stays the same
-
-			// Loop through and extract each frame as a subimage
-			for (int i = 0; i < animation.length; i++) {
-				animation[i] = img.getSubimage(i * frameWidth, 0, frameWidth, frameHeight);
-			}
-
-			// Close the stream after loading
-			is.close();
-		} catch (IOException e) {
-			e.printStackTrace(); // Print error if loading fails - TPH
+		// New code - using LoadSave class |NK
+		BufferedImage img = LoadSave.getCharacterSprite(characterPath + "/Idle (32x32).png");
+		for (int i = 0; i < idleAnimation.length; i++) {
+			idleAnimation[i] = img.getSubimage(i * 32, 0, 32, 32);
+		}
+		
+		img = LoadSave.getCharacterSprite(characterPath + "/Run (32x32).png");
+		for (int i = 0; i < runAnimation.length; i++) {
+			runAnimation[i] = img.getSubimage(i * 32, 0, 32, 32);
 		}
 	}
+
 	//TPH
 	public void update() {
 	// Main update method called every frame or tick
