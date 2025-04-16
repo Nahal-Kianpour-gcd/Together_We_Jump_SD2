@@ -1,3 +1,4 @@
+//Nahal Kianpour Lirharani
 package testcases;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,7 +38,9 @@ class LoadSaveTest {
 
 	@Test
 	void testGetLevelSpriteString() {
-		fail("Not yet implemented");
+		// This tests loading a specific named sprite by path (likely used internally)
+		BufferedImage result = LoadSave.getLevelSprite("outside_sprites.png");
+		assertNotNull(result, "Named level sprite should not be null.");
 	}
 
 }
