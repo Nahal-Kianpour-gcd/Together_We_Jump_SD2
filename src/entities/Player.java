@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import utilz.Constants;
 import utilz.LoadSave;
 import griffith.Game;
+import java.awt.Rectangle;
 
 
 public class Player extends Entity {
@@ -31,12 +32,15 @@ public class Player extends Entity {
 
 	// File path to the character's sprite sheet (used for loading animations)- TPH
 	private String characterPath;
+	// Loads level data into the class by assigning the provided 2D array to lvlData.
+
+	private int[][] lvlData;
 
 	// Player constructor that sets position and character sprite path
-	public Player(float x, float y, String characterPath) {
-		super(x, y); // Call constructor of the base Entity class
-		this.characterPath = characterPath; // Store the path to character sprite assets
-		loadAnimations(); // Load idle and run animations based on the given path
+	public Player(float x, float y, int width, int height, String characterPath) {
+	    super(x, y, width, height); 
+	    this.characterPath = characterPath;
+	    loadAnimations();
 	}
 
 	// Loads the idle and run animations for this player
@@ -66,12 +70,21 @@ public class Player extends Entity {
 		}
 	}
 
+	public void loadLvlData(int[][] lvlData) {
+		if (lvlData == null) {
+			this.lvlData = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
+		} else {
+			this.lvlData = lvlData;
+		}
+	}
+
 	//TPH
 	public void update() {
 	// Main update method called every frame or tick
 	updateAnimationTick(); // Updates animation frame based on timing
 	setAnimation();        // Sets the current animation state (idle or running)
 	updatePos();           // Updates the player's position (not shown here)
+	updateHitbox();
 }
 
 	private void updateAnimationTick() {
@@ -123,14 +136,16 @@ public class Player extends Entity {
 
 	// Renders the current frame of the player's animation on screen |NK
 	public void render(Graphics g) {
-	    // Determine which animation to use based on player action (idle or run)
+	   // Determine which animation to use based on player action (idle or run)
 	    BufferedImage[] currentAnimation = (playerAction == Constants.PlayerConstants.IDLE) ? idleAnimation : runAnimation;
 
 	    // Scale the character to be 2 tiles tall and 2 tiles wide
 	    int drawSize = Game.TILES_SIZE * 2;
 
 	    // Draw the current frame at the player's current position
-	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, drawSize, drawSize, null);
+	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, width, height, null); 
+		drawHitbox(g);
+		
 	}
 
 
@@ -156,5 +171,15 @@ public class Player extends Entity {
 	// Returns the player's current Y position -TPH
 	public float getY() {
 		return y;
+	}
+
+	@Override
+	protected void initHitBox() {
+		hitbox = new Rectangle((int) x, (int) y, width, height);
+	}
+
+	protected void updateHitbox() {
+		hitbox.x = (int) x;
+		hitbox.y = (int) y;
 	}
 }
