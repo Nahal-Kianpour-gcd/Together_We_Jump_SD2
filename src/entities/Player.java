@@ -33,10 +33,10 @@ public class Player extends Entity {
 	private String characterPath;
 
 	// Player constructor that sets position and character sprite path
-	public Player(float x, float y, String characterPath) {
-		super(x, y); // Call constructor of the base Entity class
-		this.characterPath = characterPath; // Store the path to character sprite assets
-		loadAnimations(); // Load idle and run animations based on the given path
+	public Player(float x, float y, int width, int height, String characterPath) {
+	    super(x, y, width, height); 
+	    this.characterPath = characterPath;
+	    loadAnimations();
 	}
 
 	// Loads the idle and run animations for this player

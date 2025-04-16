@@ -84,8 +84,8 @@ public class GamePanel extends JPanel {
 	}
 
 	private void initializePlayers() {
-		player1 = new Player(100, 100, "/image-resources/Main_Characters/Ninja_Frog");
-		player2 = new Player(200, 100, "/image-resources/Main_Characters/Virtual_Guy");
+	    player1 = new Player(100, 100, 64, 64, "/image-resources/Main_Characters/Ninja_Frog");
+	    player2 = new Player(200, 100, 64, 64, "/image-resources/Main_Characters/Virtual_Guy");
 	}
 
 	/* Old animation methods - Start */

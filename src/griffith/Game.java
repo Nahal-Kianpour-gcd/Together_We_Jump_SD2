@@ -41,10 +41,11 @@ public class Game implements Runnable {
 	
 	// Initialize game objects
 	private void initClasses() {
-		levelManager = new LevelManager(this);
-		player1 = new Player(200, 200, "/image-resources/Main_Characters/Ninja_Frog");
-		player2 = new Player(300, 200, "/image-resources/Main_Characters/Virtual_Guy");
+	    levelManager = new LevelManager(this);
+	    player1 = new Player(200, 200, 64, 64, "/image-resources/Main_Characters/Ninja_Frog");
+	    player2 = new Player(300, 200, 64, 64, "/image-resources/Main_Characters/Virtual_Guy");
 	}
+
 	
 	// Starts the game loop in a new thread
 	private void startGameLoop() {
