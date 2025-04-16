@@ -119,24 +119,27 @@ public class Player extends Entity {
 	// Updates the player's position based on movement direction
 	private void updatePos() {
 		moving = false;
+		// If no movement keys are pressed, exit early
 		if(!left && !right && !up && !down)
 			return;
 		
-		if (left && !right) {
-			x -= playerSpeed;
-			moving = true;
-		} else if (right && !left) {
-			x += playerSpeed;
-			moving = true;
-		}
+		float xSpeed = 0, ySpeed = 0;
+		// Determine horizontal movement
+		if (left && !right) 
+			xSpeed = -playerSpeed;
+			
+		 else if (right && !left) 
+			xSpeed = playerSpeed;
+			
 		
-		if (up && !down) {
-			y -= playerSpeed;
-			moving = true;
-		} else if (down && !up) {
-			y += playerSpeed;
-			moving = true;
-		}
+		
+		if (up && !down) 
+			ySpeed = -playerSpeed;
+			
+		else if (down && !up) 
+			ySpeed = -playerSpeed;
+			
+	}
 		
 			
 			
@@ -156,7 +159,7 @@ public class Player extends Entity {
 					break;
 			}
 		}*/
-	}
+	
 
 	// Renders the current frame of the player's animation on screen |NK
 	public void render(Graphics g) {
