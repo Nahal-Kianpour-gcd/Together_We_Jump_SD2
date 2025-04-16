@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import griffith.GamePanel;
+import utilz.Constants;
 
 public class KeyboardInputs implements KeyListener {
 	// Class to handle keyboard input events using the KeyListener interface
@@ -37,37 +38,37 @@ public class KeyboardInputs implements KeyListener {
 			// Player 1 controls (WASD)
 			case KeyEvent.VK_W:
 				wPressed = true;
-				gamePanel.setDirection(1, true); // UP for Player 1
+				gamePanel.setDirection(Constants.Directions.UP, true, true);
 				break;
 			case KeyEvent.VK_A:
 				aPressed = true;
-				gamePanel.setDirection(0, true); // LEFT for Player 1
+				gamePanel.setDirection(Constants.Directions.LEFT, true, true);
 				break;
 			case KeyEvent.VK_S:
 				sPressed = true;
-				gamePanel.setDirection(3, true); // DOWN for Player 1
+				gamePanel.setDirection(Constants.Directions.DOWN, true, true);
 				break;
 			case KeyEvent.VK_D:
 				dPressed = true;
-				gamePanel.setDirection(2, true); // RIGHT for Player 1
+				gamePanel.setDirection(Constants.Directions.RIGHT, true, true);
 				break;
 				
 			// Player 2 controls (Arrow keys)
 			case KeyEvent.VK_UP:
 				upPressed = true;
-				gamePanel.setDirection(1, false); // UP for Player 2
+				gamePanel.setDirection(Constants.Directions.UP, false, true);
 				break;
 			case KeyEvent.VK_LEFT:
 				leftPressed = true;
-				gamePanel.setDirection(0, false); // LEFT for Player 2
+				gamePanel.setDirection(Constants.Directions.LEFT, false, true);
 				break;
 			case KeyEvent.VK_DOWN:
 				downPressed = true;
-				gamePanel.setDirection(3, false); // DOWN for Player 2
+				gamePanel.setDirection(Constants.Directions.DOWN, false, true);
 				break;
 			case KeyEvent.VK_RIGHT:
 				rightPressed = true;
-				gamePanel.setDirection(2, false); // RIGHT for Player 2
+				gamePanel.setDirection(Constants.Directions.RIGHT, false, true);
 				break;
 		}
 	}
@@ -78,29 +79,37 @@ public class KeyboardInputs implements KeyListener {
 			// Player 1 controls (WASD)
 			case KeyEvent.VK_W:
 				wPressed = false;
+				gamePanel.setDirection(Constants.Directions.UP, true, false);
 				break;
 			case KeyEvent.VK_A:
 				aPressed = false;
+				gamePanel.setDirection(Constants.Directions.LEFT, true, false);
 				break;
 			case KeyEvent.VK_S:
 				sPressed = false;
+				gamePanel.setDirection(Constants.Directions.DOWN, true, false);
 				break;
 			case KeyEvent.VK_D:
 				dPressed = false;
+				gamePanel.setDirection(Constants.Directions.RIGHT, true, false);
 				break;
 				
 			// Player 2 controls (Arrow keys)
 			case KeyEvent.VK_UP:
 				upPressed = false;
+				gamePanel.setDirection(Constants.Directions.UP, false, false);
 				break;
 			case KeyEvent.VK_LEFT:
 				leftPressed = false;
+				gamePanel.setDirection(Constants.Directions.LEFT, false, false);
 				break;
 			case KeyEvent.VK_DOWN:
 				downPressed = false;
+				gamePanel.setDirection(Constants.Directions.DOWN, false, false);
 				break;
 			case KeyEvent.VK_RIGHT:
 				rightPressed = false;
+				gamePanel.setDirection(Constants.Directions.RIGHT, false, false);
 				break;
 		}
 		
@@ -115,16 +124,16 @@ public class KeyboardInputs implements KeyListener {
 
 	public void update() {
 		// First player movement (WASD)
-		if (wPressed) gamePanel.setDirection(1, true); // UP
-		if (sPressed) gamePanel.setDirection(3, true); // DOWN
-		if (aPressed) gamePanel.setDirection(0, true); // LEFT
-		if (dPressed) gamePanel.setDirection(2, true); // RIGHT
+		if (wPressed) gamePanel.setDirection(Constants.Directions.UP, true, true);
+		if (sPressed) gamePanel.setDirection(Constants.Directions.DOWN, true, true);
+		if (aPressed) gamePanel.setDirection(Constants.Directions.LEFT, true, true);
+		if (dPressed) gamePanel.setDirection(Constants.Directions.RIGHT, true, true);
 
 		// Second player movement (Arrow keys)
-		if (upPressed) gamePanel.setDirection(1, false); // UP
-		if (downPressed) gamePanel.setDirection(3, false); // DOWN
-		if (leftPressed) gamePanel.setDirection(0, false); // LEFT
-		if (rightPressed) gamePanel.setDirection(2, false); // RIGHT
+		if (upPressed) gamePanel.setDirection(Constants.Directions.UP, false, true);
+		if (downPressed) gamePanel.setDirection(Constants.Directions.DOWN, false, true);
+		if (leftPressed) gamePanel.setDirection(Constants.Directions.LEFT, false, true);
+		if (rightPressed) gamePanel.setDirection(Constants.Directions.RIGHT, false, true);
 	}
 
 }

@@ -221,23 +221,11 @@ public class GamePanel extends JPanel {
 	    setMaximumSize(size);    // Maximum allowed panel size
 	}
 
-	public void setDirection(int direction, boolean isPlayer1) {
+	public void setDirection(int direction, boolean isPlayer1, boolean isPressed) {
 		if (isPlayer1) {
-			/* Old direction code - Start */
-			/*
-			playerDir1 = direction;
-			moving1 = true;
-			*/
-			/* Old direction code - End */
-			player1.setDirection(direction);
+			player1.setDirection(direction, isPressed);
 		} else {
-			/* Old direction code - Start */
-			/*
-			playerDir2 = direction;
-			moving2 = true;
-			*/
-			/* Old direction code - End */
-			player2.setDirection(direction);
+			player2.setDirection(direction, isPressed);
 		}
 	}
 

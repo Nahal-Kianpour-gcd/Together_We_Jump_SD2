@@ -29,6 +29,8 @@ public class Player extends Entity {
 
 	// Direction of player movement: 0 = left, 1 = up, 2 = right, 3 = down
 	private int playerDir = -1;
+	private float playerSpeed = 3.0f;
+	private boolean left, right, up, down;
 
 	// File path to the character's sprite sheet (used for loading animations)- TPH
 	private String characterPath;
@@ -116,7 +118,29 @@ public class Player extends Entity {
 
 	// Updates the player's position based on movement direction
 	private void updatePos() {
-		if (moving) { // Only update position if the player is currently moving
+		moving = false;
+		if(!left && !right && !up && !down)
+			return;
+		
+		if (left && !right) {
+			x -= playerSpeed;
+			moving = true;
+		} else if (right && !left) {
+			x += playerSpeed;
+			moving = true;
+		}
+		
+		if (up && !down) {
+			y -= playerSpeed;
+			moving = true;
+		} else if (down && !up) {
+			y += playerSpeed;
+			moving = true;
+		}
+		
+			
+			
+		/*if (moving) { // Only update position if the player is currently moving
 			switch (playerDir) {
 				case Constants.Directions.LEFT:
 					x -= 3; // Move left by 3 units
@@ -131,7 +155,7 @@ public class Player extends Entity {
 					y += 3; // Move down by 3 units
 					break;
 			}
-		}
+		}*/
 	}
 
 	// Renders the current frame of the player's animation on screen |NK
@@ -150,9 +174,21 @@ public class Player extends Entity {
 
 
 	// Sets the player's movement direction and marks the player as moving
-	public void setDirection(int direction) {
-		this.playerDir = direction;
-		this.moving = true;
+	public void setDirection(int direction, boolean isPressed) {
+		switch(direction) {
+			case Constants.Directions.LEFT:
+				left = isPressed;
+				break;
+			case Constants.Directions.RIGHT:
+				right = isPressed;
+				break;
+			case Constants.Directions.UP:
+				up = isPressed;
+				break;
+			case Constants.Directions.DOWN:
+				down = isPressed;
+				break;
+		}
 	}
 
 	// Sets the moving status of the player
