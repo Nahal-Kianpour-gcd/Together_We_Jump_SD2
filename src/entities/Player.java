@@ -32,6 +32,9 @@ public class Player extends Entity {
 
 	// File path to the character's sprite sheet (used for loading animations)- TPH
 	private String characterPath;
+	// Loads level data into the class by assigning the provided 2D array to lvlData.
+
+	private int[][] lvlData;
 
 	// Player constructor that sets position and character sprite path
 	public Player(float x, float y, int width, int height, String characterPath) {
@@ -65,6 +68,10 @@ public class Player extends Entity {
 		for (int i = 0; i < runAnimation.length; i++) {
 			runAnimation[i] = img.getSubimage(i * 32, 0, 32, 32);
 		}
+	}
+
+	public void loadLvlData(int[][] lvlData) {
+		this.lvlData = lvlData;
 	}
 
 	//TPH
