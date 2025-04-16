@@ -27,8 +27,13 @@ class LoadSaveTest {
 
 	@Test
 	void testGetLevelData() {
-		fail("Not yet implemented");
+	    // This test checks if level data is properly extracted from the level image
+	    int[][] levelData = LoadSave.getLevelData(); 
+	    assertNotNull(levelData, "Level data should not be null.");
+	    assertTrue(levelData.length > 0, "Level data should have rows.");
+	    assertTrue(levelData[0].length > 0, "Level data should have columns.");
 	}
+
 
 	@Test
 	void testGetLevelSpriteString() {
