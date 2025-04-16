@@ -127,4 +127,9 @@ public class Game implements Runnable {
 			}
 		}
 	}
+		// Calculates updates per second given update count and elapsed time in ms
+		public static int calculateUPS(int updates, long elapsedMillis) {
+			if (elapsedMillis == 0) return 0; // Avoid division by zero
+			return (int) (updates * 1000.0 / elapsedMillis);
+		}
 }
