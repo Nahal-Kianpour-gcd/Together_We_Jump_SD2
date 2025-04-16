@@ -157,4 +157,10 @@ public class Player extends Entity {
 	public float getY() {
 		return y;
 	}
+
+	@Override
+	protected void initHitBox() {
+		// TODO Auto-generated method stub
+		
+	}
 }
