@@ -14,14 +14,17 @@ class LevelManagerTest {
 	@Test
 	void testLevelManager() {
 		// Test that the LevelManager can be instantiated with a valid Game object
-		Game dummyGame = new Game(); // If your Game constructor launches UI, you may need to mock it
+		Game dummyGame = new Game(); // I used a dummy Game instance here; if the constructor launches the UI, I might need to mock it later
 		LevelManager manager = new LevelManager(dummyGame);
 		assertNotNull(manager, "LevelManager should be created and not null.");
 	}
-
+	
 	@Test
 	void testUpdate() {
-		fail("Not yet implemented");
+		// Ensure that the update method doesn't throw exceptions (currently empty method)
+		Game dummyGame = new Game();
+		LevelManager manager = new LevelManager(dummyGame);
+		assertDoesNotThrow(() -> manager.update(), "Update method should not throw exceptions.");
 	}
 
 	@Test
