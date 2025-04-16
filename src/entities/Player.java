@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import utilz.Constants;
 import utilz.LoadSave;
 import griffith.Game;
+import java.awt.Rectangle;
 
 
 public class Player extends Entity {
@@ -72,6 +73,7 @@ public class Player extends Entity {
 	updateAnimationTick(); // Updates animation frame based on timing
 	setAnimation();        // Sets the current animation state (idle or running)
 	updatePos();           // Updates the player's position (not shown here)
+	updateHitbox();
 }
 
 	private void updateAnimationTick() {
@@ -123,14 +125,16 @@ public class Player extends Entity {
 
 	// Renders the current frame of the player's animation on screen |NK
 	public void render(Graphics g) {
-	    // Determine which animation to use based on player action (idle or run)
+	   // Determine which animation to use based on player action (idle or run)
 	    BufferedImage[] currentAnimation = (playerAction == Constants.PlayerConstants.IDLE) ? idleAnimation : runAnimation;
 
 	    // Scale the character to be 2 tiles tall and 2 tiles wide
 	    int drawSize = Game.TILES_SIZE * 2;
 
 	    // Draw the current frame at the player's current position
-	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, drawSize, drawSize, null);
+	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, width, height, null); 
+		drawHitbox(g);
+		
 	}
 
 
@@ -160,7 +164,11 @@ public class Player extends Entity {
 
 	@Override
 	protected void initHitBox() {
-		// TODO Auto-generated method stub
-		
+		hitbox = new Rectangle((int) x, (int) y, width, height);
+	}
+
+	protected void updateHitbox() {
+		hitbox.x = (int) x;
+		hitbox.y = (int) y;
 	}
 }

@@ -1,5 +1,7 @@
 package entities;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 
 /**
@@ -28,8 +30,23 @@ public abstract class Entity {
         this.height = height;
         initHitBox();
     }
+    
+    protected void drawHitbox(Graphics g) {
+    	// For debugging hitBox
+    	g.setColor(Color.BLUE);
+    	g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+    }
+    
  // Initializes the hitbox for the object using its x, y, width, and height properties.
 	protected abstract void initHitBox(); {
 		hitbox = new Rectangle((int) x, (int) y, width, height);
+	}
+	protected void updateHitbox() {
+		hitbox.x = (int) x;
+		hitbox.y = (int) y;
+	}
+	
+	public Rectangle getHitbox() {
+		return hitbox;
 	}
 }
