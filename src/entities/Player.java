@@ -71,7 +71,11 @@ public class Player extends Entity {
 	}
 
 	public void loadLvlData(int[][] lvlData) {
-		this.lvlData = lvlData;
+		if (lvlData == null) {
+			this.lvlData = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
+		} else {
+			this.lvlData = lvlData;
+		}
 	}
 
 	//TPH

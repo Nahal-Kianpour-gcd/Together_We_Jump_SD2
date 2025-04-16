@@ -44,6 +44,10 @@ public class Game implements Runnable {
 	    levelManager = new LevelManager(this);
 	    player1 = new Player(200, 200, 64, 64, "/image-resources/Main_Characters/Ninja_Frog");
 	    player2 = new Player(300, 200, 64, 64, "/image-resources/Main_Characters/Virtual_Guy");
+	    
+	    // Initialize level data for both players
+	    player1.loadLvlData(levelManager.getCurrentLevel().getLevelData());
+	    player2.loadLvlData(levelManager.getCurrentLevel().getLevelData());
 	}
 
 	

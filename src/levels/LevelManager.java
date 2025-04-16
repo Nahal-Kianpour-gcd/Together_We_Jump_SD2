@@ -67,4 +67,7 @@ public class LevelManager {
     public void update() {
         // Will be implemented later for level mechanics
     }
+    public Level getCurrentLevel() {
+    	return levelOne;
+    }
 }
