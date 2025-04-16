@@ -20,7 +20,9 @@ class LoadSaveTest {
 
 	@Test
 	void testGetLevelSprite() {
-		fail("Not yet implemented");
+		// This tests whether the level sprite loads correctly
+		BufferedImage result = LoadSave.getLevelSprite();
+		assertNotNull(result, "Level sprite should not be null.");
 	}
 
 	@Test
