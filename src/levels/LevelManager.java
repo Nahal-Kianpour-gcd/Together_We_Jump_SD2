@@ -70,4 +70,9 @@ public class LevelManager {
     public Level getCurrentLevel() {
     	return levelOne;
     }
+
+	public static int[][] getLevelData(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -9,6 +9,7 @@ import utilz.Constants;
 import utilz.LoadSave;
 import griffith.Game;
 import java.awt.Rectangle;
+import static utilz.HelpMethods.CanMoveHere;
 
 
 public class Player extends Entity {
@@ -74,7 +75,13 @@ public class Player extends Entity {
 
 	public void loadLvlData(int[][] lvlData) {
 		if (lvlData == null) {
+			// Create an empty level data array with all walkable tiles (11)
 			this.lvlData = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
+			for (int i = 0; i < Game.TILES_IN_HEIGHT; i++) {
+				for (int j = 0; j < Game.TILES_IN_WIDTH; j++) {
+					this.lvlData[i][j] = 11; // 11 represents a walkable tile
+				}
+			}
 		} else {
 			this.lvlData = lvlData;
 		}
@@ -124,21 +131,25 @@ public class Player extends Entity {
 			return;
 		
 		float xSpeed = 0, ySpeed = 0;
+		
 		// Determine horizontal movement
 		if (left && !right) 
 			xSpeed = -playerSpeed;
-			
-		 else if (right && !left) 
+		else if (right && !left) 
 			xSpeed = playerSpeed;
-			
 		
-		
+		// Determine vertical movement
 		if (up && !down) 
 			ySpeed = -playerSpeed;
-			
 		else if (down && !up) 
-			ySpeed = -playerSpeed;
-			
+			ySpeed = playerSpeed;
+		
+		// Update position if movement is possible
+		if (lvlData == null || CanMoveHere(x+xSpeed, y+ySpeed, width, height, lvlData)) {
+			this.x += xSpeed;
+			this.y += ySpeed;
+			moving = true;
+		}
 	}
 		
 			
@@ -179,16 +190,16 @@ public class Player extends Entity {
 	// Sets the player's movement direction and marks the player as moving
 	public void setDirection(int direction, boolean isPressed) {
 		switch(direction) {
-			case Constants.Directions.LEFT:
+			case 0: // LEFT
 				left = isPressed;
 				break;
-			case Constants.Directions.RIGHT:
-				right = isPressed;
-				break;
-			case Constants.Directions.UP:
+			case 1: // UP
 				up = isPressed;
 				break;
-			case Constants.Directions.DOWN:
+			case 2: // RIGHT
+				right = isPressed;
+				break;
+			case 3: // DOWN
 				down = isPressed;
 				break;
 		}

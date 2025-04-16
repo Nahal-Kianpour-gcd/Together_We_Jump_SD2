@@ -84,8 +84,8 @@ public class GamePanel extends JPanel {
 	}
 
 	private void initializePlayers() {
-	    player1 = new Player(100, 100, 64, 64, "/image-resources/Main_Characters/Ninja_Frog");
-	    player2 = new Player(200, 100, 64, 64, "/image-resources/Main_Characters/Virtual_Guy");
+		player1 = game.getPlayer1();
+		player2 = game.getPlayer2();
 	}
 
 	/* Old animation methods - Start */
@@ -221,47 +221,24 @@ public class GamePanel extends JPanel {
 	    setMaximumSize(size);    // Maximum allowed panel size
 	}
 
-	public void setDirection(int direction, boolean isPlayer1, boolean isPressed) {
+	public void setDirection(int direction, boolean isPlayer1) {
 		if (isPlayer1) {
-			player1.setDirection(direction, isPressed);
+			player1.setDirection(direction, true);
 		} else {
-			player2.setDirection(direction, isPressed);
+			player2.setDirection(direction, true);
 		}
 	}
 
 	public void setMoving(boolean moving, boolean isPlayer1) {
 		if (isPlayer1) {
-			/* Old moving code - Start */
-			/*
-			moving1 = moving;
-			if (!moving) {
-				aniIndex1 = 0;
-			}
-			*/
-			/* Old moving code - End */
 			player1.setMoving(moving);
 		} else {
-			/* Old moving code - Start */
-			/*
-			moving2 = moving;
-			if (!moving) {
-				aniIndex2 = 0;
-			}
-			*/
-			/* Old moving code - End */
 			player2.setMoving(moving);
 		}
 	}
 
 	public void updateGame() {
 		keyboardInputs.update();
-		/* Old update code - Start */
-		/*
-		updateAnimationTick();
-		setAnimation();
-		updatePos();
-		*/
-		/* Old update code - End */
 		player1.update();
 		player2.update();
 	}
@@ -269,26 +246,9 @@ public class GamePanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		/* Old render code - Start */
-		/*
-		//Draw Player 1
-		if (playerAction1 == 0) { //Idle
-			g.drawImage(idleAnimation1[aniIndex1], (int) xDelta, (int) yDelta, 96, 96, null);
-		} else { //Running
-			g.drawImage(runAnimation1[aniIndex1], (int) xDelta, (int) yDelta, 96, 96, null);
-		}
-
-		//Draw Player 2
-		if (playerAction2 == 0) { //Idle
-			g.drawImage(idleAnimation2[aniIndex2], (int) xDelta2, (int) yDelta2, 96, 96, null);
-		} else { // Running
-			g.drawImage(runAnimation2[aniIndex2], (int) xDelta2, (int) yDelta2, 96, 96, null);
-		}
-		*/
-		/* Old render code - End */
+		game.render(g); // Draw background first
 		player1.render(g);
 		player2.render(g);
-		game.render(g); // draws background, level, etc
 	}
 	// Returns Player 1's current X position
 	public float getXDelta1() {

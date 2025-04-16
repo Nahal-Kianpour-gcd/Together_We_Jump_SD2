@@ -38,37 +38,37 @@ public class KeyboardInputs implements KeyListener {
 			// Player 1 controls (WASD)
 			case KeyEvent.VK_W:
 				wPressed = true;
-				gamePanel.setDirection(Constants.Directions.UP, true, true);
+				gamePanel.setDirection(1, true); // UP for Player 1
 				break;
 			case KeyEvent.VK_A:
 				aPressed = true;
-				gamePanel.setDirection(Constants.Directions.LEFT, true, true);
+				gamePanel.setDirection(0, true); // LEFT for Player 1
 				break;
 			case KeyEvent.VK_S:
 				sPressed = true;
-				gamePanel.setDirection(Constants.Directions.DOWN, true, true);
+				gamePanel.setDirection(3, true); // DOWN for Player 1
 				break;
 			case KeyEvent.VK_D:
 				dPressed = true;
-				gamePanel.setDirection(Constants.Directions.RIGHT, true, true);
+				gamePanel.setDirection(2, true); // RIGHT for Player 1
 				break;
 				
 			// Player 2 controls (Arrow keys)
 			case KeyEvent.VK_UP:
 				upPressed = true;
-				gamePanel.setDirection(Constants.Directions.UP, false, true);
+				gamePanel.setDirection(1, false); // UP for Player 2
 				break;
 			case KeyEvent.VK_LEFT:
 				leftPressed = true;
-				gamePanel.setDirection(Constants.Directions.LEFT, false, true);
+				gamePanel.setDirection(0, false); // LEFT for Player 2
 				break;
 			case KeyEvent.VK_DOWN:
 				downPressed = true;
-				gamePanel.setDirection(Constants.Directions.DOWN, false, true);
+				gamePanel.setDirection(3, false); // DOWN for Player 2
 				break;
 			case KeyEvent.VK_RIGHT:
 				rightPressed = true;
-				gamePanel.setDirection(Constants.Directions.RIGHT, false, true);
+				gamePanel.setDirection(2, false); // RIGHT for Player 2
 				break;
 		}
 	}
@@ -79,61 +79,61 @@ public class KeyboardInputs implements KeyListener {
 			// Player 1 controls (WASD)
 			case KeyEvent.VK_W:
 				wPressed = false;
-				gamePanel.setDirection(Constants.Directions.UP, true, false);
+				if (!wPressed && !aPressed && !sPressed && !dPressed)
+					gamePanel.setMoving(false, true);
 				break;
 			case KeyEvent.VK_A:
 				aPressed = false;
-				gamePanel.setDirection(Constants.Directions.LEFT, true, false);
+				if (!wPressed && !aPressed && !sPressed && !dPressed)
+					gamePanel.setMoving(false, true);
 				break;
 			case KeyEvent.VK_S:
 				sPressed = false;
-				gamePanel.setDirection(Constants.Directions.DOWN, true, false);
+				if (!wPressed && !aPressed && !sPressed && !dPressed)
+					gamePanel.setMoving(false, true);
 				break;
 			case KeyEvent.VK_D:
 				dPressed = false;
-				gamePanel.setDirection(Constants.Directions.RIGHT, true, false);
+				if (!wPressed && !aPressed && !sPressed && !dPressed)
+					gamePanel.setMoving(false, true);
 				break;
 				
 			// Player 2 controls (Arrow keys)
 			case KeyEvent.VK_UP:
 				upPressed = false;
-				gamePanel.setDirection(Constants.Directions.UP, false, false);
+				if (!upPressed && !leftPressed && !downPressed && !rightPressed)
+					gamePanel.setMoving(false, false);
 				break;
 			case KeyEvent.VK_LEFT:
 				leftPressed = false;
-				gamePanel.setDirection(Constants.Directions.LEFT, false, false);
+				if (!upPressed && !leftPressed && !downPressed && !rightPressed)
+					gamePanel.setMoving(false, false);
 				break;
 			case KeyEvent.VK_DOWN:
 				downPressed = false;
-				gamePanel.setDirection(Constants.Directions.DOWN, false, false);
+				if (!upPressed && !leftPressed && !downPressed && !rightPressed)
+					gamePanel.setMoving(false, false);
 				break;
 			case KeyEvent.VK_RIGHT:
 				rightPressed = false;
-				gamePanel.setDirection(Constants.Directions.RIGHT, false, false);
+				if (!upPressed && !leftPressed && !downPressed && !rightPressed)
+					gamePanel.setMoving(false, false);
 				break;
-		}
-		
-		// Check if any movement keys are still pressed for each player
-		if(!wPressed && !aPressed && !sPressed && !dPressed) {
-			gamePanel.setMoving(false, true); // Player 1 (WASD)
-		}
-		if(!upPressed && !leftPressed && !downPressed && !rightPressed) {
-			gamePanel.setMoving(false, false); // Player 2 (Arrow keys)
 		}
 	}
 
 	public void update() {
 		// First player movement (WASD)
-		if (wPressed) gamePanel.setDirection(Constants.Directions.UP, true, true);
-		if (sPressed) gamePanel.setDirection(Constants.Directions.DOWN, true, true);
-		if (aPressed) gamePanel.setDirection(Constants.Directions.LEFT, true, true);
-		if (dPressed) gamePanel.setDirection(Constants.Directions.RIGHT, true, true);
+		if (wPressed) gamePanel.setDirection(1, true); // UP
+		if (sPressed) gamePanel.setDirection(3, true); // DOWN
+		if (aPressed) gamePanel.setDirection(0, true); // LEFT
+		if (dPressed) gamePanel.setDirection(2, true); // RIGHT
 
 		// Second player movement (Arrow keys)
-		if (upPressed) gamePanel.setDirection(Constants.Directions.UP, false, true);
-		if (downPressed) gamePanel.setDirection(Constants.Directions.DOWN, false, true);
-		if (leftPressed) gamePanel.setDirection(Constants.Directions.LEFT, false, true);
-		if (rightPressed) gamePanel.setDirection(Constants.Directions.RIGHT, false, true);
+		if (upPressed) gamePanel.setDirection(1, false); // UP
+		if (downPressed) gamePanel.setDirection(3, false); // DOWN
+		if (leftPressed) gamePanel.setDirection(0, false); // LEFT
+		if (rightPressed) gamePanel.setDirection(2, false); // RIGHT
 	}
 
 }
