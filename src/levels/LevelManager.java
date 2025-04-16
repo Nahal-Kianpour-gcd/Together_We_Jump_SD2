@@ -18,7 +18,7 @@ public class LevelManager {
         System.out.println("Initializing LevelManager...");
         //System.out.println("Attempting to load level sprites from: " + LoadSave.LEVEL_SPRITES);
         importLevelSprites();
-        levelOne = new Level(LoadSave.GetLevelData());
+        levelOne = new Level(LoadSave.getLevelData());
     }
     
     /**
