@@ -1,20 +1,24 @@
-package griffith;
+package testcases;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import inputs.KeyboardInputs;
 import java.awt.event.KeyEvent;
+import griffith.GamePanel;
+import griffith.Game;
 
 class GamePanelTest {
 	private GamePanel gamePanel;
 	private KeyboardInputs keyboardInputs;
-	/*
+	
 	@BeforeEach
 	public void setUp() {
-		gamePanel = new GamePanel();
+		/*gamePanel = new GamePanel();*/
+		Game game = new Game();  // Create a Game instance
+		gamePanel = new GamePanel(game);
 		keyboardInputs = new KeyboardInputs(gamePanel);
-	}*/
+	}
 
 	@Test
 	public void testPlayer1MovesLeft() {
