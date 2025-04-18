@@ -39,7 +39,7 @@ class LoadSaveTest {
 	@Test
 	void testGetLevelSpriteString() {
 		// This tests loading a specific named sprite by path (likely used internally)
-		BufferedImage result = LoadSave.getLevelSprite("outside_sprites.png");
+		BufferedImage result = LoadSave.getLevelSprite("/image-resources/World/world_set/outside_sprites.png");
 		assertNotNull(result, "Named level sprite should not be null.");
 	}
 
