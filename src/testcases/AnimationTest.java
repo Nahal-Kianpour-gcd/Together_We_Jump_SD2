@@ -21,4 +21,11 @@ public class AnimationTest {
 	        int actual = Constants.getSpriteAmount(Constants.PlayerConstants.RUNNING);
 	        assertEquals(expected, actual);
 	    }
+	 
+	 @Test
+	    void testGetSpriteAmount_unknown() {
+	        int expected = 0;
+	        int actual = Constants.getSpriteAmount(999);
+	        assertEquals(expected, actual);
+	    }
 }
