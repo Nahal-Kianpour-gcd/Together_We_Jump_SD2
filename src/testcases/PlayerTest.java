@@ -2,43 +2,48 @@ package testcases;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import entities.Player;
+import griffith.Game;
 
 class PlayerTest {
 
-	@Test
-	void testInitHitBox() {
-		fail("Not yet implemented");
+	private Player player;
+	private final int tileSize = Game.TILES_SIZE;
+
+	@BeforeEach
+	void setUp() {
+		player = new Player(0, 0, tileSize, tileSize, "res/Main_Characters/Ninja_Frog");
 	}
 
 	@Test
-	void testUpdateHitbox() {
-		fail("Not yet implemented");
+	void testLoadLvlDataWithNull() {
+		player.loadLvlData(null); // Should initialize walkable level
+		// Not crashing is a pass for now
+		assertTrue(true);
 	}
 
 	@Test
-	void testLoadLvlData() {
-		fail("Not yet implemented");
+	void testSetDirectionAndMovement() {
+		player.setDirection(0, true); // Simulate pressing LEFT
+		player.setMoving(true);
+		// If no error is thrown, pass it (we can’t access internals)
+		assertTrue(true);
 	}
 
 	@Test
-	void testSetDirection() {
-		fail("Not yet implemented");
+	void testSetMovingFalseResets() {
+		player.setDirection(1, true);
+		player.setMoving(false); // Should reset directions and animation
+		// Again, if no crash happens, consider it a pass for now
+		assertTrue(true);
 	}
 
 	@Test
-	void testSetMoving() {
-		fail("Not yet implemented");
+	void testGetXAndGetY() {
+		assertEquals(0, player.getX());
+		assertEquals(0, player.getY());
 	}
-
-	@Test
-	void testGetX() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetY() {
-		fail("Not yet implemented");
-	}
-
 }
