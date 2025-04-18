@@ -155,7 +155,7 @@ public class Player extends Entity {
 		int directionY = up ? 1 : (down ? -1 : 0); 
 		
 		// Update position if movement is possible
-		if (lvlData == null || CanMoveHere(x + xSpeed, y + ySpeed, width, height, lvlData)) {
+		if (lvlData == null || CanMoveHere(x+xSpeed, y+ySpeed, width, height, lvlData, directionX, directionY)) {
 			this.x += xSpeed;
 			this.y += ySpeed;
 			moving = true;
