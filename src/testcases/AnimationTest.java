@@ -14,4 +14,11 @@ public class AnimationTest {
 	        int actual = Constants.getSpriteAmount(Constants.IDLE_FRAMES);
 	        assertEquals(expected, actual);
 	    }
+	 
+	 @Test
+	    void testGetSpriteAmount_running() {
+	        int expected = Constants.RUN_FRAMES;
+	        int actual = Constants.getSpriteAmount(Constants.PlayerConstants.RUNNING);
+	        assertEquals(expected, actual);
+	    }
 }
