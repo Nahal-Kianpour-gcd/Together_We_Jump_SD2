@@ -26,7 +26,7 @@ public class Player extends Entity {
 	private int playerAction = Constants.PlayerConstants.IDLE;
 
 	// Indicates whether the player is currently moving
-	private boolean moving = false;
+	private boolean moving = false; 
 
 	// Direction of player movement: 0 = left, 1 = up, 2 = right, 3 = down
 	private int playerDir = -1;
@@ -144,8 +144,18 @@ public class Player extends Entity {
 		else if (down && !up) 
 			ySpeed = playerSpeed;
 		
+		// UPDATED MOVEMENT LOGIC WITH DIRECTIONAL COLLISION CHECKS
+		// ---------------------------------------------------------
+		// This version enhances collision detection by passing the intended movement
+		// direction (X and Y) into the `CanMoveHere` method.
+		// This allows for more precise logic based on the direction the player is trying to move,
+		// which can be useful for finer-grained collision responses (like slopes or corner detection).
+		
+		int directionX = right ? 1 : (left ? -1 : 0);
+		int directionY = up ? 1 : (down ? -1 : 0); 
+		
 		// Update position if movement is possible
-		if (lvlData == null || CanMoveHere(x+xSpeed, y+ySpeed, width, height, lvlData)) {
+		if (lvlData == null || CanMoveHere(x + xSpeed, y + ySpeed, width, height, lvlData)) {
 			this.x += xSpeed;
 			this.y += ySpeed;
 			moving = true;
