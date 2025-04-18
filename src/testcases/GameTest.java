@@ -13,4 +13,26 @@ class GameTest {
 		int ups = Game.calculateUPS(200, 1000);
 		assertEquals(200, ups, "Expected 200 UPS when 200 updates happen in 1 second.");
 	}
+	
+	@Test
+	void testCalculateUPSFastTime() {
+	    // Given: 100 updates in 500ms should mean 200 UPS
+	    int updates = 100;
+	    long timeMillis = 500;
+
+	    int result = Game.calculateUPS(updates, timeMillis);
+
+	    assertEquals(200, result, "UPS should scale correctly with faster update timing.");
+	}
+	
+    @Test
+    void testCalculateUPS_ZeroUpdates() {
+        int updates = 0;
+        long timeMillis = 1000;
+
+        int result = Game.calculateUPS(updates, timeMillis);
+
+        assertEquals(0, result, "UPS should be 0 when there are no updates.");
+    }
+
 }
