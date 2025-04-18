@@ -172,7 +172,7 @@ public class Player extends Entity {
 			}
 		}*/
 	
-
+	/*
 	// Renders the current frame of the player's animation on screen |NK
 	public void render(Graphics g) {
 	   // Determine which animation to use based on player action (idle or run)
@@ -185,6 +185,25 @@ public class Player extends Entity {
 	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, width, height, null); 
 		drawHitbox(g);
 		
+	}*/
+	
+	// Renders the current frame of the player's animation on screen |NK
+	public void render(Graphics g) {
+	    // Determine which animation to use based on player action (idle or run)
+	    BufferedImage[] currentAnimation = (playerAction == Constants.PlayerConstants.IDLE) ? idleAnimation : runAnimation;
+
+	    // SAFETY CHECK: Ensure aniIndex doesn't exceed animation array length
+	    // This prevents ArrayIndexOutOfBoundsException when rendering the frame
+	    if (aniIndex >= currentAnimation.length) {
+	        aniIndex = 0; // Reset animation frame index if it's out of bounds
+	    }
+
+	    // Scale the character to be 2 tiles tall and 2 tiles wide
+	    int drawSize = Game.TILES_SIZE * 2;
+
+	    // Draw the current animation frame at the player's current position
+	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, width, height, null); 
+	    drawHitbox(g);
 	}
 
 
