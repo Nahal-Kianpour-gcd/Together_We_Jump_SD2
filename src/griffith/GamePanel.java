@@ -89,7 +89,7 @@ public class GamePanel extends JPanel {
 	}
 
 	/* Old animation methods - Start */
-	/*
+	/* POLINA SHTEFAN
 	private void loadAnimations() {
 		idleAnimation1 = new BufferedImage[IDLE_FRAMES];
 		runAnimation1 = new BufferedImage[RUN_FRAMES];
@@ -102,6 +102,7 @@ public class GamePanel extends JPanel {
 		loadAnimation("/image-resources/Main_Characters/Virtual_Guy/Run (32x32).png", runAnimation2);
 	}
 
+	POLINA SHTEFAN
 	private void loadAnimation(String path, BufferedImage[] animation) {
 		try {
 			InputStream is = getClass().getResourceAsStream(path);
@@ -121,6 +122,7 @@ public class GamePanel extends JPanel {
 		}
 	}
 
+	POLINA SHTEFAN
 	private void setAnimation() {
 		//Set Player 1 animation state
 		if (moving1) {
