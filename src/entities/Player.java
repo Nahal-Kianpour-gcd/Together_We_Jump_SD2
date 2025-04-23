@@ -9,6 +9,7 @@ import utilz.Constants;
 import utilz.LoadSave;
 import griffith.Game;
 import java.awt.Rectangle;
+import static utilz.HelpMethods.CanMoveHere;
 
 
 public class Player extends Entity {
@@ -29,6 +30,8 @@ public class Player extends Entity {
 
 	// Direction of player movement: 0 = left, 1 = up, 2 = right, 3 = down
 	private int playerDir = -1;
+	private float playerSpeed = 3.0f;
+	private boolean left, right, up, down;
 
 	// File path to the character's sprite sheet (used for loading animations)- TPH
 	private String characterPath;
@@ -72,7 +75,13 @@ public class Player extends Entity {
 
 	public void loadLvlData(int[][] lvlData) {
 		if (lvlData == null) {
+			// Create an empty level data array with all walkable tiles (11)
 			this.lvlData = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
+			for (int i = 0; i < Game.TILES_IN_HEIGHT; i++) {
+				for (int j = 0; j < Game.TILES_IN_WIDTH; j++) {
+					this.lvlData[i][j] = 11; // 11 represents a walkable tile
+				}
+			}
 		} else {
 			this.lvlData = lvlData;
 		}
@@ -116,7 +125,37 @@ public class Player extends Entity {
 
 	// Updates the player's position based on movement direction
 	private void updatePos() {
-		if (moving) { // Only update position if the player is currently moving
+		moving = false;
+		// If no movement keys are pressed, exit early
+		if(!left && !right && !up && !down)
+			return;
+		float xSpeed = 0, ySpeed = 0;
+		
+		// Determine horizontal movement
+		if (left && !right) 
+			xSpeed = -playerSpeed;
+		else if (right && !left) 
+			xSpeed = playerSpeed;
+		
+		// Determine vertical movement
+		if (up && !down) 
+			ySpeed = -playerSpeed;
+		else if (down && !up) 
+			ySpeed = playerSpeed;
+		
+		int directionX = right ? 1 : (left ? -1 : 0);
+		int directionY = up ? 1 : (down ? -1 : 0);
+		// Update position if movement is possible
+		if (lvlData == null || CanMoveHere(x+xSpeed, y+ySpeed, width, height, lvlData, directionX, directionY)) {
+			this.x += xSpeed;
+			this.y += ySpeed;
+			moving = true;
+		}
+	}
+		
+			
+			
+		/*if (moving) { // Only update position if the player is currently moving
 			switch (playerDir) {
 				case Constants.Directions.LEFT:
 					x -= 3; // Move left by 3 units
@@ -131,9 +170,9 @@ public class Player extends Entity {
 					y += 3; // Move down by 3 units
 					break;
 			}
-		}
-	}
-
+		}*/
+	
+	/*
 	// Renders the current frame of the player's animation on screen |NK
 	public void render(Graphics g) {
 	   // Determine which animation to use based on player action (idle or run)
@@ -146,13 +185,44 @@ public class Player extends Entity {
 	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, width, height, null); 
 		drawHitbox(g);
 		
+	}*/
+	
+	// Renders the current frame of the player's animation on screen |NK
+	public void render(Graphics g) {
+	    // Determine which animation to use based on player action (idle or run)
+	    BufferedImage[] currentAnimation = (playerAction == Constants.PlayerConstants.IDLE) ? idleAnimation : runAnimation;
+
+	    // SAFETY CHECK: Ensure aniIndex doesn't exceed animation array length
+	    // This prevents ArrayIndexOutOfBoundsException when rendering the frame
+	    if (aniIndex >= currentAnimation.length) {
+	        aniIndex = 0; // Reset animation frame index if it's out of bounds
+	    }
+
+	    // Scale the character to be 2 tiles tall and 2 tiles wide
+	    int drawSize = Game.TILES_SIZE * 2;
+
+	    // Draw the current animation frame at the player's current position
+	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, width, height, null); 
+	    drawHitbox(g);
 	}
 
 
 	// Sets the player's movement direction and marks the player as moving
-	public void setDirection(int direction) {
-		this.playerDir = direction;
-		this.moving = true;
+	public void setDirection(int direction, boolean isPressed) {
+		switch(direction) {
+			case 0: // LEFT
+				left = isPressed;
+				break;
+			case 1: // UP
+				up = isPressed;
+				break;
+			case 2: // RIGHT
+				right = isPressed;
+				break;
+			case 3: // DOWN
+				down = isPressed;
+				break;
+		}
 	}
 
 	// Sets the moving status of the player
@@ -160,6 +230,7 @@ public class Player extends Entity {
 		this.moving = moving;
 		if (!moving) {
 			aniIndex = 0; // Reset animation frame to the beginning when movement stops
+			up = down = left = right = false;
 		}
 	}
 

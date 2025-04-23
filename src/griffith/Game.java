@@ -46,8 +46,9 @@ public class Game implements Runnable {
 	    player2 = new Player(300, 200, 64, 64, "/image-resources/Main_Characters/Virtual_Guy");
 	    
 	    // Initialize level data for both players
-	    player1.loadLvlData(levelManager.getCurrentLevel().getLevelData());
-	    player2.loadLvlData(levelManager.getCurrentLevel().getLevelData());
+	    int[][] levelData = levelManager.getCurrentLevel().getLevelData();
+	    player1.loadLvlData(levelData);
+	    player2.loadLvlData(levelData);
 	}
 
 	
@@ -94,7 +95,7 @@ public class Game implements Runnable {
 			previousTime = currentTime; // Update the previousTime to the currentTime for the next loop iteration 
 			// Check if enough time has accumulated to perform a game update
 			if (deltaU >= 1) {
-			    // update(); // Game update logic would go here
+			    update(); // Call the update method to update game state
 			    updates++;   // Increment the update counter
 			    deltaU--;    // Reduce deltaU by 1 after each update
 			}
@@ -126,4 +127,9 @@ public class Game implements Runnable {
 			}
 		}
 	}
+		// Calculates updates per second given update count and elapsed time in ms
+		public static int calculateUPS(int updates, long elapsedMillis) {
+			if (elapsedMillis == 0) return 0; // Avoid division by zero
+			return (int) (updates * 1000.0 / elapsedMillis);
+		}
 }

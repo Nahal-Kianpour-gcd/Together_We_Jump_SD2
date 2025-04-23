@@ -72,7 +72,7 @@ public class LoadSave {
 	 * 
 	 * @return A 2D array representing tile indices
 	 */
-	public static int[][] GetLevelData() {
+	public static int[][] getLevelData() {
 		int[][] lvlData = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
 		BufferedImage img = getLevelSprite(Level_One_Data);
 
