@@ -239,6 +239,14 @@ public class GamePanel extends JPanel {
 		}
 	}
 
+	public void setJump(boolean jumping, boolean isPlayer1) {
+		if (isPlayer1) {
+			player1.setJump(jumping);
+		} else {
+			player2.setJump(jumping);
+		}
+	}
+
 	public void updateGame() {
 		keyboardInputs.update();
 		player1.update();

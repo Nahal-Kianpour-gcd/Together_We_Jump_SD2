@@ -52,6 +52,9 @@ public class KeyboardInputs implements KeyListener {
 				dPressed = true;
 				gamePanel.setDirection(2, true); // RIGHT for Player 1
 				break;
+			case KeyEvent.VK_SPACE:
+				gamePanel.setJump(true, true); // Jump for Player 1
+				break;
 				
 			// Player 2 controls (Arrow keys)
 			case KeyEvent.VK_UP:
@@ -69,6 +72,9 @@ public class KeyboardInputs implements KeyListener {
 			case KeyEvent.VK_RIGHT:
 				rightPressed = true;
 				gamePanel.setDirection(2, false); // RIGHT for Player 2
+				break;
+			case KeyEvent.VK_ENTER:
+				gamePanel.setJump(true, false); // Jump for Player 2
 				break;
 		}
 	}
@@ -97,6 +103,9 @@ public class KeyboardInputs implements KeyListener {
 				if (!wPressed && !aPressed && !sPressed && !dPressed)
 					gamePanel.setMoving(false, true);
 				break;
+			case KeyEvent.VK_SPACE:
+				gamePanel.setJump(false, true); // Stop jump for Player 1
+				break;
 				
 			// Player 2 controls (Arrow keys)
 			case KeyEvent.VK_UP:
@@ -118,6 +127,9 @@ public class KeyboardInputs implements KeyListener {
 				rightPressed = false;
 				if (!upPressed && !leftPressed && !downPressed && !rightPressed)
 					gamePanel.setMoving(false, false);
+				break;
+			case KeyEvent.VK_ENTER:
+				gamePanel.setJump(false, false); // Stop jump for Player 2
 				break;
 		}
 	}

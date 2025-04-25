@@ -47,6 +47,19 @@ public class Game implements Runnable {
 	    
 	    // Initialize level data for both players
 	    int[][] levelData = levelManager.getCurrentLevel().getLevelData();
+	    if (levelData == null) {
+	        // Create a basic level with solid ground if level data is null
+	        levelData = new int[TILES_IN_HEIGHT][TILES_IN_WIDTH];
+	        for (int i = 0; i < TILES_IN_HEIGHT; i++) {
+	            for (int j = 0; j < TILES_IN_WIDTH; j++) {
+	                // Make bottom row and sides solid
+	                if (i == TILES_IN_HEIGHT - 1 || j == 0 || j == TILES_IN_WIDTH - 1)
+	                    levelData[i][j] = 0;  // Solid tile
+	                else
+	                    levelData[i][j] = 11; // Empty tile
+	            }
+	        }
+	    }
 	    player1.loadLvlData(levelData);
 	    player2.loadLvlData(levelData);
 	}
