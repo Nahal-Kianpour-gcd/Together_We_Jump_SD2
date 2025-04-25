@@ -29,7 +29,7 @@ public abstract class Entity {
         this.y = y;
         this.width = width;
         this.height = height;
-//        initHitBox();
+        initHitBox();
     }
     
     protected void drawHitbox(Graphics g) {
@@ -49,5 +49,10 @@ public abstract class Entity {
 	
 	public Rectangle2D.Float getHitbox() {
 		return hitbox;
+	}
+
+	protected void initHitBox() {
+		// TODO Auto-generated method stub
+		
 	}
 }

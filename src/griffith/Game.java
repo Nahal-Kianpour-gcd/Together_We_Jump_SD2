@@ -17,7 +17,7 @@ public class Game implements Runnable {
 	private final int UPS_SET =200; // Target updates per second (UPS) for the game loop |Nk
 	
 	public final static int TILES_DEFULAT_SIZE = 32;      // Default pixel size of a single tile (before scaling) |NK
-	public final static float SCALE = 1.0f;                // Scale factor to enlarge or shrink tiles (1.0 = original size)
+	public final static float SCALE = 1f;                // Scale factor to enlarge or shrink tiles (1.0 = original size)
 	public final static int TILES_IN_WIDTH = 26;           // Number of tiles horizontally across the game screen
 	public final static int TILES_IN_HEIGHT = 14;          // Number of tiles vertically down the game screen
 	public final static int TILES_SIZE = (int)(TILES_DEFULAT_SIZE * SCALE); // Final scaled tile size in pixels

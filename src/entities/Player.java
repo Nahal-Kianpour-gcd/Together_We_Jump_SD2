@@ -9,6 +9,8 @@ import utilz.Constants;
 import utilz.LoadSave;
 import griffith.Game;
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
+
 import static utilz.HelpMethods.CanMove;;
 
 
@@ -38,15 +40,15 @@ public class Player extends Entity {
 	// Loads level data into the class by assigning the provided 2D array to lvlData.
 
 	private int[][] lvlData;
-	private float xDrawOffSet = 21 * Game.SCALE;
-	private float yDrawOffSet = 4 *Game.SCALE;
+	private float xDrawOffSet = 0;
+	private float yDrawOffSet = 0;
 
 	// Player constructor that sets position and character sprite path
 	public Player(float x, float y, int width, int height, String characterPath) {
 	    super(x, y, width, height); 
 	    this.characterPath = characterPath;
 	    loadAnimations();
-	    initHitBox(x, y, 20 * Game.SCALE, 28 * Game.SCALE);
+	    initHitBox(x, y, 32 * Game.SCALE, 35 * Game.SCALE);
 	}
 
 	// Loads the idle and run animations for this player
@@ -96,7 +98,7 @@ public class Player extends Entity {
 	updateAnimationTick(); // Updates animation frame based on timing
 	setAnimation();        // Sets the current animation state (idle or running)
 	updatePos();           // Updates the player's position (not shown here)
-	updateHitbox();
+//	updateHitbox();
 }
 
 	private void updateAnimationTick() {
@@ -149,9 +151,15 @@ public class Player extends Entity {
 		int directionX = right ? 1 : (left ? -1 : 0);
 		int directionY = up ? 1 : (down ? -1 : 0);		
 		// Update position if movement is possible
-		if (lvlData == null || CanMove(x+xSpeed, y+ySpeed, width, height, lvlData, directionX, directionY)) {
-			this.x += xSpeed;
-			this.y += ySpeed;
+//		if (lvlData == null || CanMove(x+xSpeed, y+ySpeed, width, height, lvlData, directionX, directionY)) {
+//			this.x += xSpeed;
+//			this.y += ySpeed;
+//			moving = true;
+//		}
+		
+		if (lvlData == null || CanMove(hitbox.x + xSpeed, hitbox.y + ySpeed, hitbox.width, hitbox.height, lvlData, directionX, directionY)) {
+			hitbox.x += xSpeed;
+			hitbox.y += ySpeed;
 			moving = true;
 		}
 	}
@@ -181,11 +189,13 @@ public class Player extends Entity {
 	   // Determine which animation to use based on player action (idle or run)
 	    BufferedImage[] currentAnimation = (playerAction == Constants.PlayerConstants.IDLE) ? idleAnimation : runAnimation;
 
-	    // Scale the character to be 2 tiles tall and 2 tiles wide
-	    int drawSize = Game.TILES_SIZE * 2;
-
-	    // Draw the current frame at the player's current position
-	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, width, height, null); 
+	    // Ensure aniIndex is within bounds
+	    if (aniIndex >= currentAnimation.length) {
+	        aniIndex = 0;
+	    }
+	    
+	    // Draw the current frame at the player's current position with smaller dimensions
+	    g.drawImage(currentAnimation[aniIndex], (int)(hitbox.x - xDrawOffSet), (int)(hitbox.y - yDrawOffSet), null); 
 		drawHitbox(g);
 		
 	}
@@ -230,7 +240,7 @@ public class Player extends Entity {
 
 	@Override
 	protected void initHitBox() {
-		hitbox = new Rectangle((int) x, (int) y, width, height);
+		hitbox = new Rectangle2D.Float((int) x, (int) y, width, height);
 	}
 
 	protected void updateHitbox() {
@@ -240,7 +250,6 @@ public class Player extends Entity {
 
 	@Override
 	protected void initHitBox(float x, float y, float width, float height) {
-		// TODO Auto-generated method stub
-		
+		hitbox = new Rectangle2D.Float(x, y, 32 * Game.SCALE, 35 * Game.SCALE);
 	}
 }

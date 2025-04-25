@@ -5,6 +5,7 @@ import griffith.Game;
 public class HelpMethods {	
 	private static final float BUFFER = 10f;
 	private static final int TILE_SIZE = Game.TILES_SIZE;
+	 // You would normally check collisions or tile restrictions here
 	public static boolean CanMove(float x, float y, float width, float height, int[][] lvlData, int directionX, int directionY) {
 	    
 	    if (directionY != 0) {
