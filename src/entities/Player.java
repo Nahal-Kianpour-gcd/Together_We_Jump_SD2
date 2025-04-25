@@ -9,7 +9,7 @@ import utilz.Constants;
 import utilz.LoadSave;
 import griffith.Game;
 import java.awt.Rectangle;
-import static utilz.HelpMethods.CanMoveHere;
+import static utilz.HelpMethods.CanMove;;
 
 
 public class Player extends Entity {
@@ -144,9 +144,9 @@ public class Player extends Entity {
 			ySpeed = playerSpeed;
 		
 		int directionX = right ? 1 : (left ? -1 : 0);
-		int directionY = up ? 1 : (down ? -1 : 0);
+		int directionY = up ? 1 : (down ? -1 : 0);		
 		// Update position if movement is possible
-		if (lvlData == null || CanMoveHere(x+xSpeed, y+ySpeed, width, height, lvlData, directionX, directionY)) {
+		if (lvlData == null || CanMove(x+xSpeed, y+ySpeed, width, height, lvlData, directionX, directionY)) {
 			this.x += xSpeed;
 			this.y += ySpeed;
 			moving = true;
@@ -172,7 +172,7 @@ public class Player extends Entity {
 			}
 		}*/
 	
-	/*
+
 	// Renders the current frame of the player's animation on screen |NK
 	public void render(Graphics g) {
 	   // Determine which animation to use based on player action (idle or run)
@@ -185,25 +185,6 @@ public class Player extends Entity {
 	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, width, height, null); 
 		drawHitbox(g);
 		
-	}*/
-	
-	// Renders the current frame of the player's animation on screen |NK
-	public void render(Graphics g) {
-	    // Determine which animation to use based on player action (idle or run)
-	    BufferedImage[] currentAnimation = (playerAction == Constants.PlayerConstants.IDLE) ? idleAnimation : runAnimation;
-
-	    // SAFETY CHECK: Ensure aniIndex doesn't exceed animation array length
-	    // This prevents ArrayIndexOutOfBoundsException when rendering the frame
-	    if (aniIndex >= currentAnimation.length) {
-	        aniIndex = 0; // Reset animation frame index if it's out of bounds
-	    }
-
-	    // Scale the character to be 2 tiles tall and 2 tiles wide
-	    int drawSize = Game.TILES_SIZE * 2;
-
-	    // Draw the current animation frame at the player's current position
-	    g.drawImage(currentAnimation[aniIndex], (int) x, (int) y, width, height, null); 
-	    drawHitbox(g);
 	}
 
 
