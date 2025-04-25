@@ -38,12 +38,15 @@ public class Player extends Entity {
 	// Loads level data into the class by assigning the provided 2D array to lvlData.
 
 	private int[][] lvlData;
+	private float xDrawOffSet = 21 * Game.SCALE;
+	private float yDrawOffSet = 4 *Game.SCALE;
 
 	// Player constructor that sets position and character sprite path
 	public Player(float x, float y, int width, int height, String characterPath) {
 	    super(x, y, width, height); 
 	    this.characterPath = characterPath;
 	    loadAnimations();
+	    initHitBox(x, y, 20 * Game.SCALE, 28 * Game.SCALE);
 	}
 
 	// Loads the idle and run animations for this player
@@ -233,5 +236,11 @@ public class Player extends Entity {
 	protected void updateHitbox() {
 		hitbox.x = (int) x;
 		hitbox.y = (int) y;
+	}
+
+	@Override
+	protected void initHitBox(float x, float y, float width, float height) {
+		// TODO Auto-generated method stub
+		
 	}
 }

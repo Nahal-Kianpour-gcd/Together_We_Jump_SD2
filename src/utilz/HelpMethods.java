@@ -5,7 +5,7 @@ import griffith.Game;
 public class HelpMethods {	
 	private static final float BUFFER = 10f;
 	private static final int TILE_SIZE = Game.TILES_SIZE;
-	public static boolean CanMove(float x, float y, int width, int height, int[][] lvlData, int directionX, int directionY) {
+	public static boolean CanMove(float x, float y, float width, float height, int[][] lvlData, int directionX, int directionY) {
 	    
 	    if (directionY != 0) {
 	        float yOffset = (directionY == -1) ? y + height - BUFFER : y + BUFFER;
