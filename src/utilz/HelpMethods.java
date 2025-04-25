@@ -1,5 +1,7 @@
 package utilz;
 
+import java.awt.geom.Rectangle2D;
+
 import griffith.Game;
 
 public class HelpMethods {	
@@ -38,5 +40,21 @@ public class HelpMethods {
 	        }
 	    }
 	    return true;
+	}
+	
+	public static float GetEntityXPosNextToWall(Rectangle2D.Float hitbox, float xSpeed ) {
+		int currentTile = (int)(hitbox.x / Game.TILES_SIZE);
+		if(xSpeed > 0) {
+			//Right
+			int tileXPos = currentTile * Game.TILES_SIZE;
+			int xOffSet = (int)(Game.TILES_SIZE - hitbox.width);
+			return tileXPos + xOffSet -1;
+		} else{
+			//Left
+			return currentTile * Game.TILES_SIZE;
+		}
+		
+		
+		
 	}
 }
