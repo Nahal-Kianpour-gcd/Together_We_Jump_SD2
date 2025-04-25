@@ -11,7 +11,7 @@ import griffith.Game;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
-import static utilz.HelpMethods.CanMove;;
+import static utilz.HelpMethods.*;
 
 
 public class Player extends Entity {
@@ -41,8 +41,8 @@ public class Player extends Entity {
 
 	//Jumping and gravity
 	private int[][] lvlData;
-	private float xDrawOffSet = 0;
-	private float yDrawOffSet = 0;
+	private float xDrawOffSet = 0;  // Reset offset to center entity in hitbox
+	private float yDrawOffSet = 0;  // Reset offset to center entity in hitbox
 	private float airSpeed = 0f;
 	private float gravity = 0.04f * Game.SCALE;
 	private float jumpspeed = -2.25f * Game.SCALE;
@@ -54,7 +54,7 @@ public class Player extends Entity {
 	    super(x, y, width, height); 
 	    this.characterPath = characterPath;
 	    loadAnimations();
-	    initHitBox(x, y, 32 * Game.SCALE, 35 * Game.SCALE);
+	    initHitBox(x, y, 32 * Game.SCALE, 35 * Game.SCALE); // Keep the hitbox size we had before
 	}
 
 	// Loads the idle and run animations for this player
@@ -137,41 +137,45 @@ public class Player extends Entity {
 	// Updates the player's position based on movement direction
 	private void updatePos() {
 		moving = false;
-		// If no movement keys are pressed, exit early
 		if(!left && !right && !up && !down)
 			return;
 		float xSpeed = 0, ySpeed = 0;
 		
-		// Determine horizontal movement
 		if (left && !right) 
 			xSpeed = -playerSpeed;
 		else if (right && !left) 
 			xSpeed = playerSpeed;
 		
-		// Determine vertical movement
 		if (up && !down) 
 			ySpeed = -playerSpeed;
 		else if (down && !up) 
 			ySpeed = playerSpeed;
 		
 		int directionX = right ? 1 : (left ? -1 : 0);
-		int directionY = up ? 1 : (down ? -1 : 0);		
-		// Update position if movement is possible
-//		if (lvlData == null || CanMove(x+xSpeed, y+ySpeed, width, height, lvlData, directionX, directionY)) {
-//			this.x += xSpeed;
-//			this.y += ySpeed;
-//			moving = true;
-//		}
-		
+		int directionY = up ? -1 : (down ? 1 : 0);		
+
 		if (lvlData == null || CanMove(hitbox.x + xSpeed, hitbox.y + ySpeed, hitbox.width, hitbox.height, lvlData, directionX, directionY)) {
 			hitbox.x += xSpeed;
 			hitbox.y += ySpeed;
+			x = hitbox.x;  // Entity position matches hitbox
+			y = hitbox.y;  // Entity position matches hitbox
 			moving = true;
 		}
 	}
 		
 			
 			
+		private void updateXPos(float xSpeed) {
+			// Check if the player can move in the X direction without hitting a wall
+			int directionY = 0;
+			int directionX = 0;
+			if (lvlData == null || CanMove(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData, directionX, directionY)) {
+			hitbox.x += xSpeed;  // Move freely if no collision
+		} else {
+			hitbox.x = GetEntityXPosNextToWall(hitbox, xSpeed); // Snap to wall edge if collision occurs
+		}
+	}
+
 		/*if (moving) { // Only update position if the player is currently moving
 			switch (playerDir) {
 				case Constants.Directions.LEFT:
@@ -200,8 +204,8 @@ public class Player extends Entity {
 	        aniIndex = 0;
 	    }
 	    
-	    // Draw the current frame at the player's current position with smaller dimensions
-	    g.drawImage(currentAnimation[aniIndex], (int)(hitbox.x - xDrawOffSet), (int)(hitbox.y - yDrawOffSet), null); 
+	    // Draw the entity at the hitbox position
+	    g.drawImage(currentAnimation[aniIndex], (int)hitbox.x, (int)hitbox.y, (int)(32 * Game.SCALE), (int)(32 * Game.SCALE), null); 
 		drawHitbox(g);
 		
 	}
@@ -256,6 +260,6 @@ public class Player extends Entity {
 
 	@Override
 	protected void initHitBox(float x, float y, float width, float height) {
-		hitbox = new Rectangle2D.Float(x, y, 32 * Game.SCALE, 35 * Game.SCALE);
+		hitbox = new Rectangle2D.Float(x, y, width, height);
 	}
 }
