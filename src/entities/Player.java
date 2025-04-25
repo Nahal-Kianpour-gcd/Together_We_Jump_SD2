@@ -33,15 +33,21 @@ public class Player extends Entity {
 	// Direction of player movement: 0 = left, 1 = up, 2 = right, 3 = down
 	private int playerDir = -1;
 	private float playerSpeed = 3.0f;
-	private boolean left, right, up, down;
+	private boolean left, right, up, down, jump;
 
 	// File path to the character's sprite sheet (used for loading animations)- TPH
 	private String characterPath;
 	// Loads level data into the class by assigning the provided 2D array to lvlData.
 
+	//Jumping and gravity
 	private int[][] lvlData;
 	private float xDrawOffSet = 0;
 	private float yDrawOffSet = 0;
+	private float airSpeed = 0f;
+	private float gravity = 0.04f * Game.SCALE;
+	private float jumpspeed = -2.25f * Game.SCALE;
+	private float fallSpeedAfterColision = 0.5f * Game.SCALE;
+	private boolean inAir =false;
 
 	// Player constructor that sets position and character sprite path
 	public Player(float x, float y, int width, int height, String characterPath) {
