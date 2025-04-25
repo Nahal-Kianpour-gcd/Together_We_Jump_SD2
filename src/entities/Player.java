@@ -45,8 +45,8 @@ public class Player extends Entity {
 	private float yDrawOffSet = 0;  // Reset offset to center entity in hitbox
 	private float airSpeed = 0f;
 	private float gravity = 0.04f * Game.SCALE;
-	private float jumpspeed = -2.25f * Game.SCALE;
-	private float fallSpeedAfterColision = 0.5f * Game.SCALE;
+	private float jumpSpeed = -2.25f * Game.SCALE;
+	private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
 	private boolean inAir =false;
 
 	// Player constructor that sets position and character sprite path
@@ -137,20 +137,33 @@ public class Player extends Entity {
 	// Updates the player's position based on movement direction
 	private void updatePos() {
 		moving = false;
-		if(!left && !right && !up && !down)
+		
+		if(jump)
+			jump();
+		if(!left && !right && !inAir)
 			return;
-		float xSpeed = 0, ySpeed = 0;
+		float xSpeed = 0;
 		
-		if (left && !right) 
-			xSpeed = -playerSpeed;
-		else if (right && !left) 
-			xSpeed = playerSpeed;
+		if (left) 
+			xSpeed -= playerSpeed;
+		else if (right) 
+			xSpeed += playerSpeed;
 		
-		if (up && !down) 
-			ySpeed = -playerSpeed;
-		else if (down && !up) 
-			ySpeed = playerSpeed;
-		
+//		moving = false;
+//		if(!left && !right && !inAir)
+//			return;
+//		float xSpeed = 0, ySpeed = 0;
+//		
+//		if (left && !right) 
+//			xSpeed = -playerSpeed;
+//		else if (right && !left) 
+//			xSpeed = playerSpeed;
+//		
+//		if (up && !down) 
+//			ySpeed = -playerSpeed;
+//		else if (down && !up) 
+//			ySpeed = playerSpeed;
+//		
 		if(inAir) {
 			int directionY = 0;
 			int directionX = 0;
@@ -160,26 +173,47 @@ public class Player extends Entity {
 				updateXPos(xSpeed);
 			} else {
 				hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
+				if(airSpeed > 0)
+					resetInAir();
+				else 
+					airSpeed = fallSpeedAfterCollision;
+				updateXPos(xSpeed);
 			}
 			
 		} else {
 			updateXPos(xSpeed);
 		}
 		
+		moving = true;
 		int directionX = right ? 1 : (left ? -1 : 0);
 		int directionY = up ? -1 : (down ? 1 : 0);		
 
-		if (lvlData == null || CanMove(hitbox.x + xSpeed, hitbox.y + ySpeed, hitbox.width, hitbox.height, lvlData, directionX, directionY)) {
-			hitbox.x += xSpeed;
-			hitbox.y += ySpeed;
-			x = hitbox.x;  // Entity position matches hitbox
-			y = hitbox.y;  // Entity position matches hitbox
-			moving = true;
-		}
+//		if (lvlData == null || CanMove(hitbox.x + xSpeed, hitbox.y + ySpeed, hitbox.width, hitbox.height, lvlData, directionX, directionY)) {
+//			hitbox.x += xSpeed;
+//			hitbox.y += ySpeed;
+//			x = hitbox.x;  // Entity position matches hitbox
+//			y = hitbox.y;  // Entity position matches hitbox
+//			moving = true;
+//		}
 	}
 		
 			
 			
+		private void jump() {
+			if(inAir)
+				return;
+			inAir = true;
+			airSpeed = jumpSpeed;
+			
+		
+	}
+
+		private void resetInAir() {
+		inAir = false;
+		airSpeed = 0;
+		
+	}
+
 		private void updateXPos(float xSpeed) {
 			// Check if the player can move in the X direction without hitting a wall
 			int directionY = 0;
