@@ -151,6 +151,21 @@ public class Player extends Entity {
 		else if (down && !up) 
 			ySpeed = playerSpeed;
 		
+		if(inAir) {
+			int directionY = 0;
+			int directionX = 0;
+			if(lvlData == null || CanMove(hitbox.x + xSpeed, hitbox.y + airSpeed, hitbox.width, hitbox.height, lvlData, directionX, directionY)) {
+				hitbox.y += airSpeed;
+				airSpeed += gravity;
+				updateXPos(xSpeed);
+			} else {
+				hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
+			}
+			
+		} else {
+			updateXPos(xSpeed);
+		}
+		
 		int directionX = right ? 1 : (left ? -1 : 0);
 		int directionY = up ? -1 : (down ? 1 : 0);		
 
