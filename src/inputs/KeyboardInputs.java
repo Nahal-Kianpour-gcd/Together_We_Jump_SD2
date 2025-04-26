@@ -36,18 +36,18 @@ public class KeyboardInputs implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
 			// Player 1 controls (WASD)
-			case KeyEvent.VK_W:
-				wPressed = true;
-				gamePanel.setDirection(1, true); // UP for Player 1
-				break;
+//			case KeyEvent.VK_W:
+//				wPressed = true;
+//				gamePanel.setDirection(1, true); // UP for Player 1
+//				break;
 			case KeyEvent.VK_A:
 				aPressed = true;
 				gamePanel.setDirection(0, true); // LEFT for Player 1
 				break;
-			case KeyEvent.VK_S:
-				sPressed = true;
-				gamePanel.setDirection(3, true); // DOWN for Player 1
-				break;
+//			case KeyEvent.VK_S:
+//				sPressed = true;
+//				gamePanel.setDirection(3, true); // DOWN for Player 1
+//				break;
 			case KeyEvent.VK_D:
 				dPressed = true;
 				gamePanel.setDirection(2, true); // RIGHT for Player 1
@@ -57,18 +57,18 @@ public class KeyboardInputs implements KeyListener {
 				break;
 				
 			// Player 2 controls (Arrow keys)
-			case KeyEvent.VK_UP:
-				upPressed = true;
-				gamePanel.setDirection(1, false); // UP for Player 2
-				break;
+//			case KeyEvent.VK_UP:
+//				upPressed = true;
+//				gamePanel.setDirection(1, false); // UP for Player 2
+//				break;
 			case KeyEvent.VK_LEFT:
 				leftPressed = true;
 				gamePanel.setDirection(0, false); // LEFT for Player 2
 				break;
-			case KeyEvent.VK_DOWN:
-				downPressed = true;
-				gamePanel.setDirection(3, false); // DOWN for Player 2
-				break;
+//			case KeyEvent.VK_DOWN:
+//				downPressed = true;
+//				gamePanel.setDirection(3, false); // DOWN for Player 2
+//				break;
 			case KeyEvent.VK_RIGHT:
 				rightPressed = true;
 				gamePanel.setDirection(2, false); // RIGHT for Player 2

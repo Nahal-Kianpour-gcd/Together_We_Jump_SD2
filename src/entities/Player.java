@@ -137,62 +137,64 @@ public class Player extends Entity {
     // Updates the player's position based on movement direction
     private void updatePos() {
         moving = false;
-        
-        if(jump)
+
+        if (jump)
             jump();
 
-        if(!left && !right && !inAir)
-            return;
-
         float xSpeed = 0;
-        
-        if (left) 
+
+        if (left) {
             xSpeed -= playerSpeed;
-        else if (right) 
+            moving = true;
+        }
+        if (right) {
             xSpeed += playerSpeed;
-        
-        if(inAir) {
-            if(lvlData == null) return;
-            
-            // Check if we would hit the ground/platform below us
-            int currentTile = (int)(hitbox.y / Game.TILES_SIZE);
-            int nextYTile = (int)((hitbox.y + airSpeed) / Game.TILES_SIZE);
-            
-            // Check the tiles at foot level
+            moving = true;
+        }
+
+        if (inAir) {
+            // Falling
+            if (lvlData == null) return;
+
+            int nextYTile = (int)((hitbox.y + airSpeed + hitbox.height) / Game.TILES_SIZE);
             int xTile1 = (int)hitbox.x / Game.TILES_SIZE;
             int xTile2 = (int)(hitbox.x + hitbox.width) / Game.TILES_SIZE;
-            
-            // Make sure we don't check out of bounds
-            if(nextYTile < lvlData.length) {
-                // Check if next position would be inside a ground tile
-                if(lvlData[nextYTile][xTile1] != 11 || lvlData[nextYTile][xTile2] != 11) {
-                    // We hit ground/platform
-                    hitbox.y = currentTile * Game.TILES_SIZE;
-                    resetInAir();
-                } else {
-                    // Still in air, apply gravity
+
+            if (nextYTile < lvlData.length) {
+                if (isTileWalkable(xTile1, nextYTile) && isTileWalkable(xTile2, nextYTile)) {
+                    // Continue falling
                     hitbox.y += airSpeed;
                     airSpeed += gravity;
+                    updateXPos(xSpeed);
+                } else {
+                    // Landed on ground
+                    hitbox.y = nextYTile * Game.TILES_SIZE - hitbox.height;
+                    resetInAir();
                     updateXPos(xSpeed);
                 }
             }
         } else {
-            // Check if there's no ground below us
+            // Check if standing or falling
             int nextYTile = (int)((hitbox.y + hitbox.height + 1) / Game.TILES_SIZE);
             int xTile1 = (int)hitbox.x / Game.TILES_SIZE;
             int xTile2 = (int)(hitbox.x + hitbox.width) / Game.TILES_SIZE;
-            
-            if(nextYTile < lvlData.length) {
-                if(lvlData[nextYTile][xTile1] == 11 && lvlData[nextYTile][xTile2] == 11) {
+
+            if (nextYTile < lvlData.length) {
+                if (isTileWalkable(xTile1, nextYTile) && isTileWalkable(xTile2, nextYTile)) {
                     inAir = true;
-                    airSpeed = 0;
                 }
             }
+
             updateXPos(xSpeed);
         }
-        
-        moving = true;
     }
+
+    private boolean isTileWalkable(int xTile, int yTile) {
+        if (xTile < 0 || yTile < 0 || xTile >= lvlData[0].length || yTile >= lvlData.length)
+            return false;
+        return lvlData[yTile][xTile] == 11; // assuming 11 = walkable tile
+    } // Helper for entities  to not going up and down by themselves
+
         
             
             
