@@ -13,7 +13,7 @@ public class Menu extends JFrame implements ActionListener {
     private JButton startButton; // Button to start the game
     private JButton quitButton;  // Button to quit the application
 
-    // Constructor: sets up the menu window
+ // Constructor: sets up the menu window
     public Menu() {
         setTitle("Together We Jump - Menu"); // Window title
         setSize(400, 300); // Window size
