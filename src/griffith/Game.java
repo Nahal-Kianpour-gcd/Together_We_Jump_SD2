@@ -104,11 +104,25 @@ public class Game implements Runnable {
 			onTimeUp();
 		}
 	}
+	/*
+	 // Render game graphics |NK
+	 public void render(Graphics g) {
+	     levelManager.draw(g);
+	 }
+	*/
 
-	// Render game graphics
+	// Updated render method to include HUD rendering |NK
 	public void render(Graphics g) {
-		levelManager.draw(g);
+	    // Draw the level elements |NK
+	    levelManager.draw(g);
+	    
+	    // Cast Graphics to Graphics2D for better control (HUD needs Graphics2D) |NK
+	    Graphics2D g2d = (Graphics2D) g;
+	    
+	    // Render heads-up display (timer) on screen |NK
+	    hud.render(g2d);
 	}
+
 
 	// The core game loop runs here
 	@Override
