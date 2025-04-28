@@ -3,9 +3,11 @@ package griffith;
 import levels.LevelManager;
 import java.awt.Graphics;
 import entities.Player;
+import java.awt.Graphics2D;
 //Timer imports
 import timer.Timer;
 import timer.HeadsUpDisplay;
+
 
 public class Game implements Runnable {
 
@@ -193,4 +195,12 @@ public class Game implements Runnable {
 			return 0; // Avoid division by zero
 		return (int) (updates * 1000.0 / elapsedMillis);
 	}
+	
+	// Handle event when timer reaches zero |NK
+	private void onTimeUp() {
+		System.out.println("Time's up!"); // Output message when countdown finishes |NK
+	}
+
+	
+	
 }
