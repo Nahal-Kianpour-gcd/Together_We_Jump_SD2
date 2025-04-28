@@ -1,3 +1,4 @@
+//Thanh Phuong Hoang
 package griffith; 
 
 import javax.swing.*; // Import Swing library for UI components
@@ -39,7 +40,9 @@ public class Menu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
             dispose(); // Close the menu window
-            MainClass.main(null); // Start the actual game by calling MainClass
+           /* MainClass.main(null); // Start the actual game by calling MainClass*/
+            new Game(); //Create and start the game |Nk
+
         } else if (e.getSource() == quitButton) {
             System.exit(0); // Exit the application
         }
