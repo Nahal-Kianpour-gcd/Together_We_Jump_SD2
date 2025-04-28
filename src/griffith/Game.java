@@ -4,6 +4,10 @@ import levels.LevelManager;
 import java.awt.Graphics;
 import entities.Player;
 import java.awt.Graphics2D;
+import java.awt.Font;
+import java.awt.Color;
+
+
 //Timer imports
 import timer.Timer;
 import timer.HeadsUpDisplay;
@@ -121,6 +125,7 @@ public class Game implements Runnable {
 	 }
 	*/
 
+	/*
 	// Updated render method to include HUD rendering |NK
 	public void render(Graphics g) {
 	    // Draw the level elements |NK
@@ -131,6 +136,34 @@ public class Game implements Runnable {
 	    
 	    // Render heads-up display (timer) on screen |NK
 	    hud.render(g2d);
+	}
+	*/
+
+	// Updated render method to include HUD and "Time's Up!" message when game over |NK
+	public void render(Graphics g) {
+	    // Draw the level elements |NK
+	    levelManager.draw(g);
+
+	    // Cast Graphics to Graphics2D for HUD rendering |NK
+	    Graphics2D g2d = (Graphics2D) g;
+
+	    // Render heads-up display (timer) |NK
+	    hud.render(g2d);
+
+	    // If time is up, display "Time's Up!" message |NK
+	    if (showGameOver) {
+	        g2d.setFont(new Font("Arial", Font.BOLD, 50)); // Set large bold font |NK
+	        g2d.setColor(Color.RED);                       // Set text color to red |NK
+	        String message = "Time's Up!";                 // Message to display |NK
+
+	        // Center the text horizontally and vertically |NK
+	        int stringWidth = g2d.getFontMetrics().stringWidth(message);
+	        int stringHeight = g2d.getFontMetrics().getHeight();
+	        int x = (Game.GAME_WIDTH - stringWidth) / 2;
+	        int y = (Game.GAME_HEIGHT - stringHeight) / 2;
+
+	        g2d.drawString(message, x, y); // Draw centered "Time's Up!" message |NK
+	    }
 	}
 
 
