@@ -69,10 +69,28 @@ public class HelpMethods {
 				
 			}
 			
-			
-			
+		}
 		
+		public static boolean isSolid(float x, float y, int[][] lvlData) {
+		    int xIndex = (int)(x / Game.TILES_SIZE);
+		    int yIndex = (int)(y / Game.TILES_SIZE);
+
+		    // Check bounds
+		    if (xIndex < 0 || xIndex >= lvlData[0].length || yIndex < 0 || yIndex >= lvlData.length)
+		        return true; // Treat outside map as solid
+
+		    int value = lvlData[yIndex][xIndex];
+		    // Assuming tile ID 11 means air, anything else is solid
+		    return value != 11;
+		}
+
+		public static boolean isEntityOnFloor(Rectangle2D.Float hitbox, int[][] lvlData) {
+		    // Check bottom left and bottom right corners slightly below the hitbox
+		    return isSolid(hitbox.x, hitbox.y + hitbox.height, lvlData) ||
+		           isSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height, lvlData);
+		}
+
+
 		
-		
-	}
+
 }

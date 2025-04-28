@@ -138,56 +138,74 @@ public class Player extends Entity {
     private void updatePos() {
         moving = false;
 
-        if (jump)
+        if (jump) {
             jump();
+        }
 
         float xSpeed = 0;
 
         if (left) {
             xSpeed -= playerSpeed;
-            moving = true;
         }
         if (right) {
             xSpeed += playerSpeed;
-            moving = true;
+        }
+
+        if (!inAir && !isEntityOnFloor(hitbox, lvlData)) {
+            inAir = true;
         }
 
         if (inAir) {
-            // Falling
-            if (lvlData == null) return;
-
-            int nextYTile = (int)((hitbox.y + airSpeed + hitbox.height) / Game.TILES_SIZE);
-            int xTile1 = (int)hitbox.x / Game.TILES_SIZE;
-            int xTile2 = (int)(hitbox.x + hitbox.width) / Game.TILES_SIZE;
-
-            if (nextYTile < lvlData.length) {
-                if (isTileWalkable(xTile1, nextYTile) && isTileWalkable(xTile2, nextYTile)) {
-                    // Continue falling
-                    hitbox.y += airSpeed;
-                    airSpeed += gravity;
-                    updateXPos(xSpeed);
-                } else {
-                    // Landed on ground
-                    hitbox.y = nextYTile * Game.TILES_SIZE - hitbox.height;
+            if (canMoveTo(hitbox.x, hitbox.y + airSpeed, hitbox.width, hitbox.height, lvlData)) {
+                hitbox.y += airSpeed;
+                airSpeed += gravity;
+            } else {
+                if (airSpeed > 0) {
+                    // Falling down
+                    hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
                     resetInAir();
-                    updateXPos(xSpeed);
+                } else {
+                    // Bumping into ceiling
+                    hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
+                    airSpeed = fallSpeedAfterCollision;
                 }
             }
-        } else {
-            // Check if standing or falling
-            int nextYTile = (int)((hitbox.y + hitbox.height + 1) / Game.TILES_SIZE);
-            int xTile1 = (int)hitbox.x / Game.TILES_SIZE;
-            int xTile2 = (int)(hitbox.x + hitbox.width) / Game.TILES_SIZE;
-
-            if (nextYTile < lvlData.length) {
-                if (isTileWalkable(xTile1, nextYTile) && isTileWalkable(xTile2, nextYTile)) {
-                    inAir = true;
-                }
-            }
-
-            updateXPos(xSpeed);
         }
+
+        boolean movedX = updateXPos(xSpeed);
+        moving = movedX;
+
+        x = hitbox.x;
+        y = hitbox.y;
     }
+
+
+    
+    private boolean isEntityOnFloor(Rectangle2D.Float hitbox, int[][] lvlData) {
+        // Check bottom left and bottom right tiles under the hitbox
+        int x1 = (int)hitbox.x / Game.TILES_SIZE;
+        int x2 = (int)(hitbox.x + hitbox.width) / Game.TILES_SIZE;
+        int y = (int)(hitbox.y + hitbox.height + 1) / Game.TILES_SIZE;
+
+        if (y >= lvlData.length) return false;
+        return isTileWalkable(x1, y) && isTileWalkable(x2, y);
+    }
+
+    private boolean canMoveTo(float x, float y, float width, float height, int[][] lvlData) {
+        // Check all corners if they are inside a walkable tile
+        int x1 = (int)x / Game.TILES_SIZE;
+        int y1 = (int)y / Game.TILES_SIZE;
+        int x2 = (int)(x + width) / Game.TILES_SIZE;
+        int y2 = (int)(y + height) / Game.TILES_SIZE;
+
+        if (x1 < 0 || x2 >= lvlData[0].length || y1 < 0 || y2 >= lvlData.length)
+            return false;
+
+        return isTileWalkable(x1, y1) && isTileWalkable(x2, y1) &&
+               isTileWalkable(x1, y2) && isTileWalkable(x2, y2);
+    }
+
+
 
     private boolean isTileWalkable(int xTile, int yTile) {
         if (xTile < 0 || yTile < 0 || xTile >= lvlData[0].length || yTile >= lvlData.length)
@@ -213,35 +231,23 @@ public class Player extends Entity {
         
     }
 
-        private void updateXPos(float xSpeed) {
-            if (lvlData == null) return;
-            
-            // Check if moving right and would hit a wall
-            if (xSpeed > 0) {
-                int xIndex = (int)((hitbox.x + xSpeed + hitbox.width) / Game.TILES_SIZE);
-                int y1 = (int)(hitbox.y / Game.TILES_SIZE);
-                int y2 = (int)((hitbox.y + hitbox.height) / Game.TILES_SIZE);
-                
-                // Check tiles to the right
-                if (xIndex < lvlData[0].length && (lvlData[y1][xIndex] != 11 || lvlData[y2][xIndex] != 11)) {
-                    hitbox.x = xIndex * Game.TILES_SIZE - hitbox.width;
-                    return;
-                }
-            } else if (xSpeed < 0) { // Moving left
-                int xIndex = (int)((hitbox.x + xSpeed) / Game.TILES_SIZE);
-                int y1 = (int)(hitbox.y / Game.TILES_SIZE);
-                int y2 = (int)((hitbox.y + hitbox.height) / Game.TILES_SIZE);
-                
-                // Check tiles to the left
-                if (xIndex >= 0 && (lvlData[y1][xIndex] != 11 || lvlData[y2][xIndex] != 11)) {
-                    hitbox.x = (xIndex + 1) * Game.TILES_SIZE;
-                    return;
-                }
+        private boolean updateXPos(float xSpeed) {
+            if (xSpeed == 0)
+                return false;
+
+            if (canMoveTo(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData)) {
+                hitbox.x += xSpeed;
+                return true;
+            } else {
+                // Adjust position to be next to the wall
+                hitbox.x = GetEntityXPosNextToWall(hitbox, xSpeed);
+                return false;
             }
-            
-            // If no collision, move normally
-            hitbox.x += xSpeed;
         }
+
+
+            
+          
 
         /*if (moving) { // Only update position if the player is currently moving
             switch (playerDir) {
