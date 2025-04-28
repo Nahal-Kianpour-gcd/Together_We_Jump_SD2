@@ -45,7 +45,7 @@ public class Menu extends JFrame implements ActionListener {
         }
     }
 
-    // Main method to launch the Menu screen
+ // Main method to launch the Menu screen
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             Menu menu = new Menu(); // Create a new Menu window
