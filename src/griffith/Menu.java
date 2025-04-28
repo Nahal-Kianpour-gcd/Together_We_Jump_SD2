@@ -1,4 +1,4 @@
-package griffith; // Package where this class belongs
+package griffith; 
 
 import javax.swing.*; // Import Swing library for UI components
 import java.awt.*; // Import AWT for layout managers
@@ -13,7 +13,7 @@ public class Menu extends JFrame implements ActionListener {
     private JButton startButton; // Button to start the game
     private JButton quitButton;  // Button to quit the application
 
- // Constructor: sets up the menu window
+ // Constructor: sets up the menu window - TPH
     public Menu() {
         setTitle("Together We Jump - Menu"); // Window title
         setSize(400, 300); // Window size
@@ -34,7 +34,7 @@ public class Menu extends JFrame implements ActionListener {
         add(quitButton);
     }
 
-    // This method is triggered when a button is clicked
+    // this method is triggered when a button is clicked
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
