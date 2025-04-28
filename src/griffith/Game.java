@@ -20,6 +20,7 @@ public class Game implements Runnable {
 	private final int FPS_SET = 120; // Desired frames per second (FPS)
 	private final int UPS_SET = 200; // Target updates per second (UPS) for the game loop |Nk
 	private Timer timer; // Timer object to manage countdown |NK
+	private boolean showGameOver = false; // Flag to control display of "Game Over" screen |NK
 	private HeadsUpDisplay hud; // Heads-up display object to render timer on screen |NK
 	private long lastNanoTime; // Tracks the timestamp of the last frame in nanoseconds |NK
 
@@ -203,11 +204,16 @@ public class Game implements Runnable {
 		return (int) (updates * 1000.0 / elapsedMillis);
 	}
 	
+	/*
 	// Handle event when timer reaches zero |NK
 	private void onTimeUp() {
 		System.out.println("Time's up!"); // Output message when countdown finishes |NK
-	}
-
+	}*/
 	
+	// Handle event when timer reaches zero |NK
+	private void onTimeUp() {
+	    System.out.println("Time's up!"); // Output message when countdown finishes |NK
+	    showGameOver = true; // Set flag to indicate game over state |NK
+	}
 	
 }
