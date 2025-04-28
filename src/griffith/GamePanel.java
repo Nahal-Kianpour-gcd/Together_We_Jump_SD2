@@ -272,4 +272,5 @@ public class GamePanel extends JPanel {
 	public int getYDelta2() {
 		return (int) player2.getY();
 	}
+	
 }
