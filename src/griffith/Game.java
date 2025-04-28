@@ -30,6 +30,8 @@ public class Game implements Runnable {
 	public final static int TILES_SIZE = (int) (TILES_DEFULAT_SIZE * SCALE); // Final scaled tile size in pixels
 	public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH; // Total game screen width in pixels
 	public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT; // Total game screen height in pixels |NK
+	private boolean timeUpHandled = false; // Flag to ensure onTimeUp() is called only once |NK
+
 
 	public Player getPlayer1() {
 		return player1;
@@ -100,10 +102,15 @@ public class Game implements Runnable {
 
 		// Update countdown timer |NK
 		timer.update(deltaSeconds);
-
+		/*
 		// Check if timer has finished and handle time-up event |NK
 		if (timer.isFinished()) {
 			onTimeUp();
+			}*/
+		// Check if timer has finished and handle time-up event only once |NK
+		if (timer.isFinished() && !timeUpHandled) {
+		    onTimeUp();           // Call time-up handler |NK
+		    timeUpHandled = true; // Set flag to avoid handling multiple times |NK
 		}
 	}
 	/*
