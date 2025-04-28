@@ -29,4 +29,19 @@ public class Timer {
 	public int getMinutes() {
 		return (int) (timeRemaining / 60);
 	}
+
+	// remaining whole seconds (0–59) //
+	public int getSeconds() {
+		return (int) (timeRemaining % 60);
+	}
+
+	/**
+	 * formatted mm:ss, e.g. “01:05” or “00:09”
+	 */
+	public String getTimeString() {
+		int m = getMinutes();
+		int s = getSeconds();
+		// pad seconds with leading zero if needed
+		return String.format("%02d:%02d", m, s);
+	}
 }
