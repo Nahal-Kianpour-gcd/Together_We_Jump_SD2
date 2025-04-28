@@ -38,13 +38,17 @@ public class Game implements Runnable {
 	public Player getPlayer2() {
 	    return player2;
 	}
+
 	// Constructor for the Game class
 	public Game() {
 		initClasses(); // Initialize player and level manager
-		gamePanel = new GamePanel(this);                // Initialize the GamePanel object
-		gameWindow = new GameWindow(gamePanel);     // Create the game window and add the panel to it
-		gamePanel.requestFocus();                   // Request focus so keyboard input is directed to gamePanel
-		startGameLoop();                            // Start the game loop in a new thread
+		timer = new Timer(60f); // Initialize Timer with a 60-second countdown |NK
+		hud = new HeadsUpDisplay(timer); // Create HeadsUpDisplay to render the timer visually |NK
+		lastNanoTime = System.nanoTime(); // Capture the current time to track elapsed frame time |NK
+		gamePanel = new GamePanel(this); // Initialize the GamePanel object
+		gameWindow = new GameWindow(gamePanel); // Create the game window and add the panel to it
+		gamePanel.requestFocus(); // Request focus so keyboard input is directed to gamePanel
+		startGameLoop(); // Start the game loop in a new thread
 	}
 	
 	// Initialize game objects
