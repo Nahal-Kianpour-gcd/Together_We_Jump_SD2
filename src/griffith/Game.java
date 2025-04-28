@@ -3,6 +3,10 @@ package griffith;
 import levels.LevelManager;
 import java.awt.Graphics;
 import entities.Player;
+//Timer imports
+import timer.Timer;
+import timer.HeadsUpDisplay;
+
 
 
 public class Game implements Runnable {
@@ -15,6 +19,10 @@ public class Game implements Runnable {
 	private LevelManager levelManager; // Manages level loading and rendering |NK
 	private final int FPS_SET = 120; // Desired frames per second (FPS)
 	private final int UPS_SET =200; // Target updates per second (UPS) for the game loop |Nk
+	private Timer timer; // Timer object to manage countdown |NK
+	private HeadsUpDisplay hud; // Heads-up display object to render timer on screen |NK
+	private long lastNanoTime; // Tracks the timestamp of the last frame in nanoseconds |NK
+
 	
 	public final static int TILES_DEFULAT_SIZE = 32;      // Default pixel size of a single tile (before scaling) |NK
 	public final static float SCALE = 1f;                // Scale factor to enlarge or shrink tiles (1.0 = original size)
