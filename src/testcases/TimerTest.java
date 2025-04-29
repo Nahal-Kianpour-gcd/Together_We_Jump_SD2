@@ -24,4 +24,13 @@ class TimerTest {
 		assertEquals("00:08", timer.getTimeString()); // Expect 8 seconds left
 	}
 
+	// Test that timer doesn't go below 0 and reports finished state |NK
+	@Test
+	public void testTimerDoesNotGoBelowZero() {
+		Timer timer = new Timer(1f); // 1 second
+		timer.update(5f); // Force over-decrease
+		assertEquals("00:00", timer.getTimeString()); // Should clamp to 00:00
+		assertTrue(timer.isFinished()); // Timer should now be finished
+	}
+
 }
