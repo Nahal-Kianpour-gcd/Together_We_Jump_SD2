@@ -33,4 +33,19 @@ class TimerTest {
 		assertTrue(timer.isFinished()); // Timer should now be finished
 	}
 
+	// Test individual minute and second extraction |NK
+	@Test
+	public void testMinutesAndSeconds() {
+		Timer timer = new Timer(125f); // 2 minutes and 5 seconds
+		assertEquals(2, timer.getMinutes()); // Should return 2
+		assertEquals(5, timer.getSeconds()); // Should return 5
+	}
+
+	// Test formatting works for non-zero seconds <10 |NK
+	@Test
+	public void testFormattedTimeString() {
+		Timer timer = new Timer(65f); // 1 minute and 5 seconds
+		assertEquals("01:05", timer.getTimeString()); // Format should be mm:ss with leading zero
+	}
+
 }
