@@ -55,6 +55,8 @@ public class Player extends Entity {
         this.characterPath = characterPath;
         loadAnimations();
         initHitBox(x, y, 20 * Game.SCALE, 28 * Game.SCALE); // Reduced from 32x35 to 20x28 for tighter collision
+        
+
     }
 
     // Loads the idle and run animations for this player
@@ -83,6 +85,8 @@ public class Player extends Entity {
             runAnimation[i] = img.getSubimage(i * 32, 0, 32, 32);
         }
     }
+    
+    
 
     public void loadLvlData(int[][] lvlData) {
         if (lvlData == null) {
@@ -95,6 +99,13 @@ public class Player extends Entity {
             }
         } else {
             this.lvlData = lvlData;
+        }
+        if (!isEntityOnFloor(hitbox, this.lvlData)) {
+            inAir = true;
+            while (!isEntityOnFloor(hitbox, this.lvlData)) {
+                hitbox.y += 1f;
+            }
+            y = hitbox.y;
         }
     }
 
@@ -130,6 +141,8 @@ public class Player extends Entity {
             // If the player is not moving, switch to the IDLE animation
             playerAction = Constants.PlayerConstants.IDLE;
         }
+        
+       
     }
 
 
@@ -151,9 +164,13 @@ public class Player extends Entity {
             xSpeed += playerSpeed;
         }
 
-        if (!inAir && !isEntityOnFloor(hitbox, lvlData)) {
-            inAir = true;
+        if (!inAir) {
+            if (!isEntityOnFloor(hitbox, lvlData)) {
+                inAir = true;
+                airSpeed = 0f;
+            }
         }
+
 
         if (inAir) {
             if (canMoveTo(hitbox.x, hitbox.y + airSpeed, hitbox.width, hitbox.height, lvlData)) {
@@ -179,17 +196,26 @@ public class Player extends Entity {
         y = hitbox.y;
     }
 
+    private boolean isSolid(float x, float y, int[][] lvlData) {
+        int tileX = (int)(x / Game.TILES_SIZE);
+        int tileY = (int)(y / Game.TILES_SIZE);
+
+        if (tileX < 0 || tileX >= lvlData[0].length || tileY < 0 || tileY >= lvlData.length)
+            return true; // Treat out of bounds as solid
+
+        return lvlData[tileY][tileX] != 11; // Return true if the tile is NOT walkable
+    }
 
     
     private boolean isEntityOnFloor(Rectangle2D.Float hitbox, int[][] lvlData) {
-        // Check bottom left and bottom right tiles under the hitbox
-        int x1 = (int)hitbox.x / Game.TILES_SIZE;
-        int x2 = (int)(hitbox.x + hitbox.width) / Game.TILES_SIZE;
-        int y = (int)(hitbox.y + hitbox.height + 1) / Game.TILES_SIZE;
+        float xLeft = hitbox.x;
+        float xRight = hitbox.x + hitbox.width;
+        float yBottom = hitbox.y + hitbox.height + 1;
 
-        if (y >= lvlData.length) return false;
-        return isTileWalkable(x1, y) && isTileWalkable(x2, y);
+        return isSolid(xLeft, yBottom, lvlData) || isSolid(xRight, yBottom, lvlData);
     }
+    
+
 
     private boolean canMoveTo(float x, float y, float width, float height, int[][] lvlData) {
         // Check all corners if they are inside a walkable tile

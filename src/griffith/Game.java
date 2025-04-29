@@ -53,7 +53,7 @@ public class Game implements Runnable {
 		hud = new HeadsUpDisplay(timer); // Create HeadsUpDisplay to render the timer visually |NK
 		lastNanoTime = System.nanoTime(); // Capture the current time to track elapsed frame time |NK
 		gamePanel = new GamePanel(this); // Initialize the GamePanel object
-		gameWindow = new GameWindow(gamePanel); // Create the game window and add the panel to it
+		gameWindow = new GameWindow(gamePanel); // Create  the game window and add the panel to it
 		gamePanel.requestFocus(); // Request focus so keyboard input is directed to gamePanel
 		startGameLoop(); // Start the game loop in a new thread
 	}
