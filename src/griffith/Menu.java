@@ -52,4 +52,13 @@ public class Menu extends JFrame implements ActionListener {
             menu.setVisible(true); // Make it visible
         });
     }
+    //getter methods
+    public JButton getStartButton() {
+        return startButton;
+    }
+
+    public JButton getQuitButton() {
+        return quitButton;
+    }
+
 }
