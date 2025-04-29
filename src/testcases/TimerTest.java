@@ -16,4 +16,12 @@ class TimerTest {
 		assertEquals("02:00", timer.getTimeString()); // Expect formatted time to be 02:00
 	}
 
+	// Test if the timer decreases after updating |NK
+	@Test
+	public void testUpdateDecreasesTime() {
+		Timer timer = new Timer(10f); // 10 seconds
+		timer.update(1.5f); // Update by 1.5 seconds
+		assertEquals("00:08", timer.getTimeString()); // Expect 8 seconds left
+	}
+
 }
