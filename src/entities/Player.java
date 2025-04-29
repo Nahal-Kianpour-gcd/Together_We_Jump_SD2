@@ -310,7 +310,7 @@ public class Player extends Entity {
             (int)(32 * Game.SCALE), 
             (int)(32 * Game.SCALE), 
             null); 
-        drawHitbox(g);
+//        drawHitbox(g);
         
     }
 
