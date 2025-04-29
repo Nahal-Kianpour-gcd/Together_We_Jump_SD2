@@ -58,6 +58,44 @@ class MenuTest {
 	    assertTrue(foundStart, "Start Game button should exist");
 	    assertTrue(foundQuit, "Quit button should exist");
 	}
+	@Test
+	void testStartButtonClickDoesNotThrow() {
+	    Menu menu = new Menu();
+
+	    // Simulate clicking the Start Game button
+	    assertDoesNotThrow(() -> {
+	        menu.getStartButton().doClick();
+	    }, "Clicking Start Game should not throw an exception");
+	}
+
+	@Test
+	void testQuitButtonClickDoesNotExit() {
+	    Menu menu = new Menu();
+
+	    // Temporarily override System.exit to prevent it from terminating the test
+	    SecurityManager originalSecurityManager = System.getSecurityManager();
+	    System.setSecurityManager(new SecurityManager() {
+	        @Override
+	        public void checkExit(int status) {
+	            throw new SecurityException("System.exit() was called");
+	        }
+
+	        @Override
+	        public void checkPermission(java.security.Permission perm) {
+	            // Allow all other permissions
+	        }
+	    });
+
+	    try {
+	        menu.getQuitButton().doClick();
+	        fail("Expected System.exit() to be called");
+	    } catch (SecurityException e) {
+	        // Expected behavior
+	    } finally {
+	        System.setSecurityManager(originalSecurityManager); // Restore normal behavior
+	    }
+	}
+
 
 }
 
