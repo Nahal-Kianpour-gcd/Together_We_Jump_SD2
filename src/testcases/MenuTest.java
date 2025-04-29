@@ -27,33 +27,37 @@ class MenuTest {
     } 
 
 
-    @Test
-    void testStartAndQuitButtonsExist() {
-        Menu menu = new Menu();
+	@Test
+	void testStartAndQuitButtonsExist() {
+	    Menu menu = new Menu();
 
-        // Get all components added to the menu's content pane
-        Component[] components = menu.getContentPane().getComponents();
+	    // Get all UI components added to the Menu window
+	    Component[] components = menu.getContentPane().getComponents();
 
-        int buttonCount = 0;
-        boolean foundStart = false;
-        boolean foundQuit = false;
+	    int buttonCount = 0;
+	    boolean foundStart = false;
+	    boolean foundQuit = false;
 
-        for (Component comp : components) {
-            if (comp instanceof JButton button) {
-                buttonCount++;
-                if ("Start Game".equals(button.getText())) {
-                    foundStart = true;
-                }
-                if ("Quit".equals(button.getText())) {
-                    foundQuit = true;
-                }
-            }
-        }
+	    // Loop through components and check if they are buttons with expected labels
+	    for (Component comp : components) {
+	        if (comp instanceof JButton button) {
+	            buttonCount++;
+	            if ("Start Game".equals(button.getText())) {
+	                foundStart = true;
+	            }
+	            if ("Quit".equals(button.getText())) {
+	                foundQuit = true;
+	            }
+	        }
+	    }
 
-        assertEquals(2, buttonCount, "There should be exactly 2 buttons (Start and Quit)");
-        assertTrue(foundStart, "Start Game button should exist");
-        assertTrue(foundQuit, "Quit button should exist");
-    }
+	    // Ensure there are exactly two buttons
+	    assertEquals(2, buttonCount, "There should be exactly 2 buttons (Start and Quit)");
+
+	    // Ensure both Start and Quit buttons are present
+	    assertTrue(foundStart, "Start Game button should exist");
+	    assertTrue(foundQuit, "Quit button should exist");
+	}
 
 }
 
