@@ -11,6 +11,20 @@ import org.junit.jupiter.api.Test;
 import griffith.Menu;
 
 class MenuTest {
+	
+	@Test
+    void testMenuWindowProperties() {
+        Menu menu = new Menu();
+        
+        // Check that the Menu window is created
+        assertNotNull(menu, "Menu window should not be null");
+        
+        // Check the window title
+        assertEquals("Together We Jump - Menu", menu.getTitle(), "Menu title should match");
+        
+        // Check that the window is not visible yet (since setVisible(true) happens in main)
+        assertFalse(menu.isVisible(), "Menu should not be visible immediately after constructor");
+    } 
 
 
     @Test
