@@ -58,6 +58,7 @@ class MenuTest {
 	    assertTrue(foundStart, "Start Game button should exist");
 	    assertTrue(foundQuit, "Quit button should exist");
 	}
+	
 	@Test
 	void testStartButtonClickDoesNotThrow() {
 	    Menu menu = new Menu();
