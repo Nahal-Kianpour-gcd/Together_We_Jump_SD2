@@ -45,7 +45,13 @@ public class Player extends Entity {
     private float yDrawOffSet = 4 * Game.SCALE;  // Offset to center sprite in hitbox
     private float airSpeed = 0f;
     private float gravity = 0.04f * Game.SCALE;
-    private float jumpSpeed = -2.25f * Game.SCALE;
+ // private float jumpSpeed = -2.25f * Game.SCALE; // Original jump height — too weak to reach upper platforms was made by Veronika
+ // Commented out to preserve the old value for reference |NK
+
+ // Increased jump height to allow players to reach higher levels/platforms |NK
+ // Upward force made stronger by setting jumpSpeed to -3.5f * Game.SCALE |NK
+ private float jumpSpeed = -3.5f * Game.SCALE;
+
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
     private boolean inAir =false;
 
