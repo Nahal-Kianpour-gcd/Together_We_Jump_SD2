@@ -32,7 +32,7 @@ public class Player extends Entity {
 
     // Direction of player movement: 0 = left, 1 = up, 2 = right, 3 = down
     private int playerDir = -1;
-    private float playerSpeed = 1.0f;
+    private float playerSpeed = 0.5f;
     private boolean left, right, up, down, jump;
 
     // File path to the character's sprite sheet (used for loading animations)- TPH
