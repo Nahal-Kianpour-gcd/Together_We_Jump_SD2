@@ -1,3 +1,4 @@
+//Thanh Phuong Hoang
 package testcases;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,7 +28,7 @@ class MenuTest {
         assertFalse(menu.isVisible(), "Menu should not be visible immediately after constructor");
 
     }
-
+	/*
     @Test
     void testStartAndQuitButtonsExist() {
         Menu menu = new Menu();
@@ -54,9 +55,10 @@ class MenuTest {
         assertEquals(2, buttonCount, "There should be exactly 2 buttons (Start and Quit)");
         assertTrue(foundStart, "Start Game button should exist");
         assertTrue(foundQuit, "Quit button should exist");
-    }
+    } 
+    // Commented out because it was a duplicate method definition, which would cause a compilation error |NK
+*/
 
-   
 
 	@Test
 	void testStartAndQuitButtonsExist() {
@@ -73,7 +75,7 @@ class MenuTest {
 	    for (Component comp : components) {
 	        if (comp instanceof JButton button) {
 	            buttonCount++;
-	            if ("Start Game".equals(button.getText())) {
+	            if ("Start".equals(button.getText())) {
 	                foundStart = true;
 	            }
 	            if ("Quit".equals(button.getText())) {
@@ -131,4 +133,3 @@ class MenuTest {
 
 
 }
-
