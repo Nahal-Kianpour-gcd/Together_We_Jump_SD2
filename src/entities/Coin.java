@@ -1,4 +1,4 @@
-//PS
+//POLINA SHTEFAN
 package entities;
 
 import java.awt.Color;
@@ -19,6 +19,7 @@ public class Coin {
     private Rectangle hitbox;
     private boolean active = true;
 
+    //Animation states.
     private int currentFrame = 0;
     private final int frameCount = 17;
     private final int frameWidth = 32;
@@ -26,6 +27,7 @@ public class Coin {
     private int frameDelay = 10;
     private int frameTick = 0;
     
+    //Constructor.
     public Coin(float x, float y, int width, int height) {
         this.x = x;
         this.y = y;
@@ -35,10 +37,12 @@ public class Coin {
         loadImage();
     }
 
+    //Method to initialize of hit-box.
     private void initHitbox() {
         hitbox = new Rectangle((int) x, (int) y, width, height);
     }
     
+    //Method to load image file.
     private void loadImage() {
         try {
             // Load the image from a file (make sure to use the correct file path)
@@ -48,6 +52,7 @@ public class Coin {
         }
     }
     
+    //Method to update hit-box and animation.
     public void update() {
         hitbox.x = (int) x;
         hitbox.y = (int) y;
@@ -59,10 +64,12 @@ public class Coin {
         }
     }
 
+    //Hit-box getter.
     public Rectangle getHitbox() {
         return hitbox;
     }
     
+    //Method to draw strawberry frame.
     public void render(Graphics g) {
        /* if (active) {
         	
@@ -92,10 +99,12 @@ public class Coin {
          }
     }
 
+    //State control.
     public boolean isActive() {
         return active;
     }
 
+    //State setter.
     public void setActive(boolean active) {
         this.active = active;
     }
