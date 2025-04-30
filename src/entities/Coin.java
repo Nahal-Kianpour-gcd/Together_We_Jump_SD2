@@ -19,6 +19,13 @@ public class Coin {
     private Rectangle hitbox;
     private boolean active = true;
 
+    private int currentFrame = 0;
+    private final int frameCount = 17;
+    private final int frameWidth = 32;
+    private final int frameHeight = 32;
+    private int frameDelay = 10;
+    private int frameTick = 0;
+    
     public Coin(float x, float y, int width, int height) {
         this.x = x;
         this.y = y;
@@ -44,6 +51,12 @@ public class Coin {
     public void update() {
         hitbox.x = (int) x;
         hitbox.y = (int) y;
+        
+        frameTick++;
+        if (frameTick >= frameDelay) {
+            frameTick = 0;
+            currentFrame = (currentFrame + 1) % frameCount;
+        }
     }
 
     public Rectangle getHitbox() {
@@ -51,11 +64,10 @@ public class Coin {
     }
     
     public void render(Graphics g) {
-        if (active) {
-        	/*
+       /* if (active) {
+        	
             g.setColor(Color.YELLOW);
             g.fillRect((int) x, (int) y, width, height);
-            */
         	
         	 int subImageX = 0;  // X position for the subimage within the image
              int subImageY = 0;  // Y position for the subimage within the image
@@ -67,7 +79,15 @@ public class Coin {
 
              // Draw the subimage at the location of the object (x, y)
              g.drawImage(subImage, (int) x, (int) y, null);
-        }
+        } */
+    	
+    	 if (active && image != null) {
+             int subImageX = currentFrame * frameWidth;
+             int subImageY = 0;
+
+             BufferedImage subImage = image.getSubimage(subImageX, subImageY, frameWidth, frameHeight);
+             g.drawImage(subImage, (int) x, (int) y, width, height, null);
+         }
     }
 
     public boolean isActive() {
