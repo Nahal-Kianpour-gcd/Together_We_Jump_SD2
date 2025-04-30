@@ -33,6 +33,7 @@ public class Coin {
         this.y = y;
         this.width = width;
         this.height = height;
+        this.active = true;
         initHitbox();
         loadImage();
     }
