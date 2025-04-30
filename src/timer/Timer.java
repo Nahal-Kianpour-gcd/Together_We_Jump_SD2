@@ -45,4 +45,10 @@ public class Timer {
 		// pad seconds with leading zero if needed
 		return String.format("%02d:%02d", m, s);
 	}
+	
+	public void setFinished() {
+	    this.timeRemaining = 0;
+	}
+
+
 }
