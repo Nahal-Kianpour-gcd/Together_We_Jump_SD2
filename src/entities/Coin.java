@@ -86,7 +86,9 @@ public class Coin {
              int subImageY = 0;
 
              BufferedImage subImage = image.getSubimage(subImageX, subImageY, frameWidth, frameHeight);
-             g.drawImage(subImage, (int) x, (int) y, width, height, null);
+             
+             int scale = 2;
+             g.drawImage(subImage, (int) x, (int) y, width * scale, height * scale, null);
          }
     }
 
