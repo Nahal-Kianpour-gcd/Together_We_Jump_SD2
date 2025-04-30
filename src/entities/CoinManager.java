@@ -1,9 +1,11 @@
 package entities;
-
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.awt.Color;
+import griffith.Game;
+
 
 public class CoinManager {
 	private List<Coin> coins;
@@ -35,7 +37,15 @@ public class CoinManager {
                 int randomOffsetY = rand.nextInt(41) - 30;
                 int x = baseX + i * xSpacing + randomOffsetX;
                 int y = baseY + j * ySpacing + randomOffsetY;
+             // Only add coin if it’s within screen bounds |NK
+                if (x > 0 && x < Game.GAME_WIDTH - 32 && y > 0 && y < Game.GAME_HEIGHT - 32) {
+                    coins.add(new Coin(x, y, coinWidth, coinHeight));
+                    System.out.println("coin added at: x=" + x + ", y=" + y);
+                }
+                /* OLD CODE:
                 coins.add(new Coin(x, y, coinWidth, coinHeight));
+                */
+
             }
         }
     }
@@ -60,7 +70,23 @@ public class CoinManager {
     
     public void render(Graphics g) {
         for (Coin coin : coins) {
-            coin.render(g);
+        	coin.render(g);
         }
+
     }
+    
+    public boolean allCoinsCollected() {
+        int remaining = 0;
+        for (Coin coin : coins) {
+            if (coin.isActive()) {
+                remaining++;
+            }
+        }
+
+        System.out.println("🔎 Remaining active coins: " + remaining);
+        return remaining == 0;
+    }
+
+
+
 }
