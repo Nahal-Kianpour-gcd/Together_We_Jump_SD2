@@ -64,13 +64,9 @@ Cleaner versions are defined below. |NK
 */
 
     //getter methods
-    public JButton getStartButton() {
-        return startButton;
-    }
+public JButton getStartButton() { return startButton; }
+public JButton getQuitButton() { return quitButton; }
 
-    public JButton getQuitButton() {
-        return quitButton;
-    }
 
 
 }
