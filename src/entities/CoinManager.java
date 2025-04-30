@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,12 @@ public class CoinManager {
         }
         if (coin.getHitbox().intersects(player2.getHitbox())) {
             coin.setActive(false);
+        }
+    }
+    
+    public void render(Graphics g) {
+        for (Coin coin : coins) {
+            coin.render(g);
         }
     }
 }
