@@ -6,6 +6,7 @@ import entities.Player;
 import java.awt.Graphics2D;
 import java.awt.Font;
 import java.awt.Color;
+import entities.CoinManager;
 
 
 //Timer imports
@@ -21,6 +22,7 @@ public class Game implements Runnable {
 	private Player player1; // First player (Ninja Frog)
 	private Player player2; // Second player (Virtual Guy)
 	private LevelManager levelManager; // Manages level loading and rendering |NK
+	private CoinManager coinManager; //Manages coin status ||PS
 	private final int FPS_SET = 120; // Desired frames per second (FPS)
 	private final int UPS_SET = 200; // Target updates per second (UPS) for the game loop |Nk
 	private Timer timer; // Timer object to manage countdown |NK
@@ -64,6 +66,8 @@ public class Game implements Runnable {
 		player1 = new Player(200, 200, 64, 64, "/image-resources/Main_Characters/Ninja_Frog");
 		player2 = new Player(300, 200, 64, 64, "/image-resources/Main_Characters/Virtual_Guy");
 
+		coinManager = new CoinManager(player1, player2);
+		
 		// Initialize level data for both players
 		int[][] levelData = levelManager.getCurrentLevel().getLevelData();
 		if (levelData == null) {
@@ -81,6 +85,8 @@ public class Game implements Runnable {
 		}
 		player1.loadLvlData(levelData);
 		player2.loadLvlData(levelData);
+		
+		coinManager.addTestCoins();
 	}
 
 	// Starts the game loop in a new thread
@@ -104,6 +110,9 @@ public class Game implements Runnable {
 		player1.update();
 		player2.update();
 		levelManager.update();
+		
+		//Update coin status. ||PS
+		coinManager.update();
 
 		// Update countdown timer |NK
 		timer.update(deltaSeconds);
@@ -143,6 +152,9 @@ public class Game implements Runnable {
 	public void render(Graphics g) {
 	    // Draw the level elements |NK
 	    levelManager.draw(g);
+	    
+	    //Render coins. || PS
+	    coinManager.render(g);
 
 	    // Cast Graphics to Graphics2D for HUD rendering |NK
 	    Graphics2D g2d = (Graphics2D) g;

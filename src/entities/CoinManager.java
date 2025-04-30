@@ -14,7 +14,7 @@ public class CoinManager {
         this.coins = new ArrayList<>();
     }
     
-    private void addTestCoins() {
+    public void addTestCoins() {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 3; j++) {
                 coins.add(new Coin(100 + i * 100, 100 + j * 100, 20, 20));
