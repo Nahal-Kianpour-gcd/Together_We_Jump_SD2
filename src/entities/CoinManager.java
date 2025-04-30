@@ -20,4 +20,22 @@ public class CoinManager {
             }
         }
     }
+    
+    public void update() {
+        for (Coin coin : coins) {
+            if (coin.isActive()) {
+                coin.update();
+                checkCollision(coin);
+            }
+        }
+    }
+    
+    private void checkCollision(Coin coin) {
+        if (coin.getHitbox().intersects(player1.getHitbox())) {
+            coin.setActive(false);
+        }
+        if (coin.getHitbox().intersects(player2.getHitbox())) {
+            coin.setActive(false);
+        }
+    }
 }
