@@ -21,4 +21,13 @@ public class Coin {
     private void initHitbox() {
         hitbox = new Rectangle((int) x, (int) y, width, height);
     }
+    
+    public void update() {
+        hitbox.x = (int) x;
+        hitbox.y = (int) y;
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
 }
