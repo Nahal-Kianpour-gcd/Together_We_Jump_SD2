@@ -39,4 +39,12 @@ public class Coin {
             g.fillRect((int) x, (int) y, width, height);
         }
     }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }
