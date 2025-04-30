@@ -74,19 +74,17 @@ public class CoinManager {
         }
 
     }
-    
-    public boolean allCoinsCollected() {
-        int remaining = 0;
-        for (Coin coin : coins) {
-            if (coin.isActive()) {
-                remaining++;
-            }
-        }
+ // Checks if all coins in the game have been collected (none are active). 
+ // Returns true only if all coins are inactive (collected). |NK
+ public boolean allCoinsCollected() {
+     int remaining = 0;
+     for (Coin coin : coins) {
+         if (coin.isActive()) {
+             remaining++;
+         }
+     }
 
-        System.out.println("🔎 Remaining active coins: " + remaining);
-        return remaining == 0;
-    }
-
-
+     return remaining == 0;
+ }
 
 }

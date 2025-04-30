@@ -38,6 +38,8 @@ public class Game implements Runnable {
 	public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH; // Total game screen width in pixels
 	public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT; // Total game screen height in pixels |NK
 	private boolean timeUpHandled = false; // Flag to ensure onTimeUp() is called only once |NK
+	private boolean showWinMessage = false; // Show "You Win!" when all coins collected|NK
+
 
 
 	public Player getPlayer1() {
@@ -101,32 +103,53 @@ public class Game implements Runnable {
 
 	// Updated game loop update method with timer functionality |NK
 	public void update() {
-		// Calculate elapsed time (delta time) since last frame in seconds |NK
-		long now = System.nanoTime();
-		float deltaSeconds = (now - lastNanoTime) / 1_000_000_000.0f;
-		lastNanoTime = now;
+	    if (showWinMessage) return; // Stop updating if win message is triggered |NK
 
-		// Update players and level state |NK
-		player1.update();
-		player2.update();
-		levelManager.update();
-		
-		//Update coin status. ||PS
-		coinManager.update();
+	    long now = System.nanoTime();
+	    float deltaSeconds = (now - lastNanoTime) / 1_000_000_000.0f;
+	    lastNanoTime = now;
 
-		// Update countdown timer |NK
-		timer.update(deltaSeconds);
-		/*
-		// Check if timer has finished and handle time-up event |NK
-		if (timer.isFinished()) {
-			onTimeUp();
-			}*/
-		// Check if timer has finished and handle time-up event only once |NK
-		if (timer.isFinished() && !timeUpHandled) {
-		    onTimeUp();           // Call time-up handler |NK
-		    timeUpHandled = true; // Set flag to avoid handling multiple times |NK
-		}
+	    player1.update();
+	    player2.update();
+	    levelManager.update();
+
+	    coinManager.update(); // Move coinManager update earlier to detect collection first |NK
+
+	    // Trigger win if all coins are collected and timer not finished yet
+	    if (!timer.isFinished() && coinManager.allCoinsCollected() && !showWinMessage) {
+	        showWinMessage = true;
+	        timer.setFinished(); // Stop timer to freeze game state |NK
+	        System.out.println("WIN TRIGGERED: All coins collected!"); // Debug log |NK
+	    }
+
+	    timer.update(deltaSeconds); // Keep updating countdown unless setFinished() was called
+
+	    if (timer.isFinished() && !timeUpHandled) {
+	        onTimeUp();
+	        timeUpHandled = true;
+	    }
 	}
+
+	/*Old update() (replaced)
+	public void update() {
+	    long now = System.nanoTime();
+	    float deltaSeconds = (now - lastNanoTime) / 1_000_000_000.0f;
+	    lastNanoTime = now;
+
+	    player1.update();
+	    player2.update();
+	    levelManager.update();
+	    coinManager.update();
+	    timer.update(deltaSeconds);
+	    
+	    if (timer.isFinished() && !timeUpHandled) {
+	        onTimeUp();
+	        timeUpHandled = true;
+	    }
+	}
+	*/
+
+
 	/*
 	 // Render game graphics |NK
 	 public void render(Graphics g) {
@@ -148,35 +171,53 @@ public class Game implements Runnable {
 	}
 	*/
 
-	// Updated render method to include HUD and "Time's Up!" message when game over |NK
 	public void render(Graphics g) {
-	    // Draw the level elements |NK
 	    levelManager.draw(g);
-	    
-	    //Render coins. || PS
-	    coinManager.render(g);
-
-	    // Cast Graphics to Graphics2D for HUD rendering |NK
+	    coinManager.render(g); // Draw coins |NK
 	    Graphics2D g2d = (Graphics2D) g;
+	    hud.render(g2d); // Draw timer HUD |NK
 
-	    // Render heads-up display (timer) |NK
-	    hud.render(g2d);
-
-	    // If time is up, display "Time's Up!" message |NK
-	    if (showGameOver) {
-	        g2d.setFont(new Font("Arial", Font.BOLD, 50)); // Set large bold font |NK
-	        g2d.setColor(Color.RED);                       // Set text color to red |NK
-	        String message = "Time's Up!";                 // Message to display |NK
-
-	        // Center the text horizontally and vertically |NK
+	    // Win condition
+	    if (showWinMessage) {
+	        g2d.setFont(new Font("Arial", Font.BOLD, 50));
+	        g2d.setColor(Color.GREEN);
+	        String winMessage = "You Win!";
+	        int stringWidth = g2d.getFontMetrics().stringWidth(winMessage);
+	        int stringHeight = g2d.getFontMetrics().getHeight();
+	        int x = (Game.GAME_WIDTH - stringWidth) / 2;
+	        int y = (Game.GAME_HEIGHT - stringHeight) / 2;
+	        g2d.drawString(winMessage, x, y); // Draw win message |NK
+	    } else if (showGameOver) {
+	        g2d.setFont(new Font("Arial", Font.BOLD, 50));
+	        g2d.setColor(Color.RED);
+	        String message = "Time's Up!";
 	        int stringWidth = g2d.getFontMetrics().stringWidth(message);
 	        int stringHeight = g2d.getFontMetrics().getHeight();
 	        int x = (Game.GAME_WIDTH - stringWidth) / 2;
 	        int y = (Game.GAME_HEIGHT - stringHeight) / 2;
-
-	        g2d.drawString(message, x, y); // Draw centered "Time's Up!" message |NK
+	        g2d.drawString(message, x, y); // Draw time-up message |NK
 	    }
 	}
+
+	/* Old render() (replaced)
+	public void render(Graphics g) {
+	    levelManager.draw(g);
+	    coinManager.render(g);
+	    Graphics2D g2d = (Graphics2D) g;
+	    hud.render(g2d);
+	    if (showGameOver) {
+	        g2d.setFont(new Font("Arial", Font.BOLD, 50));
+	        g2d.setColor(Color.RED);
+	        String message = "Time's Up!";
+	        int stringWidth = g2d.getFontMetrics().stringWidth(message);
+	        int stringHeight = g2d.getFontMetrics().getHeight();
+	        int x = (Game.GAME_WIDTH - stringWidth) / 2;
+	        int y = (Game.GAME_HEIGHT - stringHeight) / 2;
+	        g2d.drawString(message, x, y);
+	    }
+	}
+	*/
+
 
 
 	// The core game loop runs here
