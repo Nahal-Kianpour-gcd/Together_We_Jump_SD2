@@ -1,6 +1,8 @@
 //PS
 package entities;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Coin {
@@ -29,5 +31,12 @@ public class Coin {
 
     public Rectangle getHitbox() {
         return hitbox;
+    }
+    
+    public void render(Graphics g) {
+        if (active) {
+            g.setColor(Color.YELLOW);
+            g.fillRect((int) x, (int) y, width, height);
+        }
     }
 }
