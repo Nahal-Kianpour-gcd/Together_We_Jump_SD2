@@ -45,7 +45,7 @@ public class Timer {
 		// pad seconds with leading zero if needed
 		return String.format("%02d:%02d", m, s);
 	}
-	
+	// Forces the timer to end immediately by setting remaining time to zero |NK
 	public void setFinished() {
 	    this.timeRemaining = 0;
 	}
